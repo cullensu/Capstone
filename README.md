@@ -1,4 +1,4 @@
 Capstone
 ========
 
-Read the wiki
+See the wiki which will eventually have...
