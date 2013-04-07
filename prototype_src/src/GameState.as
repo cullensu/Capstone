@@ -3,6 +3,7 @@ package
 	import org.flixel.FlxG;
 	import org.flixel.FlxState;
 	import proj.BulletManager;
+	import proj.EnemyShip;
 	import proj.Ship;
 	/**
 	 * ...
@@ -10,14 +11,19 @@ package
 	 */
 	public class GameState extends FlxState
 	{
+		public var shipSpeed:int = 3;
 		protected var ship:Ship;
 		protected var bulletManager:BulletManager;
+		protected var enemyShip:EnemyShip;
 		
 		public function GameState() 
 		{
 			super();
 			ship = new Ship();
 			add(ship);
+			
+			enemyShip = new EnemyShip();
+			add(enemyShip);
 			
 			bulletManager = new BulletManager();
 			add(bulletManager);
@@ -30,12 +36,20 @@ package
 		
 		override public function update():void
 		{
+			
 			updateShip();
 			
 			if (FlxG.mouse.justPressed())
 			{
 				bulletManager.fire(ship.x, ship.y, FlxG.mouse.getWorldPosition().x, FlxG.mouse.getWorldPosition().y);
 			}
+			
+			if (!enemyShip.exists)
+			{
+				enemyShip.regenerate();
+			}
+			enemyShip.registerTarget(ship.x, ship.y);
+			enemyShip.update();
 			
 			bulletManager.update();
 		}
@@ -65,10 +79,11 @@ package
 			if (direction != "WTF")
 			{
 				ship.play(direction);
+				dx = dx;
+				dy = dy;
+				ship.x += shipSpeed * dx / Math.sqrt(dx*dx + dy*dy);
+				ship.y += shipSpeed * dy / Math.sqrt(dx*dx + dy*dy);
 			}
-			
-			ship.x += dx;
-			ship.y += dy;
 			
 		}
 		

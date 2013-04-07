@@ -12,8 +12,8 @@ package proj
 		public function Ship() 
 		{
 			super(0, 0);
-			//loadGraphic(shipPNG, true, false, 30, 30);
-			loadRotatedGraphic(shipPNG, 8, -1, true, true);
+			loadShipGraphic();
+			
 			addAnimation("N", [0]);
 			addAnimation("NE", [1]);
 			addAnimation("E", [2]);
@@ -25,9 +25,13 @@ package proj
 			exists = true;
 		}
 		
+		protected function loadShipGraphic():void
+		{
+			loadRotatedGraphic(shipPNG, 8, -1, true, true);
+		}
+		
 		override public function update():void
 		{
-			var blah:int = 0;
 			
 		}
 		
