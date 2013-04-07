@@ -12,6 +12,7 @@ package
 	public class GameState extends FlxState
 	{
 		public var shipSpeed:int = 3;
+		protected var cooldown:int = 0;
 		protected var ship:Ship;
 		protected var bulletManager:BulletManager;
 		protected var enemyShip:EnemyShip;
@@ -39,19 +40,7 @@ package
 			
 			updateShip();
 			
-			if (FlxG.mouse.justPressed())
-			{
-				bulletManager.fire(ship.x, ship.y, FlxG.mouse.getWorldPosition().x, FlxG.mouse.getWorldPosition().y);
-			}
-			
-			if (!enemyShip.exists)
-			{
-				enemyShip.regenerate();
-			}
-			enemyShip.registerTarget(ship.x, ship.y);
-			enemyShip.update();
-			
-			bulletManager.update();
+			updateFire();
 		}
 		
 		protected function updateShip():void
@@ -122,6 +111,29 @@ package
 				return "NW";
 			}
 			return "WTF";
+		}
+		
+		protected function updateFire():void 
+		{
+			if (cooldown == 0)
+			{
+				if (FlxG.mouse.pressed())
+				{
+					bulletManager.fire(ship.x, ship.y, FlxG.mouse.getWorldPosition().x, FlxG.mouse.getWorldPosition().y);
+					cooldown = 10;
+				}
+			} else {
+				cooldown--;
+			}
+			
+			if (!enemyShip.exists)
+			{
+				enemyShip.regenerate();
+			}
+			enemyShip.registerTarget(ship.x, ship.y);
+			enemyShip.update();
+			
+			bulletManager.update();
 		}
 	}
 

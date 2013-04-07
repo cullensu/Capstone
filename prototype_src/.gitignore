@@ -1,3 +1,4 @@
 obj/*
 bin/*
 *.db
+*.as3proj
