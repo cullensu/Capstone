@@ -32,7 +32,7 @@ package proj
 		
 		override public function update():void
 		{
-			
+			super.update();
 		}
 		
 	}

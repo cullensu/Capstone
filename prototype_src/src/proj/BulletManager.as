@@ -22,7 +22,7 @@ package proj
 		{
 			if (getFirstAvailable())
 			{
-				Bullet(getFirstAvailable()).fire(xLoc, yLoc, targetx, targety);
+				Bullet(getFirstAvailable()).fire(xLoc + 15, yLoc + 15, targetx, targety);
 			}
 		}
 		

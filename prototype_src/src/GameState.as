@@ -1,8 +1,12 @@
 package  
 {
 	import org.flixel.FlxG;
+	import org.flixel.FlxObject;
+	import org.flixel.FlxSprite;
 	import org.flixel.FlxState;
+	import org.flixel.plugin.photonstorm.FlxBar;
 	import proj.BulletManager;
+	import proj.EnemyManager;
 	import proj.EnemyShip;
 	import proj.Ship;
 	/**
@@ -15,7 +19,7 @@ package
 		protected var cooldown:int = 0;
 		protected var ship:Ship;
 		protected var bulletManager:BulletManager;
-		protected var enemyShip:EnemyShip;
+		protected var enemyManager:EnemyManager;
 		
 		public function GameState() 
 		{
@@ -23,8 +27,8 @@ package
 			ship = new Ship();
 			add(ship);
 			
-			enemyShip = new EnemyShip();
-			add(enemyShip);
+			enemyManager = new EnemyManager();
+			add(enemyManager);
 			
 			bulletManager = new BulletManager();
 			add(bulletManager);
@@ -39,8 +43,14 @@ package
 		{
 			
 			updateShip();
-			
 			updateFire();
+			updateEnemy();
+		}
+		
+		protected function bulletHit(obj1:FlxObject, obj2:FlxObject):void
+		{
+			obj1.kill();
+			obj2.hurt(1);
 		}
 		
 		protected function updateShip():void
@@ -126,14 +136,15 @@ package
 				cooldown--;
 			}
 			
-			if (!enemyShip.exists)
-			{
-				enemyShip.regenerate();
-			}
-			enemyShip.registerTarget(ship.x, ship.y);
-			enemyShip.update();
-			
 			bulletManager.update();
+		}
+		
+		protected function updateEnemy():void 
+		{
+			enemyManager.registerTarget(ship.x, ship.y);
+			enemyManager.update();
+			
+			FlxG.overlap(bulletManager, enemyManager, bulletHit);
 		}
 	}
 
