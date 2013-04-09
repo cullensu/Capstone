@@ -2,6 +2,7 @@ package
 {
 	import org.flixel.FlxG;
 	import org.flixel.FlxObject;
+	import org.flixel.FlxPoint;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxState;
 	import org.flixel.plugin.photonstorm.FlxBar;
@@ -20,6 +21,7 @@ package
 		protected var ship:Ship;
 		protected var bulletManager:BulletManager;
 		protected var enemyManager:EnemyManager;
+		protected var oxygenBar:FlxBar;
 		
 		public function GameState() 
 		{
@@ -32,6 +34,10 @@ package
 			
 			bulletManager = new BulletManager();
 			add(bulletManager);
+			
+			oxygenBar = new FlxBar(350, 0, FlxBar.FILL_LEFT_TO_RIGHT, 100, 10, ship, "health", 0, ship.health, false);
+			add(oxygenBar);
+			oxygenBar.scrollFactor = new FlxPoint(0, 0);
 		}
 		
 		override public function create():void
@@ -41,7 +47,10 @@ package
 		
 		override public function update():void
 		{
-			
+			ship.health--;
+			oxygenBar.preUpdate();
+			oxygenBar.update();
+			oxygenBar.postUpdate();
 			updateShip();
 			updateFire();
 			updateEnemy();

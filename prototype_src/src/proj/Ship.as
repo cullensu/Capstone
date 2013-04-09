@@ -22,6 +22,9 @@ package proj
 			addAnimation("SW", [5]);
 			addAnimation("W", [6]);
 			addAnimation("NW", [7]);
+			
+			this.health = 500;
+			
 			exists = true;
 		}
 		
