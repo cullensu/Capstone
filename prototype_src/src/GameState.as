@@ -1,5 +1,6 @@
 package  
 {
+	import org.flixel.FlxCamera;
 	import org.flixel.FlxG;
 	import org.flixel.FlxObject;
 	import org.flixel.FlxPoint;
@@ -43,6 +44,7 @@ package
 		override public function create():void
 		{
 			FlxG.mouse.show();
+			FlxG.camera.follow(ship, FlxCamera.STYLE_TOPDOWN);
 		}
 		
 		override public function update():void
@@ -51,6 +53,7 @@ package
 			oxygenBar.preUpdate();
 			oxygenBar.update();
 			oxygenBar.postUpdate();
+			updateDebug();
 			updateShip();
 			updateFire();
 			updateEnemy();
@@ -92,7 +95,6 @@ package
 				ship.x += shipSpeed * dx / Math.sqrt(dx*dx + dy*dy);
 				ship.y += shipSpeed * dy / Math.sqrt(dx*dx + dy*dy);
 			}
-			
 		}
 		
 		protected function getDirection(x:int, y:int):String
@@ -154,6 +156,14 @@ package
 			enemyManager.update();
 			
 			FlxG.overlap(bulletManager, enemyManager, bulletHit);
+		}
+		
+		protected function updateDebug():void 
+		{
+			if (FlxG.keys.K)
+			{
+				FlxG.visualDebug = !FlxG.visualDebug;
+			}
 		}
 	}
 
