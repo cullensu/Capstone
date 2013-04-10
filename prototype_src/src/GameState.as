@@ -44,11 +44,14 @@ package
 		{
 			super();
 			
-			starFieldTop = new StarField(1000, 1);
+			starFieldTop = new StarField(2000, 1);
+			starFieldTop.active = false;
 			add(starFieldTop);
-			starFieldMid = new StarField(1000, 0.66);
+			starFieldMid = new StarField(2000, 0.66);
+			starFieldMid.active = false;
 			add(starFieldMid);
-			starFieldBot = new StarField(1000, 0.33);
+			starFieldBot = new StarField(2000, 0.33);
+			starFieldBot.active = false;
 			add(starFieldBot);
 			
 			ship = new Ship();
@@ -59,6 +62,12 @@ package
 			
 			bulletManager = new BulletManager();
 			add(bulletManager);
+			
+			soundBass = (new FlxSound()).loadEmbedded(wavBass, true, true);
+			soundKeys = (new FlxSound()).loadEmbedded(wavKeys, true, true);
+			soundPad = (new FlxSound()).loadEmbedded(wavPad, true, true);
+			soundSynth = (new FlxSound()).loadEmbedded(wavSynth, true, true);
+			soundStrings = (new FlxSound()).loadEmbedded(wavStrings, true, true);
 		}
 		
 		override public function create():void
@@ -75,18 +84,17 @@ package
 			FlxG.mouse.show();
 			FlxG.camera.follow(ship, FlxCamera.STYLE_LOCKON);
 			
-			soundBass = (new FlxSound()).loadEmbedded(wavBass, true, true);
-			soundKeys = (new FlxSound()).loadEmbedded(wavKeys, true, true);
-			soundPad = (new FlxSound()).loadEmbedded(wavPad, true, true);
-			soundSynth = (new FlxSound()).loadEmbedded(wavSynth, true, true);
-			soundStrings = (new FlxSound()).loadEmbedded(wavStrings, true, true);
-			
+			soundPad.volume = 0.0;
+			soundKeys.volume = 0.0;
 			soundBass.volume = 0.0;
-			soundBass.update();
 			soundSynth.volume = 0.0;
-			soundSynth.update();
 			soundStrings.volume = 0.0;
+			
+			soundPad.update();
+			soundKeys.update();
+			soundBass.update();
 			soundStrings.update();
+			soundSynth.update();
 			
 			soundBass.play();
 			soundKeys.play();
