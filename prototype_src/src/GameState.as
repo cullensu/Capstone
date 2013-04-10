@@ -113,7 +113,6 @@ package
 		
 		protected function bulletHit(obj1:FlxObject, obj2:FlxObject):void
 		{
-			trace ("hit");
 			obj1.kill();
 			obj2.hurt(1);
 		}
@@ -208,7 +207,7 @@ package
 			enemyManager.registerTarget(ship.x, ship.y);
 			enemyManager.update();
 			
-			FlxG.overlap(bulletManager, enemyManager, bulletHit);
+			FlxG.overlap(bulletManager, enemyManager, bulletHit);			
 		}
 		
 		protected function updateDebug():void 

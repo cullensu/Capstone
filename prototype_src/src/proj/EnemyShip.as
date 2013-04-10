@@ -30,8 +30,8 @@ package proj
 		{
 			velocity.x = 0;
 			velocity.y = 0;
-			targetx = 1000;
-			targety = 1000;
+			targetx = 0;
+			targety = 0;
 			regenerate();
 		}
 		
