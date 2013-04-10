@@ -3,6 +3,7 @@ package
 	import org.flixel.FlxCamera;
 	import org.flixel.FlxG;
 	import org.flixel.FlxObject;
+	import org.flixel.FlxSound;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxState;
 	import org.flixel.plugin.photonstorm.FlxBar;
@@ -10,6 +11,7 @@ package
 	import proj.EnemyManager;
 	import proj.EnemyShip;
 	import proj.Ship;
+	import proj.StarField;
 	/**
 	 * ...
 	 * @author Cullen
@@ -21,10 +23,33 @@ package
 		protected var ship:Ship;
 		protected var bulletManager:BulletManager;
 		protected var enemyManager:EnemyManager;
+		protected var starFieldTop:StarField;
+		protected var starFieldMid:StarField;
+		protected var starFieldBot:StarField;
+		
+		[Embed(source = "../assets/music/Bass.mp3")] private var wavBass:Class;
+		[Embed(source = "../assets/music/Rhodes.mp3")] private var wavKeys:Class;
+		[Embed(source = "../assets/music/Pad.mp3")] private var wavPad:Class;
+		[Embed(source = "../assets/music/Strings.mp3")] private var wavStrings:Class;
+		[Embed(source = "../assets/music/Synth.mp3")] private var wavSynth:Class;
+		
+		protected var soundBass:FlxSound;
+		protected var soundKeys:FlxSound;
+		protected var soundPad:FlxSound;
+		protected var soundStrings:FlxSound;
+		protected var soundSynth:FlxSound;
 		
 		public function GameState() 
 		{
 			super();
+			
+			starFieldTop = new StarField(1000, 1);
+			add(starFieldTop);
+			starFieldMid = new StarField(1000, 0.66);
+			add(starFieldMid);
+			starFieldBot = new StarField(1000, 0.33);
+			add(starFieldBot);
+			
 			ship = new Ship();
 			add(ship);
 			
@@ -41,7 +66,26 @@ package
 			ship.x = 1000;
 			ship.y = 1000;
 			FlxG.mouse.show();
-			FlxG.camera.follow(ship, FlxCamera.STYLE_TOPDOWN);
+			FlxG.camera.follow(ship, FlxCamera.STYLE_LOCKON);
+			
+			soundBass = (new FlxSound()).loadEmbedded(wavBass, true, true);
+			soundKeys = (new FlxSound()).loadEmbedded(wavKeys, true, true);
+			soundPad = (new FlxSound()).loadEmbedded(wavPad, true, true);
+			soundSynth = (new FlxSound()).loadEmbedded(wavSynth, true, true);
+			soundStrings = (new FlxSound()).loadEmbedded(wavStrings, true, true);
+			
+			soundBass.volume = 0.0;
+			soundBass.update();
+			soundSynth.volume = 0.0;
+			soundSynth.update();
+			soundStrings.volume = 0.0;
+			soundStrings.update();
+			
+			soundBass.play();
+			soundKeys.play();
+			soundPad.play();
+			soundSynth.play();
+			soundStrings.play();
 		}
 		
 		override public function update():void
@@ -50,6 +94,30 @@ package
 			updateShip();
 			updateFire();
 			updateEnemy();
+			
+			if (FlxG.keys.justPressed("NUMPADONE")) {
+				(soundPad.volume == 1.0) ? soundPad.volume = 0.0 : soundPad.volume = 1.0;
+				soundPad.update();
+			}
+			if (FlxG.keys.justPressed("NUMPADTWO")) {
+				(soundKeys.volume == 1.0) ? soundKeys.volume = 0.0 : soundKeys.volume = 1.0;
+				soundKeys.update();
+			}
+			if (FlxG.keys.justPressed("NUMPADTHREE")) {
+				(soundBass.volume == 1.0) ? soundBass.volume = 0.0 : soundBass.volume = 1.0;
+				soundBass.update();
+			}
+			if (FlxG.keys.justPressed("NUMPADFOUR")) {
+				(soundSynth.volume == 1.0) ? soundSynth.volume = 0.0 : soundSynth.volume = 1.0;
+				soundSynth.update();
+			}
+			if (FlxG.keys.justPressed("NUMPADFIVE")) {
+				(soundStrings.volume == 1.0) ? soundStrings.volume = 0.0 : soundStrings.volume = 1.0;
+				soundStrings.update();
+			}
+			if (FlxG.keys.justPressed("P")) {
+				trace(ship.x, ship.y);
+			}
 		}
 		
 		protected function bulletHit(obj1:FlxObject, obj2:FlxObject):void

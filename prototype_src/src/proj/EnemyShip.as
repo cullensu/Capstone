@@ -1,5 +1,6 @@
 package proj
 {
+	import org.flixel.FlxSound;
 	import org.flixel.plugin.photonstorm.FlxBar;
 	import org.flixel.FlxG;
 	/**
@@ -9,6 +10,9 @@ package proj
 	public class EnemyShip extends Ship
 	{
 		[Embed(source = "../../assets/redship.png")] private var redShipPNG:Class;
+		[Embed(source = "../../assets/sfx/EnemyHurt.mp3")] private var sfxHurt:Class;
+		
+		private var soundHurt:FlxSound;
 		
 		protected var targetx:int;
 		protected var targety:int;
@@ -19,6 +23,7 @@ package proj
 		{
 			super();
 			create();
+			soundHurt = (new FlxSound()).loadEmbedded(sfxHurt, false, false);
 		}
 		
 		public function create():void
@@ -56,6 +61,11 @@ package proj
 		{
 			targetx = x;
 			targety = y;
+		}
+		
+		override public function hurt(Damage:Number):void {
+			soundHurt.play();
+			super.hurt(Damage);
 		}
 		
 		override public function kill():void
