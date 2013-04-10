@@ -9,14 +9,18 @@ package proj
 	 */
 	public class Ship extends FlxSprite
 	{
-		[Embed(source="../../assets/ship.png")] private var shipPNG:Class
+		[Embed(source = "../../assets/ship.png")] private var shipPNG:Class
+		[Embed(source = "../../assets/sfx/PlayerHurt.mp3")] private var sfxHurt:Class;
 		[Embed(source = "../../assets/sfx/Explode.mp3")] private var sfxExplode:Class;
-		private var soundExplode:FlxSound;
+		
+		protected var soundHurt:FlxSound;
+		protected var soundExplode:FlxSound;
 		
 		public function Ship() 
 		{
 			super(0, 0);
 			loadShipGraphic();
+			soundHurt = (new FlxSound()).loadEmbedded(sfxHurt, false, false);
 			soundExplode = (new FlxSound()).loadEmbedded(sfxExplode, false, false);
 			
 			addAnimation("N", [0]);
@@ -46,6 +50,11 @@ package proj
 		
 		override public function kill():void {
 			soundExplode.play();
+		}
+		
+		override public function hurt(Damage:Number):void {
+			soundHurt.play();
+			super.hurt(Damage);
 		}
 		
 	}
