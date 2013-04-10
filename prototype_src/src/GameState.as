@@ -1,8 +1,10 @@
 package  
 {
 	import org.flixel.FlxCamera;
+	import org.flixel.plugin.photonstorm.FlxCollision;
 	import org.flixel.FlxG;
 	import org.flixel.FlxObject;
+	import org.flixel.FlxPoint;
 	import org.flixel.FlxSound;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxState;
@@ -20,9 +22,11 @@ package
 	{
 		public var shipSpeed:int = 3;
 		protected var cooldown:int = 0;
+		protected var turn:int = 0;
 		protected var ship:Ship;
 		protected var bulletManager:BulletManager;
 		protected var enemyManager:EnemyManager;
+		protected var oxygenBar:FlxBar;
 		protected var starFieldTop:StarField;
 		protected var starFieldMid:StarField;
 		protected var starFieldBot:StarField;
@@ -62,6 +66,10 @@ package
 			bulletManager = new BulletManager();
 			add(bulletManager);
 			
+			oxygenBar = new FlxBar(350, 0, FlxBar.FILL_LEFT_TO_RIGHT, 100, 10, ship, "health", 0, ship.health, false);
+			add(oxygenBar);
+			oxygenBar.scrollFactor = new FlxPoint(0, 0);
+			
 			soundBass = (new FlxSound()).loadEmbedded(wavBass, true, true);
 			soundKeys = (new FlxSound()).loadEmbedded(wavKeys, true, true);
 			soundPad = (new FlxSound()).loadEmbedded(wavPad, true, true);
@@ -71,9 +79,15 @@ package
 		
 		override public function create():void
 		{
+			// Make world 1000x wider/higher than screen to fix collisions
+			FlxG.worldBounds.x = -400000
+			FlxG.worldBounds.y = -300000
+			FlxG.worldBounds.width = 800000
+			FlxG.worldBounds.height = 600000
+			
 			super.create();
-			ship.x = 1000;
-			ship.y = 1000;
+			ship.x = 0;
+			ship.y = 0;
 			FlxG.mouse.show();
 			FlxG.camera.follow(ship, FlxCamera.STYLE_LOCKON);
 			
@@ -98,40 +112,22 @@ package
 		
 		override public function update():void
 		{
+			updateOxygen();
 			updateDebug();
 			updateShip();
 			updateFire();
 			updateEnemy();
-			
-			if (FlxG.keys.justPressed("ONE")) {
-				(soundPad.volume == 1.0) ? soundPad.volume = 0.0 : soundPad.volume = 1.0;
-				soundPad.update();
-			}
-			if (FlxG.keys.justPressed("TWO")) {
-				(soundKeys.volume == 1.0) ? soundKeys.volume = 0.0 : soundKeys.volume = 1.0;
-				soundKeys.update();
-			}
-			if (FlxG.keys.justPressed("THREE")) {
-				(soundBass.volume == 1.0) ? soundBass.volume = 0.0 : soundBass.volume = 1.0;
-				soundBass.update();
-			}
-			if (FlxG.keys.justPressed("FOUR")) {
-				(soundSynth.volume == 1.0) ? soundSynth.volume = 0.0 : soundSynth.volume = 1.0;
-				soundSynth.update();
-			}
-			if (FlxG.keys.justPressed("FIVE")) {
-				(soundStrings.volume == 1.0) ? soundStrings.volume = 0.0 : soundStrings.volume = 1.0;
-				soundStrings.update();
-			}
-			if (FlxG.keys.justPressed("P")) {
-				trace(ship.x, ship.y);
-			}
 		}
 		
-		protected function bulletHit(obj1:FlxObject, obj2:FlxObject):void
+		protected function bulletHit(bullet:FlxObject, enemy:FlxObject):void
 		{
-			obj1.kill();
-			obj2.hurt(1);
+			bullet.kill();
+			enemy.hurt(1);
+		}
+		
+		protected function playerHit(player:FlxObject, enemy:FlxObject):void
+		{
+			player.hurt(1);
 		}
 		
 		protected function updateShip():void
@@ -225,6 +221,7 @@ package
 			enemyManager.update();
 			
 			FlxG.overlap(bulletManager, enemyManager, bulletHit);
+			FlxG.overlap(ship, enemyManager, playerHit);
 		}
 		
 		protected function updateDebug():void 
@@ -233,6 +230,40 @@ package
 			{
 				FlxG.visualDebug = !FlxG.visualDebug;
 			}
+			if (FlxG.keys.justPressed("NUMPADONE")) {
+				(soundPad.volume == 1.0) ? soundPad.volume = 0.0 : soundPad.volume = 1.0;
+				soundPad.update();
+			}
+			if (FlxG.keys.justPressed("NUMPADTWO")) {
+				(soundKeys.volume == 1.0) ? soundKeys.volume = 0.0 : soundKeys.volume = 1.0;
+				soundKeys.update();
+			}
+			if (FlxG.keys.justPressed("NUMPADTHREE")) {
+				(soundBass.volume == 1.0) ? soundBass.volume = 0.0 : soundBass.volume = 1.0;
+				soundBass.update();
+			}
+			if (FlxG.keys.justPressed("NUMPADFOUR")) {
+				(soundSynth.volume == 1.0) ? soundSynth.volume = 0.0 : soundSynth.volume = 1.0;
+				soundSynth.update();
+			}
+			if (FlxG.keys.justPressed("NUMPADFIVE")) {
+				(soundStrings.volume == 1.0) ? soundStrings.volume = 0.0 : soundStrings.volume = 1.0;
+				soundStrings.update();
+			}
+			if (FlxG.keys.justPressed("P")) {
+				trace(ship.x, ship.y);
+			}
+		}
+		
+		protected function updateOxygen():void 
+		{
+			if (++turn % 10 == 0)
+			{
+				ship.health--;
+			}
+			oxygenBar.preUpdate();
+			oxygenBar.update();
+			oxygenBar.postUpdate();
 		}
 	}
 
