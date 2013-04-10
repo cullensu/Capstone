@@ -230,23 +230,24 @@ package
 			{
 				FlxG.visualDebug = !FlxG.visualDebug;
 			}
-			if (FlxG.keys.justPressed("NUMPADONE")) {
+			if (FlxG.keys.justPressed("ONE")) {
 				(soundPad.volume == 1.0) ? soundPad.volume = 0.0 : soundPad.volume = 1.0;
+				trace("asdf");
 				soundPad.update();
 			}
-			if (FlxG.keys.justPressed("NUMPADTWO")) {
+			if (FlxG.keys.justPressed("TWO")) {
 				(soundKeys.volume == 1.0) ? soundKeys.volume = 0.0 : soundKeys.volume = 1.0;
 				soundKeys.update();
 			}
-			if (FlxG.keys.justPressed("NUMPADTHREE")) {
+			if (FlxG.keys.justPressed("THREE")) {
 				(soundBass.volume == 1.0) ? soundBass.volume = 0.0 : soundBass.volume = 1.0;
 				soundBass.update();
 			}
-			if (FlxG.keys.justPressed("NUMPADFOUR")) {
+			if (FlxG.keys.justPressed("FOUR")) {
 				(soundSynth.volume == 1.0) ? soundSynth.volume = 0.0 : soundSynth.volume = 1.0;
 				soundSynth.update();
 			}
-			if (FlxG.keys.justPressed("NUMPADFIVE")) {
+			if (FlxG.keys.justPressed("FIVE")) {
 				(soundStrings.volume == 1.0) ? soundStrings.volume = 0.0 : soundStrings.volume = 1.0;
 				soundStrings.update();
 			}
