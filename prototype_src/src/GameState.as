@@ -232,7 +232,6 @@ package
 			}
 			if (FlxG.keys.justPressed("ONE")) {
 				(soundPad.volume == 1.0) ? soundPad.volume = 0.0 : soundPad.volume = 1.0;
-				trace("asdf");
 				soundPad.update();
 			}
 			if (FlxG.keys.justPressed("TWO")) {

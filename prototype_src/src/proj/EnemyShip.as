@@ -12,8 +12,6 @@ package proj
 		[Embed(source = "../../assets/redship.png")] private var redShipPNG:Class;
 		[Embed(source = "../../assets/sfx/EnemyHurt.mp3")] private var sfxHurt:Class;
 		
-		private var soundHurt:FlxSound;
-		
 		protected var targetx:int;
 		protected var targety:int;
 		
@@ -57,11 +55,6 @@ package proj
 		{
 			targetx = x;
 			targety = y;
-		}
-		
-		override public function hurt(Damage:Number):void {
-			soundHurt.play();
-			super.hurt(Damage);
 		}
 		
 		override public function kill():void
