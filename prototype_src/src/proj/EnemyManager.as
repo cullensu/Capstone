@@ -7,7 +7,6 @@ package proj
 	 */
 	public class EnemyManager extends FlxGroup
 	{
-		
 		public function EnemyManager() 
 		{
 			super();
@@ -34,7 +33,6 @@ package proj
 		{
 			super.update();
 		}
-		
 	}
 
 }

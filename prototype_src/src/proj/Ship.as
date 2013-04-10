@@ -2,6 +2,7 @@ package proj
 {
 	import org.flixel.FlxG;
 	import org.flixel.FlxSprite;
+	import org.flixel.FlxSound;
 	/**
 	 * ...
 	 * @author Cullen
@@ -9,10 +10,14 @@ package proj
 	public class Ship extends FlxSprite
 	{
 		[Embed(source="../../assets/ship.png")] private var shipPNG:Class
+		[Embed(source = "../../assets/sfx/Explode.mp3")] private var sfxExplode:Class;
+		private var soundExplode:FlxSound;
+		
 		public function Ship() 
 		{
 			super(0, 0);
 			loadShipGraphic();
+			soundExplode = (new FlxSound()).loadEmbedded(sfxExplode, false, false);
 			
 			addAnimation("N", [0]);
 			addAnimation("NE", [1]);
@@ -26,6 +31,7 @@ package proj
 			this.health = 500;
 			
 			exists = true;
+			
 		}
 		
 		protected function loadShipGraphic():void
@@ -36,6 +42,10 @@ package proj
 		override public function update():void
 		{
 			super.update();
+		}
+		
+		override public function kill():void {
+			soundExplode.play();
 		}
 		
 	}

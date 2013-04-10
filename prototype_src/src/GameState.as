@@ -1,9 +1,11 @@
 package  
 {
 	import org.flixel.FlxCamera;
+	import org.flixel.plugin.photonstorm.FlxCollision;
 	import org.flixel.FlxG;
 	import org.flixel.FlxObject;
 	import org.flixel.FlxPoint;
+	import org.flixel.FlxSound;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxState;
 	import org.flixel.plugin.photonstorm.FlxBar;
@@ -11,6 +13,7 @@ package
 	import proj.EnemyManager;
 	import proj.EnemyShip;
 	import proj.Ship;
+	import proj.StarField;
 	/**
 	 * ...
 	 * @author Cullen
@@ -23,10 +26,36 @@ package
 		protected var bulletManager:BulletManager;
 		protected var enemyManager:EnemyManager;
 		protected var oxygenBar:FlxBar;
+		protected var starFieldTop:StarField;
+		protected var starFieldMid:StarField;
+		protected var starFieldBot:StarField;
+		
+		[Embed(source = "../assets/music/Bass.mp3")] private var wavBass:Class;
+		[Embed(source = "../assets/music/Rhodes.mp3")] private var wavKeys:Class;
+		[Embed(source = "../assets/music/Pad.mp3")] private var wavPad:Class;
+		[Embed(source = "../assets/music/Strings.mp3")] private var wavStrings:Class;
+		[Embed(source = "../assets/music/Synth.mp3")] private var wavSynth:Class;
+		
+		protected var soundBass:FlxSound;
+		protected var soundKeys:FlxSound;
+		protected var soundPad:FlxSound;
+		protected var soundStrings:FlxSound;
+		protected var soundSynth:FlxSound;
 		
 		public function GameState() 
 		{
 			super();
+			
+			starFieldTop = new StarField(2000, 1);
+			starFieldTop.active = false;
+			add(starFieldTop);
+			starFieldMid = new StarField(2000, 0.66);
+			starFieldMid.active = false;
+			add(starFieldMid);
+			starFieldBot = new StarField(2000, 0.33);
+			starFieldBot.active = false;
+			add(starFieldBot);
+			
 			ship = new Ship();
 			add(ship);
 			
@@ -39,12 +68,45 @@ package
 			oxygenBar = new FlxBar(350, 0, FlxBar.FILL_LEFT_TO_RIGHT, 100, 10, ship, "health", 0, ship.health, false);
 			add(oxygenBar);
 			oxygenBar.scrollFactor = new FlxPoint(0, 0);
+			
+			soundBass = (new FlxSound()).loadEmbedded(wavBass, true, true);
+			soundKeys = (new FlxSound()).loadEmbedded(wavKeys, true, true);
+			soundPad = (new FlxSound()).loadEmbedded(wavPad, true, true);
+			soundSynth = (new FlxSound()).loadEmbedded(wavSynth, true, true);
+			soundStrings = (new FlxSound()).loadEmbedded(wavStrings, true, true);
 		}
 		
 		override public function create():void
 		{
+			// Make world 1000x wider/higher than screen to fix collisions
+			FlxG.worldBounds.x = -400000
+			FlxG.worldBounds.y = -300000
+			FlxG.worldBounds.width = 800000
+			FlxG.worldBounds.height = 600000
+			
+			super.create();
+			ship.x = 0;
+			ship.y = 0;
 			FlxG.mouse.show();
-			FlxG.camera.follow(ship, FlxCamera.STYLE_TOPDOWN);
+			FlxG.camera.follow(ship, FlxCamera.STYLE_LOCKON);
+			
+			soundPad.volume = 0.0;
+			soundKeys.volume = 0.0;
+			soundBass.volume = 0.0;
+			soundSynth.volume = 0.0;
+			soundStrings.volume = 0.0;
+			
+			soundPad.update();
+			soundKeys.update();
+			soundBass.update();
+			soundStrings.update();
+			soundSynth.update();
+			
+			soundBass.play();
+			soundKeys.play();
+			soundPad.play();
+			soundSynth.play();
+			soundStrings.play();
 		}
 		
 		override public function update():void
@@ -61,6 +123,7 @@ package
 		
 		protected function bulletHit(obj1:FlxObject, obj2:FlxObject):void
 		{
+			trace ("hit");
 			obj1.kill();
 			obj2.hurt(1);
 		}
@@ -163,6 +226,29 @@ package
 			if (FlxG.keys.K)
 			{
 				FlxG.visualDebug = !FlxG.visualDebug;
+			}
+			if (FlxG.keys.justPressed("NUMPADONE")) {
+				(soundPad.volume == 1.0) ? soundPad.volume = 0.0 : soundPad.volume = 1.0;
+				soundPad.update();
+			}
+			if (FlxG.keys.justPressed("NUMPADTWO")) {
+				(soundKeys.volume == 1.0) ? soundKeys.volume = 0.0 : soundKeys.volume = 1.0;
+				soundKeys.update();
+			}
+			if (FlxG.keys.justPressed("NUMPADTHREE")) {
+				(soundBass.volume == 1.0) ? soundBass.volume = 0.0 : soundBass.volume = 1.0;
+				soundBass.update();
+			}
+			if (FlxG.keys.justPressed("NUMPADFOUR")) {
+				(soundSynth.volume == 1.0) ? soundSynth.volume = 0.0 : soundSynth.volume = 1.0;
+				soundSynth.update();
+			}
+			if (FlxG.keys.justPressed("NUMPADFIVE")) {
+				(soundStrings.volume == 1.0) ? soundStrings.volume = 0.0 : soundStrings.volume = 1.0;
+				soundStrings.update();
+			}
+			if (FlxG.keys.justPressed("P")) {
+				trace(ship.x, ship.y);
 			}
 		}
 	}

@@ -1,5 +1,6 @@
 package proj 
 {
+	import org.flixel.FlxSound;
 	import org.flixel.FlxSprite;
 	/**
 	 * ...
@@ -8,6 +9,8 @@ package proj
 	public class Bullet extends FlxSprite
 	{
 		[Embed(source = "../../assets/Bullet.png")] private var bulletPNG:Class
+		[Embed(source = "../../assets/sfx/PlayerShoot.mp3")] private var sfxShoot:Class;
+		private var soundShoot:FlxSound;
 		
 		public var damage:int = 1;
 		public var speed:int = 300;
@@ -16,10 +19,12 @@ package proj
 		{
 			super(0, 0, bulletPNG);
 			exists = false;
+			soundShoot = (new FlxSound()).loadEmbedded(sfxShoot, false, true);
 		}
 		
 		public function fire(xLoc:int, yLoc:int, targetx:int, targety:int):void 
 		{
+			soundShoot.play();
 			x = xLoc;
 			y = yLoc;
 			
@@ -31,8 +36,6 @@ package proj
 			velocity.y = dy / magnitude * speed;
 			
 			exists = true;
-			
-			trace("Bullet Fired");
 		}
 		
 		override public function update():void

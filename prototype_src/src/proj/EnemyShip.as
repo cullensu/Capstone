@@ -1,6 +1,8 @@
-package proj 
+package proj
 {
+	import org.flixel.FlxSound;
 	import org.flixel.plugin.photonstorm.FlxBar;
+	import org.flixel.FlxG;
 	/**
 	 * ...
 	 * @author Cullen
@@ -8,6 +10,9 @@ package proj
 	public class EnemyShip extends Ship
 	{
 		[Embed(source = "../../assets/redship.png")] private var redShipPNG:Class;
+		[Embed(source = "../../assets/sfx/EnemyHurt.mp3")] private var sfxHurt:Class;
+		
+		private var soundHurt:FlxSound;
 		
 		protected var targetx:int;
 		protected var targety:int;
@@ -18,14 +23,16 @@ package proj
 		{
 			super();
 			create();
-			
+			soundHurt = (new FlxSound()).loadEmbedded(sfxHurt, false, false);
 		}
 		
 		public function create():void
 		{
-			regenerate();
-			velocity.x = 50;
+			velocity.x = 0;
 			velocity.y = 0;
+			targetx = 1000;
+			targety = 1000;
+			regenerate();
 		}
 		
 		override protected function loadShipGraphic():void
@@ -36,8 +43,13 @@ package proj
 		public function regenerate():void
 		{
 			health = 3;
-			x = Math.random() * 800;
-			y = Math.random() * 600;
+			
+			var angle:Number = Math.random() * 2 * Math.PI;
+			var radius:int = 550;
+			
+			x = targetx + Math.cos(angle) * radius;
+			y = targety + Math.sin(angle) * radius;
+			
 			exists = true;
 		}
 		
@@ -45,6 +57,11 @@ package proj
 		{
 			targetx = x;
 			targety = y;
+		}
+		
+		override public function hurt(Damage:Number):void {
+			soundHurt.play();
+			super.hurt(Damage);
 		}
 		
 		override public function kill():void
@@ -66,9 +83,7 @@ package proj
 			{
 				velocity.x = dx / magnitude * speed;
 				velocity.y = dy / magnitude * speed;
-			}
-			
-			
+			}	
 		}
 	}
 
