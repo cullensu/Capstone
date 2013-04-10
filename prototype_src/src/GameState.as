@@ -37,6 +37,9 @@ package
 		
 		override public function create():void
 		{
+			super.create();
+			ship.x = 1000;
+			ship.y = 1000;
 			FlxG.mouse.show();
 			FlxG.camera.follow(ship, FlxCamera.STYLE_TOPDOWN);
 		}

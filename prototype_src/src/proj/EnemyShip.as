@@ -1,6 +1,7 @@
-package proj 
+package proj
 {
 	import org.flixel.plugin.photonstorm.FlxBar;
+	import org.flixel.FlxG;
 	/**
 	 * ...
 	 * @author Cullen
@@ -18,14 +19,15 @@ package proj
 		{
 			super();
 			create();
-			
 		}
 		
 		public function create():void
 		{
-			regenerate();
-			velocity.x = 50;
+			velocity.x = 0;
 			velocity.y = 0;
+			targetx = 1000;
+			targety = 1000;
+			regenerate();
 		}
 		
 		override protected function loadShipGraphic():void
@@ -36,9 +38,18 @@ package proj
 		public function regenerate():void
 		{
 			health = 3;
-			x = Math.random() * 800;
-			y = Math.random() * 600;
+			
+			var angle:Number = Math.random() * 2 * Math.PI;
+			var radius:int = 550;
+			
+			x = targetx + Math.cos(angle) * radius;
+			y = targety + Math.sin(angle) * radius;
+			
 			exists = true;
+			
+			trace("*******");
+			trace(x);
+			trace(y);
 		}
 		
 		public function registerTarget(x:int, y:int):void
@@ -66,9 +77,7 @@ package proj
 			{
 				velocity.x = dx / magnitude * speed;
 				velocity.y = dy / magnitude * speed;
-			}
-			
-			
+			}	
 		}
 	}
 

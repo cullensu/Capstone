@@ -31,8 +31,6 @@ package proj
 			velocity.y = dy / magnitude * speed;
 			
 			exists = true;
-			
-			trace("Bullet Fired");
 		}
 		
 		override public function update():void
