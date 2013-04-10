@@ -22,6 +22,7 @@ package
 	{
 		public var shipSpeed:int = 3;
 		protected var cooldown:int = 0;
+		protected var turn:int = 0;
 		protected var ship:Ship;
 		protected var bulletManager:BulletManager;
 		protected var enemyManager:EnemyManager;
@@ -111,20 +112,22 @@ package
 		
 		override public function update():void
 		{
-			ship.health--;
-			oxygenBar.preUpdate();
-			oxygenBar.update();
-			oxygenBar.postUpdate();
+			updateOxygen();
 			updateDebug();
 			updateShip();
 			updateFire();
 			updateEnemy();
 		}
 		
-		protected function bulletHit(obj1:FlxObject, obj2:FlxObject):void
+		protected function bulletHit(bullet:FlxObject, enemy:FlxObject):void
 		{
-			obj1.kill();
-			obj2.hurt(1);
+			bullet.kill();
+			enemy.hurt(1);
+		}
+		
+		protected function playerHit(player:FlxObject, enemy:FlxObject):void
+		{
+			player.hurt(1);
 		}
 		
 		protected function updateShip():void
@@ -217,7 +220,8 @@ package
 			enemyManager.registerTarget(ship.x, ship.y);
 			enemyManager.update();
 			
-			FlxG.overlap(bulletManager, enemyManager, bulletHit);			
+			FlxG.overlap(bulletManager, enemyManager, bulletHit);
+			FlxG.overlap(ship, enemyManager, playerHit);
 		}
 		
 		protected function updateDebug():void 
@@ -249,6 +253,17 @@ package
 			if (FlxG.keys.justPressed("P")) {
 				trace(ship.x, ship.y);
 			}
+		}
+		
+		protected function updateOxygen():void 
+		{
+			if (++turn % 10 == 0)
+			{
+				ship.health--;
+			}
+			oxygenBar.preUpdate();
+			oxygenBar.update();
+			oxygenBar.postUpdate();
 		}
 	}
 
