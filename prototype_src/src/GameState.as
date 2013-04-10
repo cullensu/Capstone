@@ -113,6 +113,7 @@ package
 		
 		override public function update():void
 		{
+			checkCollisions();
 			updateOxygen();
 			updateDebug();
 			updateShip();
@@ -221,24 +222,6 @@ package
 		{
 			enemyManager.registerTarget(ship.x, ship.y);
 			enemyManager.update();
-			
-			var enemies:Array = enemyManager.members;
-			var bullets:Array = bulletManager.members;
-			
-			for (var ee:int = 0; ee < enemies.length; ee++)
-			{
-				var enemy:FlxSprite = enemies[ee] as FlxSprite;
-				if (enemy == null) continue;
-				if (FlxCollision.pixelPerfectCheck(ship, enemy))
-					playerHit(ship, enemy);
-				for (var bb:int = 0; bb < bullets.length; bb++)
-				{
-					var bullet:FlxSprite = bullets[bb] as FlxSprite;
-					if (bullet == null) continue;
-					if (FlxCollision.pixelPerfectCheck(bullet, enemy))
-						bulletHit(bullet, enemy);
-				}
-			}
 		}
 		
 		protected function updateDebug():void 
@@ -281,6 +264,27 @@ package
 			oxygenBar.preUpdate();
 			oxygenBar.update();
 			oxygenBar.postUpdate();
+		}
+		
+		private function checkCollisions():void 
+		{
+			var enemies:Array = enemyManager.members;
+			var bullets:Array = bulletManager.members;
+			
+			for (var ee:int = 0; ee < enemies.length; ee++)
+			{
+				var enemy:FlxSprite = enemies[ee] as FlxSprite;
+				if (enemy == null || !enemy.exists) continue;
+				if (FlxCollision.pixelPerfectCheck(ship, enemy))
+					playerHit(ship, enemy);
+				for (var bb:int = 0; bb < bullets.length; bb++)
+				{
+					var bullet:FlxSprite = bullets[bb] as FlxSprite;
+					if (bullet == null || !bullet.exists) continue;
+					if (FlxCollision.pixelPerfectCheck(bullet, enemy))
+						bulletHit(bullet, enemy);
+				}
+			}
 		}
 	}
 
