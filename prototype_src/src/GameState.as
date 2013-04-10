@@ -11,6 +11,7 @@ package
 	import proj.EnemyManager;
 	import proj.EnemyShip;
 	import proj.Ship;
+	import proj.StarField;
 	/**
 	 * ...
 	 * @author Cullen
@@ -22,6 +23,9 @@ package
 		protected var ship:Ship;
 		protected var bulletManager:BulletManager;
 		protected var enemyManager:EnemyManager;
+		protected var starFieldTop:StarField;
+		protected var starFieldMid:StarField;
+		protected var starFieldBot:StarField;
 		
 		[Embed(source = "../assets/music/Bass.mp3")] private var wavBass:Class;
 		[Embed(source = "../assets/music/Rhodes.mp3")] private var wavKeys:Class;
@@ -38,6 +42,14 @@ package
 		public function GameState() 
 		{
 			super();
+			
+			starFieldTop = new StarField(1000, 1);
+			add(starFieldTop);
+			starFieldMid = new StarField(1000, 0.66);
+			add(starFieldMid);
+			starFieldBot = new StarField(1000, 0.33);
+			add(starFieldBot);
+			
 			ship = new Ship();
 			add(ship);
 			
@@ -51,7 +63,7 @@ package
 		override public function create():void
 		{
 			FlxG.mouse.show();
-			FlxG.camera.follow(ship, FlxCamera.STYLE_TOPDOWN);
+			FlxG.camera.follow(ship, FlxCamera.STYLE_LOCKON);
 			
 			soundBass = (new FlxSound()).loadEmbedded(wavBass, true, true);
 			soundKeys = (new FlxSound()).loadEmbedded(wavKeys, true, true);
@@ -99,6 +111,9 @@ package
 			if (FlxG.keys.justPressed("NUMPADFIVE")) {
 				(soundStrings.volume == 1.0) ? soundStrings.volume = 0.0 : soundStrings.volume = 1.0;
 				soundStrings.update();
+			}
+			if (FlxG.keys.justPressed("P")) {
+				trace(ship.x, ship.y);
 			}
 		}
 		
