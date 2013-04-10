@@ -1,6 +1,7 @@
 package  
 {
 	import org.flixel.FlxCamera;
+	import org.flixel.plugin.photonstorm.FlxCollision;
 	import org.flixel.FlxG;
 	import org.flixel.FlxObject;
 	import org.flixel.FlxSound;
@@ -62,9 +63,15 @@ package
 		
 		override public function create():void
 		{
+			// Make world 1000x wider/higher than screen to fix collisions
+			FlxG.worldBounds.x = -400000
+			FlxG.worldBounds.y = -300000
+			FlxG.worldBounds.width = 800000
+			FlxG.worldBounds.height = 600000
+			
 			super.create();
-			ship.x = 1000;
-			ship.y = 1000;
+			ship.x = 0;
+			ship.y = 0;
 			FlxG.mouse.show();
 			FlxG.camera.follow(ship, FlxCamera.STYLE_LOCKON);
 			
@@ -94,34 +101,11 @@ package
 			updateShip();
 			updateFire();
 			updateEnemy();
-			
-			if (FlxG.keys.justPressed("NUMPADONE")) {
-				(soundPad.volume == 1.0) ? soundPad.volume = 0.0 : soundPad.volume = 1.0;
-				soundPad.update();
-			}
-			if (FlxG.keys.justPressed("NUMPADTWO")) {
-				(soundKeys.volume == 1.0) ? soundKeys.volume = 0.0 : soundKeys.volume = 1.0;
-				soundKeys.update();
-			}
-			if (FlxG.keys.justPressed("NUMPADTHREE")) {
-				(soundBass.volume == 1.0) ? soundBass.volume = 0.0 : soundBass.volume = 1.0;
-				soundBass.update();
-			}
-			if (FlxG.keys.justPressed("NUMPADFOUR")) {
-				(soundSynth.volume == 1.0) ? soundSynth.volume = 0.0 : soundSynth.volume = 1.0;
-				soundSynth.update();
-			}
-			if (FlxG.keys.justPressed("NUMPADFIVE")) {
-				(soundStrings.volume == 1.0) ? soundStrings.volume = 0.0 : soundStrings.volume = 1.0;
-				soundStrings.update();
-			}
-			if (FlxG.keys.justPressed("P")) {
-				trace(ship.x, ship.y);
-			}
 		}
 		
 		protected function bulletHit(obj1:FlxObject, obj2:FlxObject):void
 		{
+			trace ("hit");
 			obj1.kill();
 			obj2.hurt(1);
 		}
@@ -224,6 +208,29 @@ package
 			if (FlxG.keys.K)
 			{
 				FlxG.visualDebug = !FlxG.visualDebug;
+			}
+			if (FlxG.keys.justPressed("NUMPADONE")) {
+				(soundPad.volume == 1.0) ? soundPad.volume = 0.0 : soundPad.volume = 1.0;
+				soundPad.update();
+			}
+			if (FlxG.keys.justPressed("NUMPADTWO")) {
+				(soundKeys.volume == 1.0) ? soundKeys.volume = 0.0 : soundKeys.volume = 1.0;
+				soundKeys.update();
+			}
+			if (FlxG.keys.justPressed("NUMPADTHREE")) {
+				(soundBass.volume == 1.0) ? soundBass.volume = 0.0 : soundBass.volume = 1.0;
+				soundBass.update();
+			}
+			if (FlxG.keys.justPressed("NUMPADFOUR")) {
+				(soundSynth.volume == 1.0) ? soundSynth.volume = 0.0 : soundSynth.volume = 1.0;
+				soundSynth.update();
+			}
+			if (FlxG.keys.justPressed("NUMPADFIVE")) {
+				(soundStrings.volume == 1.0) ? soundStrings.volume = 0.0 : soundStrings.volume = 1.0;
+				soundStrings.update();
+			}
+			if (FlxG.keys.justPressed("P")) {
+				trace(ship.x, ship.y);
 			}
 		}
 	}

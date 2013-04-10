@@ -51,10 +51,6 @@ package proj
 			y = targety + Math.sin(angle) * radius;
 			
 			exists = true;
-			
-			trace("*******");
-			trace(x);
-			trace(y);
 		}
 		
 		public function registerTarget(x:int, y:int):void
