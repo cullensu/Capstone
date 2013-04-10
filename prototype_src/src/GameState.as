@@ -1,5 +1,6 @@
 package  
 {
+	import org.flixel.FlxBasic;
 	import org.flixel.FlxCamera;
 	import org.flixel.plugin.photonstorm.FlxCollision;
 	import org.flixel.FlxG;
@@ -127,7 +128,8 @@ package
 		
 		protected function playerHit(player:FlxObject, enemy:FlxObject):void
 		{
-			player.hurt(1);
+			player.hurt(20);
+			enemy.kill();
 		}
 		
 		protected function updateShip():void
@@ -220,8 +222,23 @@ package
 			enemyManager.registerTarget(ship.x, ship.y);
 			enemyManager.update();
 			
-			FlxG.overlap(bulletManager, enemyManager, bulletHit);
-			FlxG.overlap(ship, enemyManager, playerHit);
+			var enemies:Array = enemyManager.members;
+			var bullets:Array = bulletManager.members;
+			
+			for (var ee:int = 0; ee < enemies.length; ee++)
+			{
+				var enemy:FlxSprite = enemies[ee] as FlxSprite;
+				if (enemy == null) continue;
+				if (FlxCollision.pixelPerfectCheck(ship, enemy))
+					playerHit(ship, enemy);
+				for (var bb:int = 0; bb < bullets.length; bb++)
+				{
+					var bullet:FlxSprite = bullets[bb] as FlxSprite;
+					if (bullet == null) continue;
+					if (FlxCollision.pixelPerfectCheck(bullet, enemy))
+						bulletHit(bullet, enemy);
+				}
+			}
 		}
 		
 		protected function updateDebug():void 
