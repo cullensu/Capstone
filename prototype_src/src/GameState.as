@@ -260,6 +260,9 @@ package
 			if (FlxG.keys.justPressed("P")) {
 				trace(ship.x, ship.y);
 			}
+			if (FlxG.keys.justPressed("H")) {
+				ship.hurt(100);
+			}
 		}
 		
 		protected function updateOxygen():void 
