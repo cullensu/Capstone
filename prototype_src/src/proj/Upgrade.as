@@ -59,9 +59,9 @@ package proj
 			else if (m_type == TYPE_COOLDOWN)
 			{
 				applyTo.cooldown -= 10;
-				if (applyTo.cooldown < 1)
+				if (applyTo.cooldown < 5)
 				{
-					applyTo.cooldown = 1;
+					applyTo.cooldown = 5;
 				}
 			}
 			else if (m_type == TYPE_MOVEMENT)

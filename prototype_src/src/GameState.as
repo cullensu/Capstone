@@ -169,10 +169,10 @@ package
 				dy = dy;
 				ship.velocity.x = ship.speed * dx / Math.sqrt(dx*dx + dy*dy);
 				ship.velocity.y = ship.speed * dy / Math.sqrt(dx * dx + dy * dy);
+				ship.setDirection(direction);
 				ship.preUpdate();
 				ship.update();
 				ship.postUpdate();
-				ship.play(direction);
 			}
 		}
 		
@@ -215,14 +215,16 @@ package
 		
 		protected function updateFire():void 
 		{
-			if (cooldown == 0)
+			if (cooldown <= 0)
 			{
 				if (FlxG.mouse.pressed())
 				{
 					bulletManager.fire(ship.x, ship.y, FlxG.mouse.getWorldPosition().x, FlxG.mouse.getWorldPosition().y);
 					cooldown = ship.cooldown;
 				}
-			} else {
+			} 
+			else 
+			{
 				cooldown--;
 			}
 			

@@ -15,9 +15,11 @@ package proj
 		
 		protected var soundHurt:FlxSound;
 		protected var soundExplode:FlxSound;
-		public var cooldown:uint;
-		public var damage:uint;
-		public var speed:uint;
+		public var cooldown:int;
+		public var damage:int;
+		public var speed:int;
+		
+		protected var direction:String;
 		
 		public function Ship() 
 		{
@@ -49,9 +51,15 @@ package proj
 			loadRotatedGraphic(shipPNG, 8, -1, true, true);
 		}
 		
+		public function setDirection(dir:String):void
+		{
+			direction = dir;
+		}
+		
 		override public function update():void
 		{
 			super.update();
+			play(direction);
 		}
 		
 		override public function kill():void {

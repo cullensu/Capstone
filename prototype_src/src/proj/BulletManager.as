@@ -12,7 +12,7 @@ package proj
 		{
 			super();
 			
-			for (var i:int = 0; i < 50; i++)
+			for (var i:int = 0; i < 100; i++)
 			{
 				add(new Bullet);
 			}
