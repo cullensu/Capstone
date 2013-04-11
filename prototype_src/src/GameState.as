@@ -17,6 +17,7 @@ package
 	import proj.StarField;
 	import proj.Upgrade;
 	import proj.UpgradeManager;
+	import proj.Utility;
 	/**
 	 * ...
 	 * @author Cullen
@@ -219,8 +220,19 @@ package
 			{
 				if (FlxG.mouse.pressed())
 				{
-					bulletManager.fire(ship.x, ship.y, FlxG.mouse.getWorldPosition().x, FlxG.mouse.getWorldPosition().y);
-					cooldown = ship.cooldown;
+					if (ship.weaponType == 1)
+					{
+						bulletManager.fire(ship.x, ship.y, FlxG.mouse.getWorldPosition().x, FlxG.mouse.getWorldPosition().y);
+						cooldown = ship.cooldown;
+					}
+					else if (ship.weaponType == 2)
+					{
+						var rand:int = Math.floor(Utility.random() * 20);
+						bulletManager.fire(ship.x, ship.y, FlxG.mouse.getWorldPosition().x - rand, FlxG.mouse.getWorldPosition().y - rand);
+						bulletManager.fire(ship.x, ship.y, FlxG.mouse.getWorldPosition().x, FlxG.mouse.getWorldPosition().y);
+						bulletManager.fire(ship.x, ship.y, FlxG.mouse.getWorldPosition().x + rand, FlxG.mouse.getWorldPosition().y + rand);
+						cooldown = ship.cooldown;
+					}
 				}
 			} 
 			else 
@@ -268,6 +280,14 @@ package
 			}
 			if (FlxG.keys.justPressed("H")) {
 				ship.hurt(100);
+			}
+			if (FlxG.keys.justPressed("Q"))
+			{
+				ship.changeWeapon(1);
+			}
+			if (FlxG.keys.justPressed("E")) 
+			{
+				ship.changeWeapon(2);
 			}
 		}
 		
