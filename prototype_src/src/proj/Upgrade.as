@@ -16,7 +16,7 @@ package proj
 		public function Upgrade() 
 		{
 			super(0, 0, upgradePng);
-			color = 0xFF4444FF;
+			color = 0xFF2080FF;
 			exists = false;
 		}
 		
