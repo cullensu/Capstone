@@ -25,7 +25,7 @@ package proj
 			{
 				var type:String;
 				
-				var rand:int = Math.floor(Math.random() * Upgrade.NUM_TYPES) as int;
+				var rand:int = Math.floor(Utility.random() * Upgrade.NUM_TYPES) as int;
 				
 				if (rand == 0)
 				{
