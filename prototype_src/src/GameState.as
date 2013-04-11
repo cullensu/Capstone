@@ -227,10 +227,11 @@ package
 					}
 					else if (ship.weaponType == 2)
 					{
-						var rand:int = Math.floor(Utility.random() * 20);
-						bulletManager.fire(ship.x, ship.y, FlxG.mouse.getWorldPosition().x - rand, FlxG.mouse.getWorldPosition().y - rand);
+						var rand1:int = Math.floor(Utility.random() * 100);
+						var rand2:int = Math.floor(Utility.random() * 100);
+						bulletManager.fire(ship.x, ship.y, FlxG.mouse.getWorldPosition().x - rand1, FlxG.mouse.getWorldPosition().y - rand2);
 						bulletManager.fire(ship.x, ship.y, FlxG.mouse.getWorldPosition().x, FlxG.mouse.getWorldPosition().y);
-						bulletManager.fire(ship.x, ship.y, FlxG.mouse.getWorldPosition().x + rand, FlxG.mouse.getWorldPosition().y + rand);
+						bulletManager.fire(ship.x, ship.y, FlxG.mouse.getWorldPosition().x + rand1, FlxG.mouse.getWorldPosition().y + rand2);
 						cooldown = ship.cooldown;
 					}
 				}
