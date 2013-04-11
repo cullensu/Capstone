@@ -10,9 +10,11 @@ package
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxState;
 	import org.flixel.plugin.photonstorm.FlxBar;
+	import org.flixel.FlxU;
 	import proj.BulletManager;
 	import proj.EnemyManager;
 	import proj.EnemyShip;
+	import proj.PlayerShip;
 	import proj.Ship;
 	import proj.StarField;
 	import proj.Upgrade;
@@ -61,7 +63,7 @@ package
 			starFieldBot.active = false;
 			add(starFieldBot);
 			
-			ship = new Ship();
+			ship = new PlayerShip();
 			add(ship);
 			
 			enemyManager = new EnemyManager();
@@ -297,6 +299,11 @@ package
 			if (++turn % 10 == 0)
 			{
 				ship.health--;
+			}
+			ship.health = FlxU.min(ship.health, 500)
+			if (ship.health <= 0)
+			{
+				ship.kill();
 			}
 			oxygenBar.preUpdate();
 			oxygenBar.update();
