@@ -12,16 +12,20 @@ package proj
 		[Embed(source = "../../assets/redship.png")] private var redShipPNG:Class;
 		[Embed(source = "../../assets/sfx/EnemyHurt.mp3")] private var sfxHurt:Class;
 		
+		protected static const UPGRADE_DROP_CHANCE:Number = 1;
+		
 		protected var targetx:int;
 		protected var targety:int;
 		
-		protected var speed:int = 50;
+		protected var upgradeCreationFunction:Function;
 		
 		public function EnemyShip() 
 		{
 			super();
 			create();
 			soundHurt = (new FlxSound()).loadEmbedded(sfxHurt, false, false);
+			speed = 50;
+			damage = 20;
 		}
 		
 		public function create():void
@@ -33,6 +37,11 @@ package proj
 			regenerate();
 		}
 		
+		public function registerUpgradeCreationFunction(f:Function):void
+		{
+			upgradeCreationFunction = f;
+		}
+		
 		override protected function loadShipGraphic():void
 		{
 			loadRotatedGraphic(redShipPNG, 8, -1, true, true);
@@ -40,7 +49,7 @@ package proj
 		
 		public function regenerate():void
 		{
-			health = 3;
+			health = 100;
 			
 			var angle:Number = Math.random() * 2 * Math.PI;
 			var radius:int = 550;
@@ -60,6 +69,11 @@ package proj
 		override public function kill():void
 		{
 			super.kill();
+			var rand:Number = Math.random();
+			if (rand < UPGRADE_DROP_CHANCE)
+			{
+				upgradeCreationFunction(x, y);
+			}
 			regenerate();
 		}
 		

@@ -15,18 +15,20 @@ package
 	import proj.EnemyShip;
 	import proj.Ship;
 	import proj.StarField;
+	import proj.Upgrade;
+	import proj.UpgradeManager;
 	/**
 	 * ...
 	 * @author Cullen
 	 */
 	public class GameState extends FlxState
 	{
-		public var shipSpeed:int = 3;
 		protected var cooldown:int = 0;
 		protected var turn:int = 0;
 		protected var ship:Ship;
 		protected var bulletManager:BulletManager;
 		protected var enemyManager:EnemyManager;
+		protected var upgradeManager:UpgradeManager;
 		protected var oxygenBar:FlxBar;
 		protected var starFieldTop:StarField;
 		protected var starFieldMid:StarField;
@@ -66,6 +68,10 @@ package
 			
 			bulletManager = new BulletManager();
 			add(bulletManager);
+			
+			upgradeManager = new UpgradeManager();
+			add(upgradeManager);
+			enemyManager.registerUpgradeCreationFunction(upgradeManager.generateNewUpgrade);
 			
 			oxygenBar = new FlxBar(350, 0, FlxBar.FILL_LEFT_TO_RIGHT, 100, 10, ship, "health", 0, ship.health, false);
 			add(oxygenBar);
@@ -119,17 +125,18 @@ package
 			updateShip();
 			updateFire();
 			updateEnemy();
+			updateUpgrades();
 		}
 		
 		protected function bulletHit(bullet:FlxObject, enemy:FlxObject):void
 		{
 			bullet.kill();
-			enemy.hurt(1);
+			enemy.hurt(ship.damage);
 		}
 		
 		protected function playerHit(player:FlxObject, enemy:FlxObject):void
 		{
-			player.hurt(20);
+			player.hurt((enemy as EnemyShip).damage);
 			enemy.kill();
 		}
 		
@@ -157,11 +164,15 @@ package
 			var direction:String = getDirection(dx, dy);
 			if (direction != "WTF")
 			{
-				ship.play(direction);
+				
 				dx = dx;
 				dy = dy;
-				ship.x += shipSpeed * dx / Math.sqrt(dx*dx + dy*dy);
-				ship.y += shipSpeed * dy / Math.sqrt(dx*dx + dy*dy);
+				ship.velocity.x = ship.speed * dx / Math.sqrt(dx*dx + dy*dy);
+				ship.velocity.y = ship.speed * dy / Math.sqrt(dx * dx + dy * dy);
+				ship.preUpdate();
+				ship.update();
+				ship.postUpdate();
+				ship.play(direction);
 			}
 		}
 		
@@ -209,7 +220,7 @@ package
 				if (FlxG.mouse.pressed())
 				{
 					bulletManager.fire(ship.x, ship.y, FlxG.mouse.getWorldPosition().x, FlxG.mouse.getWorldPosition().y);
-					cooldown = 10;
+					cooldown = ship.cooldown;
 				}
 			} else {
 				cooldown--;
@@ -253,6 +264,9 @@ package
 			if (FlxG.keys.justPressed("P")) {
 				// do nothing
 			}
+			if (FlxG.keys.justPressed("H")) {
+				ship.hurt(100);
+			}
 		}
 		
 		protected function updateOxygen():void 
@@ -264,6 +278,16 @@ package
 			oxygenBar.preUpdate();
 			oxygenBar.update();
 			oxygenBar.postUpdate();
+		}
+		
+		protected function updateUpgrades():void
+		{
+			upgradeManager.update();
+		}
+		
+		protected function upgradeCollected(ship:Ship, upgrade:Upgrade):void
+		{
+			upgrade.pickup(ship);
 		}
 		
 		private function checkCollisions():void 
@@ -284,6 +308,15 @@ package
 					if (FlxCollision.pixelPerfectCheck(bullet, enemy))
 						bulletHit(bullet, enemy);
 				}
+			}
+			
+			var upgrades:Array = upgradeManager.members;
+			for (var uu:int = 0; uu < upgrades.length; uu++)
+			{
+				var upgrade:Upgrade = upgrades[uu];
+				if (upgrade == null || !upgrade.exists) continue;
+				if (FlxCollision.pixelPerfectCheck(ship, upgrade))
+					upgradeCollected(ship, upgrade);
 			}
 		}
 	}
