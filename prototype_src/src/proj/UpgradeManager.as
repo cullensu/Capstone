@@ -37,7 +37,7 @@ package proj
 				}
 				else if (rand == 2)
 				{
-					type = Upgrade.TYPE_COOLDOWN;
+					type = Upgrade.TYPE_MOVEMENT;
 				}
 				else if (rand == 3)
 				{

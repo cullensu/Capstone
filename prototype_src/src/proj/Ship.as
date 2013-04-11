@@ -41,7 +41,7 @@ package proj
 			
 			cooldown = 50;
 			damage = 10;
-			speed = 3;
+			speed = 50;
 		}
 		
 		protected function loadShipGraphic():void

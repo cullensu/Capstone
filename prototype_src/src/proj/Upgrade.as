@@ -29,6 +29,24 @@ package proj
 			x = xLoc;
 			y = yLoc;
 			m_type = type;
+			
+			if (m_type == TYPE_OXYGEN)
+			{
+				color = 0xFF80FF20;//green
+			}
+			else if (m_type == TYPE_COOLDOWN)
+			{
+				color = 0xFF2080FF;//blue
+			}
+			else if (m_type == TYPE_MOVEMENT)
+			{
+				color = 0xFFFFFFFF;//white
+			}
+			else if (m_type == TYPE_DAMAGE)
+			{
+				color = 0xFFFF8020;//red
+			}
+			
 			exists = true;
 		}
 		
@@ -36,19 +54,19 @@ package proj
 		{
 			if (m_type == TYPE_OXYGEN)
 			{
-				applyTo.health += 100;
+				applyTo.health += 50;
 			}
 			else if (m_type == TYPE_COOLDOWN)
 			{
-				applyTo.cooldown -= 20;
-				if (applyTo.cooldown < 10)
+				applyTo.cooldown -= 10;
+				if (applyTo.cooldown < 1)
 				{
-					applyTo.cooldown = 10;
+					applyTo.cooldown = 1;
 				}
 			}
 			else if (m_type == TYPE_MOVEMENT)
 			{
-				applyTo.speed += 20;
+				applyTo.speed += 30;
 			}
 			else if (m_type == TYPE_DAMAGE)
 			{

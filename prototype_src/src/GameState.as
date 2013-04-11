@@ -164,11 +164,15 @@ package
 			var direction:String = getDirection(dx, dy);
 			if (direction != "WTF")
 			{
-				ship.play(direction);
+				
 				dx = dx;
 				dy = dy;
-				ship.x += ship.speed * dx / Math.sqrt(dx*dx + dy*dy);
-				ship.y += ship.speed * dy / Math.sqrt(dx*dx + dy*dy);
+				ship.velocity.x = ship.speed * dx / Math.sqrt(dx*dx + dy*dy);
+				ship.velocity.y = ship.speed * dy / Math.sqrt(dx * dx + dy * dy);
+				ship.preUpdate();
+				ship.update();
+				ship.postUpdate();
+				ship.play(direction);
 			}
 		}
 		

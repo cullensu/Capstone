@@ -12,7 +12,7 @@ package proj
 		[Embed(source = "../../assets/redship.png")] private var redShipPNG:Class;
 		[Embed(source = "../../assets/sfx/EnemyHurt.mp3")] private var sfxHurt:Class;
 		
-		protected static const UPGRADE_DROP_CHANCE:Number = 0.25;
+		protected static const UPGRADE_DROP_CHANCE:Number = 1;
 		
 		protected var targetx:int;
 		protected var targety:int;
