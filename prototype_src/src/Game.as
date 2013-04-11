@@ -12,11 +12,8 @@ package
 		
 		public function Game() 
 		{
-			super(800, 600, GameState);
+			super(800, 600, MainMenuState);
 		}
-		
-		
-		
 	}
 
 }

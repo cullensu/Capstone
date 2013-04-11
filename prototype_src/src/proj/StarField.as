@@ -15,7 +15,7 @@ package proj
  
 			for (var i:int = 0; i < numStars; i++)
 			{
-				var str:FlxSprite = new FlxSprite(Math.random() * 10000 - 5000, Math.random() * 10000 - 5000);
+				var str:FlxSprite = new FlxSprite(Utility.random() * 10000 - 5000, Utility.random() * 10000 - 5000);
 				str.makeGraphic(1, 1, 0xffffffff);
 				str.solid = false;
 				str.scrollFactor = new FlxPoint(scrollFactor, scrollFactor);

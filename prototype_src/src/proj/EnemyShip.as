@@ -51,7 +51,7 @@ package proj
 		{
 			health = 100;
 			
-			var angle:Number = Math.random() * 2 * Math.PI;
+			var angle:Number = Utility.random() * 2 * Math.PI;
 			var radius:int = 550;
 			
 			x = targetx + Math.cos(angle) * radius;
@@ -69,7 +69,7 @@ package proj
 		override public function kill():void
 		{
 			super.kill();
-			var rand:Number = Math.random();
+			var rand:Number = Utility.random();
 			if (rand < UPGRADE_DROP_CHANCE)
 			{
 				upgradeCreationFunction(x, y);
