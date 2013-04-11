@@ -15,6 +15,8 @@ package
 	import proj.EnemyShip;
 	import proj.Ship;
 	import proj.StarField;
+	import proj.Upgrade;
+	import proj.UpgradeManager;
 	/**
 	 * ...
 	 * @author Cullen
@@ -27,6 +29,7 @@ package
 		protected var ship:Ship;
 		protected var bulletManager:BulletManager;
 		protected var enemyManager:EnemyManager;
+		protected var upgradeManager:UpgradeManager;
 		protected var oxygenBar:FlxBar;
 		protected var starFieldTop:StarField;
 		protected var starFieldMid:StarField;
@@ -66,6 +69,10 @@ package
 			
 			bulletManager = new BulletManager();
 			add(bulletManager);
+			
+			upgradeManager = new UpgradeManager();
+			add(upgradeManager);
+			enemyManager.registerUpgradeCreationFunction(upgradeManager.generateNewUpgrade);
 			
 			oxygenBar = new FlxBar(350, 0, FlxBar.FILL_LEFT_TO_RIGHT, 100, 10, ship, "health", 0, ship.health, false);
 			add(oxygenBar);
@@ -119,6 +126,7 @@ package
 			updateShip();
 			updateFire();
 			updateEnemy();
+			updateUpgrades();
 		}
 		
 		protected function bulletHit(bullet:FlxObject, enemy:FlxObject):void
@@ -266,6 +274,16 @@ package
 			oxygenBar.postUpdate();
 		}
 		
+		protected function updateUpgrades():void
+		{
+			upgradeManager.update();
+		}
+		
+		protected function upgradeCollected(ship:Ship, upgrade:Upgrade):void
+		{
+			upgrade.pickup(ship);
+		}
+		
 		private function checkCollisions():void 
 		{
 			var enemies:Array = enemyManager.members;
@@ -284,6 +302,15 @@ package
 					if (FlxCollision.pixelPerfectCheck(bullet, enemy))
 						bulletHit(bullet, enemy);
 				}
+			}
+			
+			var upgrades:Array = upgradeManager.members;
+			for (var uu:int = 0; uu < upgrades.length; uu++)
+			{
+				var upgrade:Upgrade = upgrades[uu];
+				if (upgrade == null || !upgrade.exists) continue;
+				if (FlxCollision.pixelPerfectCheck(ship, upgrade))
+					upgradeCollected(ship, upgrade);
 			}
 		}
 	}
