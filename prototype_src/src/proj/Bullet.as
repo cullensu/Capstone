@@ -32,6 +32,12 @@ package proj
 			var dy:int = targety - yLoc;
 			var magnitude:Number = Math.sqrt(dx * dx + dy * dy);
 			
+			if (magnitude == 0)
+			{
+				magnitude = 1;
+				dy = 1;
+			}
+			
 			velocity.x = dx / magnitude * speed;
 			velocity.y = dy / magnitude * speed;
 			
