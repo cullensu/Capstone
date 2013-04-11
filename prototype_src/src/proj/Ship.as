@@ -15,6 +15,9 @@ package proj
 		
 		protected var soundHurt:FlxSound;
 		protected var soundExplode:FlxSound;
+		public var cooldown:uint;
+		public var damage:uint;
+		public var speed:uint;
 		
 		public function Ship() 
 		{
@@ -36,6 +39,9 @@ package proj
 			
 			exists = true;
 			
+			cooldown = 50;
+			damage = 10;
+			speed = 3;
 		}
 		
 		protected function loadShipGraphic():void

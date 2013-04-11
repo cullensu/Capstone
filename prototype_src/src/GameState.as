@@ -23,7 +23,6 @@ package
 	 */
 	public class GameState extends FlxState
 	{
-		public var shipSpeed:int = 3;
 		protected var cooldown:int = 0;
 		protected var turn:int = 0;
 		protected var ship:Ship;
@@ -132,12 +131,12 @@ package
 		protected function bulletHit(bullet:FlxObject, enemy:FlxObject):void
 		{
 			bullet.kill();
-			enemy.hurt(1);
+			enemy.hurt(ship.damage);
 		}
 		
 		protected function playerHit(player:FlxObject, enemy:FlxObject):void
 		{
-			player.hurt(20);
+			player.hurt((enemy as EnemyShip).damage);
 			enemy.kill();
 		}
 		
@@ -168,8 +167,8 @@ package
 				ship.play(direction);
 				dx = dx;
 				dy = dy;
-				ship.x += shipSpeed * dx / Math.sqrt(dx*dx + dy*dy);
-				ship.y += shipSpeed * dy / Math.sqrt(dx*dx + dy*dy);
+				ship.x += ship.speed * dx / Math.sqrt(dx*dx + dy*dy);
+				ship.y += ship.speed * dy / Math.sqrt(dx*dx + dy*dy);
 			}
 		}
 		
@@ -217,7 +216,7 @@ package
 				if (FlxG.mouse.pressed())
 				{
 					bulletManager.fire(ship.x, ship.y, FlxG.mouse.getWorldPosition().x, FlxG.mouse.getWorldPosition().y);
-					cooldown = 10;
+					cooldown = ship.cooldown;
 				}
 			} else {
 				cooldown--;

@@ -19,13 +19,13 @@ package proj
 		
 		protected var upgradeCreationFunction:Function;
 		
-		protected var speed:int = 50;
-		
 		public function EnemyShip() 
 		{
 			super();
 			create();
 			soundHurt = (new FlxSound()).loadEmbedded(sfxHurt, false, false);
+			speed = 50;
+			damage = 20;
 		}
 		
 		public function create():void
@@ -49,7 +49,7 @@ package proj
 		
 		public function regenerate():void
 		{
-			health = 3;
+			health = 100;
 			
 			var angle:Number = Math.random() * 2 * Math.PI;
 			var radius:int = 550;
