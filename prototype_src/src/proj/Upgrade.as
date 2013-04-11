@@ -59,14 +59,18 @@ package proj
 			else if (m_type == TYPE_COOLDOWN)
 			{
 				applyTo.cooldown -= 10;
-				if (applyTo.cooldown < 5)
+				if (applyTo.cooldown < 0)
 				{
-					applyTo.cooldown = 5;
+					applyTo.cooldown = 0;
 				}
 			}
 			else if (m_type == TYPE_MOVEMENT)
 			{
 				applyTo.speed += 30;
+				if (applyTo.speed > 1000)
+				{
+					applyTo.speed = 1000;
+				}
 			}
 			else if (m_type == TYPE_DAMAGE)
 			{

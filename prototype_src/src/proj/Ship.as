@@ -19,6 +19,8 @@ package proj
 		public var damage:int;
 		public var speed:int;
 		
+		public var weaponType:int;
+		
 		protected var direction:String;
 		
 		public function Ship() 
@@ -44,6 +46,7 @@ package proj
 			cooldown = 50;
 			damage = 10;
 			speed = 50;
+			weaponType = 1;
 		}
 		
 		protected function loadShipGraphic():void
@@ -54,6 +57,11 @@ package proj
 		public function setDirection(dir:String):void
 		{
 			direction = dir;
+		}
+		
+		public function changeWeapon(type:int):void
+		{
+			weaponType = type;
 		}
 		
 		override public function update():void
