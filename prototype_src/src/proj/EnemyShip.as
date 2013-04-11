@@ -12,8 +12,12 @@ package proj
 		[Embed(source = "../../assets/redship.png")] private var redShipPNG:Class;
 		[Embed(source = "../../assets/sfx/EnemyHurt.mp3")] private var sfxHurt:Class;
 		
+		protected static const UPGRADE_DROP_CHANCE:Number = 0.25;
+		
 		protected var targetx:int;
 		protected var targety:int;
+		
+		protected var upgradeCreationFunction:Function;
 		
 		protected var speed:int = 50;
 		
@@ -31,6 +35,11 @@ package proj
 			targetx = 0;
 			targety = 0;
 			regenerate();
+		}
+		
+		public function registerUpgradeCreationFunction(f:Function):void
+		{
+			upgradeCreationFunction = f;
 		}
 		
 		override protected function loadShipGraphic():void
@@ -60,6 +69,11 @@ package proj
 		override public function kill():void
 		{
 			super.kill();
+			var rand:Number = Math.random();
+			if (rand < UPGRADE_DROP_CHANCE)
+			{
+				upgradeCreationFunction(x, y);
+			}
 			regenerate();
 		}
 		
