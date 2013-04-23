@@ -1,0 +1,17 @@
+package env 
+{
+	/**
+	 * ...
+	 * @author Cullen
+	 */
+	public class Asteroid 
+	{
+		
+		public function Asteroid() 
+		{
+			
+		}
+		
+	}
+
+}
