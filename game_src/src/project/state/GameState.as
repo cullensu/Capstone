@@ -41,21 +41,21 @@ package project.state
 		
 		protected function processKeyboardInput():void
 		{
-			if (FlxG.keys.justPressed("W"))
+			if (FlxG.keys.W)
 			{
-				
+				_playerManager.playerShip.setYDirection( -1);
 			}
-			if (FlxG.keys.justPressed("A"))
+			if (FlxG.keys.A)
 			{
-				
+				_playerManager.playerShip.setXDirection( -1);
 			}
-			if (FlxG.keys.justPressed("S"))
+			if (FlxG.keys.S)
 			{
-				
+				_playerManager.playerShip.setYDirection(1);
 			}
-			if (FlxG.keys.justPressed("D"))
+			if (FlxG.keys.D)
 			{
-				
+				_playerManager.playerShip.setXDirection(1);
 			}
 		}
 		
