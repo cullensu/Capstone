@@ -1,4 +1,5 @@
-package env {
+package project.env 
+{
 
   import org.flixel.*;
 

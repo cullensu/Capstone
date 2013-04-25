@@ -1,4 +1,4 @@
-package ship 
+package project.ship 
 {
 	/**
 	 * ...
