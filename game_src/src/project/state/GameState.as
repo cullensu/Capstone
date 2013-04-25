@@ -2,6 +2,7 @@ package project.state
 {
 	import org.flixel.FlxG;
 	import org.flixel.FlxState;
+	import project.env.StarField;
 	import project.manager.EnemyManager;
 	import project.manager.EnvironmentManager;
 	import project.manager.NeutralManager;
@@ -17,6 +18,10 @@ package project.state
 		protected var _neutralManager:NeutralManager;
 		protected var _envManager:EnvironmentManager;
 		
+		protected var _starfield1:StarField;
+		protected var _starfield2:StarField;
+		protected var _starfield3:StarField;
+		
 		public function GameState() 
 		{
 			super();
@@ -25,11 +30,17 @@ package project.state
 			_playerManager = new PlayerManager();
 			_neutralManager = new NeutralManager();
 			_envManager = new EnvironmentManager();
+			_starfield1 = new StarField(1000, 0.25, 5000); 
+			_starfield2 = new StarField(1000, 0.5, 5000); 
+			_starfield3 = new StarField(1000, 1, 5000); 
 			
 			add(_enemyManager);
 			add(_playerManager);
 			add(_neutralManager);
 			add(_envManager);
+			add(_starfield1);
+			add(_starfield2);
+			add(_starfield3);
 		}
 		
 		override public function update():void
