@@ -4,13 +4,8 @@ package project.ship
 	 * ...
 	 * @author Cullen
 	 */
-	public class IShip 
+	public interface IShip 
 	{
-		
-		public function IShip() 
-		{
-			
-		}
 		
 	}
 
