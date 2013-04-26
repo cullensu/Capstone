@@ -1,4 +1,4 @@
-package project.ship 
+package project.ship
 {
 	import org.flixel.FlxSprite;
 	import project.constant.Constants;
@@ -9,21 +9,21 @@ package project.ship
 	 */
 	public class PlayerShip extends Ship
 	{
-		[Embed(source = "../../../assets/playership.png")] private var _shipPng:Class
-		
+		//[Embed(source = "../../../assets/playership.png")] private var _shipPng:Class
+
 		protected var _direction:String;
 		protected var _xDir:Number;
 		protected var _yDir:Number;
-		
+
 		protected var _speed:Number;
-		
-		public function PlayerShip(X:Number=0,Y:Number=0,SimpleGraphic:Class=null) 
+
+		public function PlayerShip(X:Number=0,Y:Number=0,SimpleGraphic:Class=null)
 		{
 			super(X, Y, SimpleGraphic == null ? _shipPng : SimpleGraphic);
-			
+
 			_speed = 200;
 		}
-		
+
 		/**
 		 * Sets the x direction of the player ship
 		 * @param	xDir
@@ -32,7 +32,7 @@ package project.ship
 		{
 			_xDir = xDir;
 		}
-		
+
 		/**
 		 * Sets the y direction of the player ship
 		 * @param	yDir
@@ -41,7 +41,7 @@ package project.ship
 		{
 			_yDir = yDir;
 		}
-		
+
 		/**
 		 * Stops the movement of the player ship
 		 */
@@ -50,21 +50,21 @@ package project.ship
 			_xDir = 0;
 			_yDir = 0;
 		}
-		
+
 		override public function preUpdate():void
 		{
 			super.preUpdate();
 			_direction = Direction.getDirection(_xDir, _yDir);
-			
+
 			velocity = Direction.getVelocityVector(_direction, _speed);
 		}
-		
+
 		override public function postUpdate():void
 		{
 			stopMovement();
 			super.postUpdate();
 		}
-		
+
 	}
 
 }
