@@ -1,4 +1,4 @@
-package project.state 
+package project.state
 {
 	import org.flixel.FlxCamera;
 	import org.flixel.FlxG;
@@ -19,51 +19,54 @@ package project.state
 		protected var _playerManager:PlayerManager;
 		protected var _neutralManager:NeutralManager;
 		protected var _envManager:EnvironmentManager;
-		
+
 		protected var _starfield1:StarField;
 		protected var _starfield2:StarField;
 		protected var _starfield3:StarField;
-		
+
 		/**
 		 * Creates a new instance of the GameState
 		 */
-		public function GameState() 
+		public function GameState()
 		{
 			super();
-			
+
 			_enemyManager = new EnemyManager();
 			_playerManager = new PlayerManager();
 			_neutralManager = new NeutralManager();
 			_envManager = new EnvironmentManager();
-			_starfield1 = new StarField(1000, 0.25, 5000); 
-			_starfield2 = new StarField(1000, 0.5, 5000); 
-			_starfield3 = new StarField(1000, 1, 5000); 
-			
+			_starfield1 = new StarField(1000, 0.25, 5000);
+			_starfield2 = new StarField(1000, 0.5, 5000);
+			_starfield3 = new StarField(1000, 1, 5000);
+			_starfield1.active = false;
+			_starfield2.active = false;
+			_starfield3.active = false;
+
+			add(_starfield1);
+			add(_starfield2);
+			add(_starfield3);
 			add(_enemyManager);
 			add(_playerManager);
 			add(_neutralManager);
 			add(_envManager);
-			add(_starfield1);
-			add(_starfield2);
-			add(_starfield3);
 		}
-		
-		override public function create():void 
+
+		override public function create():void
 		{
 			super.create();
 			FlxG.mouse.show()
 			FlxG.camera.follow(_playerManager.playerShip, FlxCamera.STYLE_LOCKON);
 		}
-		
+
 		/**
 		 * Updates the GameState and all entities it contains.
 		 */
 		override public function update():void
 		{
 			processKeyboardInput();
-			super.update();	
+			super.update();
 		}
-		
+
 		/**
 		 * Captures key presses and performs the appropriate actions
 		 */
@@ -86,7 +89,7 @@ package project.state
 			{
 				_playerManager.playerShip.setXDirection(1);
 			}
-			
+
 			// Other controls
 			if (FlxG.keys.justPressed("P"))
 			{
@@ -95,7 +98,7 @@ package project.state
 				FlxG.paused = !FlxG.paused;
 			}
 		}
-		
+
 	}
 
 }
