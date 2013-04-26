@@ -2,7 +2,10 @@ package project.env
 {
 
   import org.flixel.*;
+  import project.ship.PlayerShip;
   import project.util.Utility;
+  import project.constant.GameRegistry;
+  import project.constant.Constants;
 
   public class StarField extends FlxGroup {
 
@@ -11,7 +14,7 @@ package project.env
 
 		/*
 		 *  @param scrollFactor the scroll factor of this starfield, must be a reciprocal of an integer
-		 *  @param worldSize the size of the world, in 800x800 px tiles
+		 *  @param worldSize the size of the world, in Constants.TILESIZExConstants.TILESIZE px tiles
 		 * 	The product of scrollFactor * worldSize must be a whole number
 		 */
 		public function StarField(scrollFactor:Number, worldSize:int):void
@@ -22,7 +25,7 @@ package project.env
 			for(var i:int = 0; i < tiles.length; i++) {
 				tiles[i] = new Array(worldSize * scrollFactor);
 				for(var j:int = 0; j < tiles[i].length; j++) {
-					tiles[i][j] = new StarTile(800 * i, 800 * j, scrollFactor);
+					tiles[i][j] = new StarTile(Constants.TILESIZE * i, Constants.TILESIZE * j, scrollFactor);
 					add(tiles[i][j]);
 				}
 			}
@@ -30,9 +33,9 @@ package project.env
 
 		override public function update():void
 		{
-			PlayerShip player = GameRegistry.gameState.playerManager.playerShip;
-			var x:int = player.x / 800;
-			var y:int = player.y / 800;
+			var player:PlayerShip = GameRegistry.gameState.playerManager.playerShip;
+			var x:int = player.x / Constants.TILESIZE / multiplier;
+			var y:int = player.y / Constants.TILESIZE / multiplier;
 
 			//Set the visible StarTiles
 			var left:int = x - multiplier < 0 ? 0 : x - multiplier;
@@ -48,7 +51,7 @@ package project.env
 
 			//Reset the StarTiles that should no longer be visible
 			if(left - 1 >= 0) {
-				for(var j:int = bot; j <= top; j++) {
+				for(j = bot; j <= top; j++) {
 					tiles[left - 1][j].visible = false;
 				}
 				//Corners
@@ -60,7 +63,7 @@ package project.env
 				}
 			}
 			if(right + 1 < tiles.length) {
-				for(var j:int = bot; j <=top; j++) {
+				for(j = bot; j <=top; j++) {
 					tiles[right + 1][j].visible = false;
 				}
 				//Corners
@@ -72,12 +75,12 @@ package project.env
 				}
 			}
 			if(bot - 1 >= 0) {
-				for(var i:int = left; i <= right; i++) {
+				for(i = left; i <= right; i++) {
 					tiles[i][bot - 1].visible = false;
 				}
 			}
 			if(top + 1 < tiles.length) {
-				for(var i:int = left; i <= right; i++) {
+				for(i = left; i <= right; i++) {
 					tiles[i][top + 1].visible = false;
 				}
 			}

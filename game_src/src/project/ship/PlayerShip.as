@@ -21,7 +21,7 @@ package project.ship
 		{
 			super(X, Y, null);
 			loadGraphic(_shipPng, true, false, 30, 30);
-			_speed = 200;
+			_speed = 400;
 			//TODO: addAnimation x24
 		}
 

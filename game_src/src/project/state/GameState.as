@@ -4,6 +4,7 @@ package project.state
 	import org.flixel.FlxG;
 	import org.flixel.FlxState;
 	import project.constant.GameRegistry;
+	import project.constant.Constants;
 	import project.env.StarField;
 	import project.manager.EnemyManager;
 	import project.manager.EnvironmentManager;
@@ -19,6 +20,9 @@ package project.state
 		protected var _playerManager:PlayerManager;
 		protected var _neutralManager:NeutralManager;
 		protected var _envManager:EnvironmentManager;
+		protected var _starField:StarField;
+		protected var _starField2:StarField;
+		protected var _starField3:StarField;
 
 		/**
 		 * Creates a new instance of the GameState
@@ -31,7 +35,13 @@ package project.state
 			_playerManager = new PlayerManager();
 			_neutralManager = new NeutralManager();
 			_envManager = new EnvironmentManager();
+			_starField = new StarField(0.5, Constants.WORLDTILES);
+			_starField2 = new StarField(0.25, Constants.WORLDTILES);
+			_starField3 = new StarField(1, Constants.WORLDTILES);
 
+			add(_starField);
+			add(_starField2);
+			add(_starField3);
 			add(_enemyManager);
 			add(_playerManager);
 			add(_neutralManager);
@@ -83,6 +93,9 @@ package project.state
 				// For now toggles pause state
 				// TODO: Add some kind of visual cue
 				FlxG.paused = !FlxG.paused;
+			}
+			if (FlxG.keys.justPressed("J")) {
+				trace(_playerManager.playerShip.x, _playerManager.playerShip.y);
 			}
 		}
 

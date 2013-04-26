@@ -2,6 +2,7 @@ package project.manager
 {
 	import org.flixel.FlxGroup;
 	import project.ship.PlayerShip;
+	import project.constant.Constants;
 	/**
 	 * ...
 	 * @author Cullen
@@ -13,7 +14,7 @@ package project.manager
 		public function PlayerManager() 
 		{
 			super();
-			_playerShip = new PlayerShip(300, 300, null);
+			_playerShip = new PlayerShip(Constants.TILESIZE * Constants.WORLDTILES / 2, Constants.TILESIZE * Constants.WORLDTILES / 2, null);
 			
 			add(_playerShip);
 		}
