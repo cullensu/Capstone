@@ -35,24 +35,51 @@ package project.env
 			var y:int = player.y / 800;
 
 			//Set the visible StarTiles
-			for(var i:int = x - multiplier; i <= x + multiplier; i++) {
-				for(var j:int = y - multiplier; j <= y + multiplier; j++) {
+			var left:int = x - multiplier < 0 ? 0 : x - multiplier;
+			var right:int = x + multiplier < tiles.length ? x + multiplier : tiles.length - 1;
+			var bot:int = y - multiplier < 0 ? 0 : y - multiplier;
+			var top:int = y + multiplier < tiles.length ? y + multiplier : tiles.length - 1;
+
+			for(var i:int = left; i <= right; i++) {
+				for(var j:int = bot; j <= top; j++) {
 					tiles[i][j].visible = true;
 				}
 			}
 
 			//Reset the StarTiles that should no longer be visible
-			for(var i:int = x - multiplier - 1; i <= x + multiplier + 1; i++) {
-				tiles[i][y - multiplier - 1].visible = false;
+			if(left - 1 >= 0) {
+				for(var j:int = bot; j <= top; j++) {
+					tiles[left - 1][j].visible = false;
+				}
+				//Corners
+				if(bot - 1 >= 0) {
+					tiles[left - 1][bot - 1].visible = false;
+				}
+				if(top + 1 < tiles.length) {
+					tiles[left - 1][top + 1].visible = false;
+				}
 			}
-			for(var i:int = x - multiplier - 1; i <= x + multiplier + 1; i++) {
-				tiles[i][y + multiplier + 1].visible = false;
+			if(right + 1 < tiles.length) {
+				for(var j:int = bot; j <=top; j++) {
+					tiles[right + 1][j].visible = false;
+				}
+				//Corners
+				if(bot - 1 >= 0) {
+					tiles[right + 1][bot - 1].visible = false;
+				}
+				if(top + 1 < tiles.length) {
+					tiles[right + 1][top + 1].visible = false;
+				}
 			}
-			for(var j:int = y - multiplier; j <= y + multiplier; j++) {
-				tiles[x - multiplier - 1][j].visible = false;
+			if(bot - 1 >= 0) {
+				for(var i:int = left; i <= right; i++) {
+					tiles[i][bot - 1].visible = false;
+				}
 			}
-			for(var j:int = y - multiplier; j <= y + multiplier; j++) {
-				tiles[x + multiplier + 1][j].visible = false;
+			if(top + 1 < tiles.length) {
+				for(var i:int = left; i <= right; i++) {
+					tiles[i][top + 1].visible = false;
+				}
 			}
 		}
 	}
