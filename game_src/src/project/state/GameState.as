@@ -20,10 +20,6 @@ package project.state
 		protected var _neutralManager:NeutralManager;
 		protected var _envManager:EnvironmentManager;
 
-		protected var _starfield1:StarField;
-		protected var _starfield2:StarField;
-		protected var _starfield3:StarField;
-
 		/**
 		 * Creates a new instance of the GameState
 		 */
@@ -35,16 +31,7 @@ package project.state
 			_playerManager = new PlayerManager();
 			_neutralManager = new NeutralManager();
 			_envManager = new EnvironmentManager();
-			_starfield1 = new StarField(1000, 0.25, 5000);
-			_starfield2 = new StarField(1000, 0.5, 5000);
-			_starfield3 = new StarField(1000, 1, 5000);
-			_starfield1.active = false;
-			_starfield2.active = false;
-			_starfield3.active = false;
 
-			add(_starfield1);
-			add(_starfield2);
-			add(_starfield3);
 			add(_enemyManager);
 			add(_playerManager);
 			add(_neutralManager);

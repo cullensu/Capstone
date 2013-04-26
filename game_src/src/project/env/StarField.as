@@ -1,4 +1,4 @@
-package project.env 
+package project.env
 {
 
   import org.flixel.*;
@@ -6,21 +6,59 @@ package project.env
 
   public class StarField extends FlxGroup {
 
+  	private var tiles:Array;
+  	private var multiplier:int;
+
 		/*
-		 *  @param numStars the number of stars
-		 *  @param scrollFactor the scroll factor of this starfield
-		 *  @param worldSize the size of the world
+		 *  @param scrollFactor the scroll factor of this starfield, must be a reciprocal of an integer
+		 *  @param worldSize the size of the world, in 800x800 px tiles
+		 * 	The product of scrollFactor * worldSize must be a whole number
 		 */
-		public function StarField(numStars:Number, scrollFactor:Number, worldSize:Number):void 
+		public function StarField(scrollFactor:Number, worldSize:int):void
 		{
 			super();
-			for (var i:int = 0; i < numStars; i++) 
-			{
-				var str:FlxSprite = new FlxSprite(Utility.random() * worldSize - worldSize / 2, Utility.random() * worldSize - worldSize / 2);
-				str.makeGraphic(1, 1, 0xffffffff);
-				str.solid = false;
-				str.scrollFactor = new FlxPoint(scrollFactor, scrollFactor);
-				add(str);
+			multiplier = 1 / scrollFactor;
+			tiles = new Array(worldSize * scrollFactor);
+			for(var i:int = 0; i < tiles.length; i++) {
+				tiles[i] = new Array(worldSize * scrollFactor);
+				for(var j:int = 0; j < tiles[i].length; j++) {
+					tiles[i][j] = new StarTile(800 * i, 800 * j, scrollFactor);
+					add(tiles[i][j]);
+				}
+			}
+		}
+
+		override public function update():void
+		{
+			var playerX:int;
+			var playerY:int;
+			var x:int;
+			var y:int;
+
+			//TODO: Get the player coordinates and put them in playerX/playerY
+
+			x = playerX / 800;
+			y = playerY / 800;
+
+			//Set the visible StarTiles
+			for(var i:int = x - multiplier; i <= x + multiplier; i++) {
+				for(var j:int = y - multiplier; j <= y + multiplier; j++) {
+					tiles[i][j].visible = true;
+				}
+			}
+
+			//Reset the StarTiles that should no longer be visible
+			for(var i:int = x - multiplier - 1; i <= x + multiplier + 1; i++) {
+				tiles[i][y - multiplier - 1].visible = false;
+			}
+			for(var i:int = x - multiplier - 1; i <= x + multiplier + 1; i++) {
+				tiles[i][y + multiplier + 1].visible = false;
+			}
+			for(var j:int = y - multiplier; j <= y + multiplier; j++) {
+				tiles[x - multiplier - 1][j].visible = false;
+			}
+			for(var j:int = y - multiplier; j <= y + multiplier; j++) {
+				tiles[x + multiplier + 1][j].visible = false;
 			}
 		}
 	}
