@@ -30,15 +30,9 @@ package project.env
 
 		override public function update():void
 		{
-			var playerX:int;
-			var playerY:int;
-			var x:int;
-			var y:int;
-
-			//TODO: Get the player coordinates and put them in playerX/playerY
-
-			x = playerX / 800;
-			y = playerY / 800;
+			PlayerShip player = GameRegistry.gameState.playerManager.playerShip;
+			var x:int = player.x / 800;
+			var y:int = player.y / 800;
 
 			//Set the visible StarTiles
 			for(var i:int = x - multiplier; i <= x + multiplier; i++) {

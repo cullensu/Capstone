@@ -86,6 +86,10 @@ package project.state
 			}
 		}
 
+		public function get playerManager():PlayerManager {
+			return _playerManager;
+		}
+
 	}
 
 }
