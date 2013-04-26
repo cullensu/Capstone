@@ -9,7 +9,7 @@ package project.ship
 	 */
 	public class PlayerShip extends Ship
 	{
-		//[Embed(source = "../../../assets/playership.png")] private var _shipPng:Class
+		[Embed(source = "../../../assets/playershipsheet.png")] private var _shipPng:Class
 
 		protected var _direction:String;
 		protected var _xDir:Number;
@@ -19,9 +19,10 @@ package project.ship
 
 		public function PlayerShip(X:Number=0,Y:Number=0,SimpleGraphic:Class=null)
 		{
-			super(X, Y, SimpleGraphic == null ? _shipPng : SimpleGraphic);
-
+			super(X, Y, null);
+			loadGraphic(_shipPng, true, false, 30, 30);
 			_speed = 200;
+			//TODO: addAnimation x24
 		}
 
 		/**
