@@ -8,6 +8,7 @@ package project.state
 	import project.env.StarField;
 	import project.manager.EnemyManager;
 	import project.manager.EnvironmentManager;
+	import project.manager.MusicManager;
 	import project.manager.NeutralManager;
 	import project.manager.PlayerManager;
 	/**
@@ -23,6 +24,7 @@ package project.state
 		protected var _starField:StarField;
 		protected var _starField2:StarField;
 		protected var _starField3:StarField;
+		protected var _musicManager:MusicManager;
 
 		/**
 		 * Creates a new instance of the GameState
@@ -35,6 +37,7 @@ package project.state
 			_playerManager = new PlayerManager();
 			_neutralManager = new NeutralManager();
 			_envManager = new EnvironmentManager();
+			_musicManager = new MusicManager();
 			_starField = new StarField(0.5, Constants.WORLDTILES);
 			_starField2 = new StarField(0.25, Constants.WORLDTILES);
 			_starField3 = new StarField(1, Constants.WORLDTILES);
@@ -42,6 +45,7 @@ package project.state
 			add(_starField);
 			add(_starField2);
 			add(_starField3);
+			add(_musicManager);
 			add(_enemyManager);
 			add(_playerManager);
 			add(_neutralManager);

@@ -15,7 +15,7 @@ package project.manager
 		[Embed(source = "../../../assets/music/Synth.mp3")] private var _synthMp3:Class;
 		
 		protected var _bass:FlxSound;
-		protected var _keys:FlxSound;
+		protected var _rhodes:FlxSound;
 		protected var _pad:FlxSound;
 		protected var _strings:FlxSound;
 		protected var _synth:FlxSound;
@@ -24,15 +24,27 @@ package project.manager
 		{
 			_bass = (new FlxSound()).loadEmbedded(_bassMp3, true, true);
 			_pad = (new FlxSound()).loadEmbedded(_padMp3, true, true);
-			_rhodesMp3 = (new FlxSound()).loadEmbedded(_rhodesMp3, true, true);
+			_rhodes = (new FlxSound()).loadEmbedded(_rhodesMp3, true, true);
 			_strings = (new FlxSound()).loadEmbedded(_stringsMp3, true, true);
 			_synth = (new FlxSound()).loadEmbedded(_synthMp3, true, true);
 			
 			add(_bass);
 			add(_pad);
-			add(_rhodesMp3);
+			add(_rhodes);
 			add(_strings);
 			add(_synth);
+			
+			_bass.volume = 0.0;
+			_pad.volume = 0.0;
+			_rhodes.volume = 0.0;
+			_strings.volume = 0.0;
+			_synth.volume = 0.0;
+			
+			_bass.play();
+			_pad.play();
+			_rhodes.play();
+			_strings.play();
+			_synth.play();
 		}
 		
 	}
