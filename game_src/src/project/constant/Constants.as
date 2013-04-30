@@ -10,6 +10,8 @@ package project.constant
 		public static const WORLDTILES:int = 16;
 		public static const TILESIZE:int = 800;
 		
+		public static const MAX_BULLETS:int = 100;
+		
 		public function Constants() 
 		{
 			

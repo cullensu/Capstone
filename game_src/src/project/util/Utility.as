@@ -1,5 +1,6 @@
 package project.util 
 {
+	import flash.geom.Point;
 	import org.flixel.FlxU;
 	
 	/**
@@ -11,7 +12,8 @@ package project.util
 		private static var seed:Number = 0.4;
 		public function Utility() { }
 		
-		public static function random():Number {
+		public static function random():Number 
+		{
 			seed = FlxU.srand(seed);
 			return seed;
 		}

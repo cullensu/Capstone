@@ -6,6 +6,7 @@ package project.state
 	import project.constant.GameRegistry;
 	import project.constant.Constants;
 	import project.env.StarField;
+	import project.manager.BulletManager;
 	import project.manager.EnemyManager;
 	import project.manager.EnvironmentManager;
 	import project.manager.MusicManager;
@@ -21,10 +22,13 @@ package project.state
 		protected var _playerManager:PlayerManager;
 		protected var _neutralManager:NeutralManager;
 		protected var _envManager:EnvironmentManager;
+		protected var _bulletManager:BulletManager;
+		protected var _musicManager:MusicManager;
+		
 		protected var _starField:StarField;
 		protected var _starField2:StarField;
 		protected var _starField3:StarField;
-		protected var _musicManager:MusicManager;
+		
 
 		/**
 		 * Creates a new instance of the GameState
@@ -37,6 +41,7 @@ package project.state
 			_playerManager = new PlayerManager();
 			_neutralManager = new NeutralManager();
 			_envManager = new EnvironmentManager();
+			_bulletManager = new BulletManager();
 			_musicManager = new MusicManager();
 			_starField = new StarField(0.5, Constants.WORLDTILES);
 			_starField2 = new StarField(0.25, Constants.WORLDTILES);
@@ -45,11 +50,43 @@ package project.state
 			add(_starField);
 			add(_starField2);
 			add(_starField3);
+			
 			add(_musicManager);
 			add(_enemyManager);
 			add(_playerManager);
 			add(_neutralManager);
+			add(_bulletManager);
 			add(_envManager);
+		}
+		
+		public function get playerManager():PlayerManager 
+		{
+			return _playerManager;
+		}
+		
+		public function get bulletManager():BulletManager 
+		{
+			return _bulletManager;
+		}
+		
+		public function get enemyManager():EnemyManager 
+		{
+			return _enemyManager;
+		}
+		
+		public function get neutralManager():NeutralManager 
+		{
+			return _neutralManager;
+		}
+		
+		public function get musicManager():MusicManager 
+		{
+			return _musicManager;
+		}
+		
+		public function get envManager():EnvironmentManager 
+		{
+			return _envManager;
 		}
 
 		override public function create():void
@@ -74,21 +111,32 @@ package project.state
 		protected function processKeyboardInput():void
 		{
 			// Movement Keys
+			var xVel:int = 0;
+			var yVel:int = 0;
 			if (FlxG.keys.W)
 			{
-				_playerManager.playerShip.setYDirection( -1);
+				yVel -= 1;
 			}
 			if (FlxG.keys.A)
 			{
-				_playerManager.playerShip.setXDirection( -1);
+				xVel -= 1;
 			}
 			if (FlxG.keys.S)
 			{
-				_playerManager.playerShip.setYDirection(1);
+				yVel += 1;
 			}
 			if (FlxG.keys.D)
 			{
-				_playerManager.playerShip.setXDirection(1);
+				xVel += 1;
+			}
+			
+			playerManager.playerShip.setXDirection(xVel);
+			playerManager.playerShip.setYDirection(yVel);
+			
+			//Mouse Clicks
+			if (FlxG.mouse.pressed())
+			{
+				_playerManager.playerShip.fire(FlxG.mouse.x, FlxG.mouse.y);
 			}
 
 			// Other controls
@@ -103,9 +151,7 @@ package project.state
 			}
 		}
 
-		public function get playerManager():PlayerManager {
-			return _playerManager;
-		}
+		
 
 	}
 

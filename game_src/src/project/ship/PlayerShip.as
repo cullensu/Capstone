@@ -2,6 +2,8 @@ package project.ship
 {
 	import org.flixel.FlxSprite;
 	import project.constant.Constants;
+	import project.constant.GameRegistry;
+	import project.util.Affiliation;
 	import project.util.Direction;
 	/**
 	 * ...
@@ -21,7 +23,10 @@ package project.ship
 		{
 			super(X, Y, null);
 			loadGraphic(_shipPng, true, false, 30, 30);
+			_gunXOffset = 15;
+			_gunYOffset = 15;
 			_speed = 400;
+			_affiliation = Affiliation.PLAYER;
 			
 			addAnimation("0", [0], 0, false);
 			addAnimation("1", [1], 0, false);
@@ -75,6 +80,11 @@ package project.ship
 		{
 			_xDir = 0;
 			_yDir = 0;
+		}
+		
+		public function fire(targetX:Number, targetY:Number):void
+		{
+			GameRegistry.gameState.bulletManager.fire(this, targetX, targetY);
 		}
 
 		override public function preUpdate():void
