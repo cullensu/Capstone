@@ -35,9 +35,9 @@ package project.state
 			_playerManager = new PlayerManager();
 			_neutralManager = new NeutralManager();
 			_envManager = new EnvironmentManager();
-			_starfield1 = new StarField(1000, 0.25, 5000); 
-			_starfield2 = new StarField(1000, 0.5, 5000); 
-			_starfield3 = new StarField(1000, 1, 5000); 
+			_starfield1 = new StarField(1000, 0.15, 5000); 
+			_starfield2 = new StarField(1000, 0.3, 5000); 
+			_starfield3 = new StarField(1000, 0.45, 5000); 
 			
 			add(_enemyManager);
 			add(_playerManager);

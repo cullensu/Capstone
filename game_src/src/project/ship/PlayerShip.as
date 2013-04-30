@@ -21,7 +21,7 @@ package project.ship
 		{
 			super(X, Y, SimpleGraphic == null ? _shipPng : SimpleGraphic);
 			
-			_speed = 200;
+			_speed = 300;
 		}
 		
 		/**
