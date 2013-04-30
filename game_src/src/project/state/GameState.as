@@ -135,7 +135,7 @@ package project.state
 			}
 
 			// Other controls
-			if (FlxG.keys.justPressed("P"))
+			if (FlxG.keys.P)
 			{
 				// For now toggles pause state
 				// TODO: Add some kind of visual cue
