@@ -21,7 +21,7 @@ package project.manager
 			}
 		}
 		
-		public function fire(owner:Ship, targetX:Number, targetY:Number):void
+		public function fire(owner:AffiliatedObject, targetX:Number, targetY:Number):void
 		{
 			if (this.getFirstAvailable() != null)
 			{

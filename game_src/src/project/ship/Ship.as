@@ -2,18 +2,22 @@ package project.ship
 {
 	import org.flixel.FlxSprite;
 	import project.objects.AffiliatedObject;
+	import project.upgrade.GunUpgrade;
 	/**
 	 * ...
 	 * @author Cullen
 	 */
 	public class Ship extends AffiliatedObject implements IShip
 	{
+		protected var _guns:Vector.<GunUpgrade>;
+		
 		protected var _gunXOffset:Number;
 		protected var _gunYOffset:Number;
 		
 		public function Ship(X:Number=0,Y:Number=0,SimpleGraphic:Class=null) 
 		{
 			super(X, Y, SimpleGraphic);
+			_guns = new Vector.<GunUpgrade>();
 			gunXOffset = 0;
 			gunYOffset = 0;
 		}
@@ -36,6 +40,14 @@ package project.ship
 		public function set gunYOffset(value:Number):void 
 		{
 			_gunYOffset = value;
+		}
+		
+		public function fire(targetX:Number, targetY:Number):void
+		{
+			for each (var gun:GunUpgrade in _guns)
+			{
+				gun.fire(targetX, targetY);
+			}
 		}
 		
 	}

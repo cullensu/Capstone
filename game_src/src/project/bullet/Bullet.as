@@ -26,11 +26,11 @@ package project.bullet
 			exists = false;
 		}
 		
-		public function fire(ship:Ship, targetX:Number, targetY:Number):void
+		public function fire(owner:AffiliatedObject, targetX:Number, targetY:Number):void
 		{
-			_affiliation = ship.affiliation;
-			this.x = ship.x + ship.gunXOffset + width / 2;
-			this.y = ship.y + ship.gunYOffset + height / 2;
+			_affiliation = owner.affiliation;
+			this.x = owner.x + width / 2;
+			this.y = owner.y + height / 2;
 			
 			var vel:Point = new Point(targetX - this.x, targetY - this.y);
 			vel.normalize(_speed);
