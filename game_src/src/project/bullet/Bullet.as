@@ -12,7 +12,7 @@ package project.bullet
 	 */
 	public class Bullet extends AffiliatedObject
 	{
-		[Embed(source = "../../../assets/neutralnormal.png")] private var bulletSpr:Class;
+		[Embed(source="../../../assets/playerbullet.png")] private var bulletSpr:Class;
 		protected static const WIDTH:Number = 5;
 		protected static const HEIGHT:Number = 5;
 		
@@ -23,7 +23,6 @@ package project.bullet
 		{
 			super(X, Y, SimpleGraphic);
 			loadGraphic(bulletSpr, false, false, WIDTH, HEIGHT);
-			
 			exists = false;
 		}
 		
