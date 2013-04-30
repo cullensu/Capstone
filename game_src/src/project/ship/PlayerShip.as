@@ -30,7 +30,32 @@ package project.ship
 			_gunCooldown = 20;
 			_speed = 400;
 			_affiliation = Affiliation.PLAYER;
-			//TODO: addAnimation x24
+			
+			addAnimation("0", [0], 0, false);
+			addAnimation("1", [1], 0, false);
+			addAnimation("2", [2], 0, false);
+			addAnimation("3", [3], 0, false);
+			addAnimation("4", [4], 0, false);
+			addAnimation("5", [5], 0, false);
+			addAnimation("6", [6], 0, false);
+			addAnimation("7", [7], 0, false);
+			addAnimation("8", [8], 0, false);
+			addAnimation("9", [9], 0, false);
+			addAnimation("10", [10], 0, false);
+			addAnimation("11", [11], 0, false);
+			addAnimation("12", [12], 0, false);
+			addAnimation("13", [13], 0, false);
+			addAnimation("14", [14], 0, false);
+			addAnimation("15", [15], 0, false);
+			addAnimation("16", [16], 0, false);
+			addAnimation("17", [17], 0, false);
+			addAnimation("18", [18], 0, false);
+			addAnimation("19", [19], 0, false);
+			addAnimation("20", [20], 0, false);
+			addAnimation("21", [21], 0, false);
+			addAnimation("22", [22], 0, false);
+			addAnimation("23", [23], 0, false);
+			addAnimation("24", [24], 0, false);
 		}
 
 		/**
