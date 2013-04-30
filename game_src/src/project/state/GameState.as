@@ -111,22 +111,27 @@ package project.state
 		protected function processKeyboardInput():void
 		{
 			// Movement Keys
+			var xVel:int = 0;
+			var yVel:int = 0;
 			if (FlxG.keys.W)
 			{
-				_playerManager.playerShip.setYDirection( -1);
+				yVel -= 1;
 			}
 			if (FlxG.keys.A)
 			{
-				_playerManager.playerShip.setXDirection( -1);
+				xVel -= 1;
 			}
 			if (FlxG.keys.S)
 			{
-				_playerManager.playerShip.setYDirection(1);
+				yVel += 1;
 			}
 			if (FlxG.keys.D)
 			{
-				_playerManager.playerShip.setXDirection(1);
+				xVel += 1;
 			}
+			
+			playerManager.playerShip.setXDirection(xVel);
+			playerManager.playerShip.setYDirection(yVel);
 			
 			//Mouse Clicks
 			if (FlxG.mouse.pressed())
