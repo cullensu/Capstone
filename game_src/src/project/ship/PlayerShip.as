@@ -12,10 +12,12 @@ package project.ship
 	public class PlayerShip extends Ship
 	{
 		[Embed(source = "../../../assets/playershipsheet.png")] private var _shipPng:Class
-
+		protected var _gunCooldown:uint;
 		protected var _direction:String;
 		protected var _xDir:Number;
 		protected var _yDir:Number;
+		
+		protected var _currentCooldown:uint;
 
 		protected var _speed:Number;
 
@@ -25,6 +27,7 @@ package project.ship
 			loadGraphic(_shipPng, true, false, 30, 30);
 			_gunXOffset = 15;
 			_gunYOffset = 15;
+			_gunCooldown = 20;
 			_speed = 400;
 			_affiliation = Affiliation.PLAYER;
 			//TODO: addAnimation x24
@@ -59,15 +62,22 @@ package project.ship
 		
 		public function fire(targetX:Number, targetY:Number):void
 		{
-			GameRegistry.gameState.bulletManager.fire(this, targetX, targetY);
+			if (_currentCooldown == 0)
+			{
+				GameRegistry.gameState.bulletManager.fire(this, targetX, targetY);
+				_currentCooldown = _gunCooldown;
+			}
 		}
 
 		override public function preUpdate():void
 		{
 			super.preUpdate();
 			_direction = Direction.getDirection(_xDir, _yDir);
-
 			velocity = Direction.getVelocityVector(_direction, _speed);
+			if (_currentCooldown > 0)
+			{
+				_currentCooldown--;
+			}
 		}
 
 		override public function postUpdate():void
