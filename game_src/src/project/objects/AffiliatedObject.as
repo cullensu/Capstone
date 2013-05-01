@@ -3,7 +3,7 @@ package project.objects
 	import org.flixel.FlxSprite;
 	import project.util.Affiliation;
 	/**
-	 * ...
+	 * This object has an affiliation associated with it, see Affiliation.as
 	 * @author Cullen
 	 */
 	public class AffiliatedObject extends FlxSprite

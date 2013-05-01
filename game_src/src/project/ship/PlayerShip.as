@@ -2,6 +2,7 @@ package project.ship
 {
 	import flash.media.Video;
 	import org.flixel.FlxSprite;
+	import project.bullet.BulletType;
 	import project.constant.Constants;
 	import project.constant.GameRegistry;
 	import project.upgrade.guns.OffsetGun;
@@ -33,10 +34,13 @@ package project.ship
 			
 			var gun1:OffsetGun = new OffsetGun();
 			gun1.angleOffset = 0;
+			gun1.bulletType = BulletType.CIRCLE;
 			var gun2:OffsetGun = new OffsetGun();
 			gun2.angleOffset = Math.PI / 6;
+			gun2.bulletType = BulletType.SQUARE;
 			var gun3:OffsetGun = new OffsetGun();
 			gun3.angleOffset = -1 * Math.PI / 6;
+			gun3.bulletType = BulletType.TRIANGLE;
 			addGunUpgrade(gun1);
 			addGunUpgrade(gun2);
 			addGunUpgrade(gun3);
