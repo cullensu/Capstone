@@ -6,18 +6,21 @@ package project.state
 	import project.constant.GameRegistry;
 	import project.constant.Constants;
 	import project.env.StarField;
+	import project.manager.AIShipManager;
 	import project.manager.BulletManager;
 	import project.manager.EnemyManager;
 	import project.manager.EnvironmentManager;
 	import project.manager.MusicManager;
 	import project.manager.NeutralManager;
 	import project.manager.PlayerManager;
+	import project.ship.AIShip;
 	/**
 	 * Manages the the actual game and all entities it contains.
 	 * @author Cullen
 	 */
 	public class GameState extends FlxState
 	{
+		protected var _aiManager:AIShipManager;
 		protected var _enemyManager:EnemyManager;
 		protected var _playerManager:PlayerManager;
 		protected var _neutralManager:NeutralManager;
@@ -37,6 +40,7 @@ package project.state
 		{
 			super();
 			
+			_aiManager = new AIShipManager();
 			_enemyManager = new EnemyManager();
 			_playerManager = new PlayerManager();
 			_neutralManager = new NeutralManager();
@@ -51,6 +55,7 @@ package project.state
 			add(_starField2);
 			add(_starField3);
 			
+			add(_aiManager);
 			add(_musicManager);
 			add(_enemyManager);
 			add(_playerManager);
@@ -88,6 +93,11 @@ package project.state
 		{
 			return _envManager;
 		}
+		
+		public function get aiManager():AIShipManager 
+		{
+			return _aiManager;
+		}
 
 		override public function create():void
 		{
@@ -101,14 +111,14 @@ package project.state
 		 */
 		override public function update():void
 		{
-			processKeyboardInput();
+			processUserInput();
 			super.update();
 		}
 
 		/**
 		 * Captures key presses and performs the appropriate actions
 		 */
-		protected function processKeyboardInput():void
+		protected function processUserInput():void
 		{
 			// Movement Keys
 			var xVel:int = 0;

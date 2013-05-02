@@ -12,6 +12,8 @@ package project.constant
 		
 		public static const MAX_BULLETS:int = 100;
 		
+		public static const MAX_AI_SHIPS:int = 30;
+		
 		public function Constants() 
 		{
 			

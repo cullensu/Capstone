@@ -1,6 +1,7 @@
 package project.ship
 {
 	import flash.media.Video;
+	import org.flixel.FlxG;
 	import org.flixel.FlxSprite;
 	import project.bullet.BulletType;
 	import project.constant.Constants;
@@ -26,6 +27,8 @@ package project.ship
 		public function PlayerShip(X:Number=0,Y:Number=0,SimpleGraphic:Class=null)
 		{
 			super(X, Y, null);
+			FlxG.watch(this, "x", "x");
+			FlxG.watch(this, "y", "y");
 			loadGraphic(_shipPng, true, false, 30, 30);
 			_gunXOffset = 15;
 			_gunYOffset = 15;
@@ -70,17 +73,6 @@ package project.ship
 			addAnimation("22", [22], 0, false);
 			addAnimation("23", [23], 0, false);
 			addAnimation("24", [24], 0, false);
-		}
-		
-		public function addGunUpgrade(gunUpgrade:GunUpgrade):void
-		{
-			if (_guns.indexOf(gunUpgrade) < 0)
-			{
-				_guns.push(gunUpgrade);
-				gunUpgrade.registerOwner(this);
-				gunUpgrade.xOffset = width / 2;
-				gunUpgrade.yOffset = height / 2;
-			}
 		}
 
 		/**

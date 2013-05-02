@@ -6,6 +6,7 @@ package
 	import org.flixel.FlxGame;
 	import project.constant.GameRegistry;
 	import project.state.LoadState;
+	import project.state.GameState;
 
 	/**
 	 * ...

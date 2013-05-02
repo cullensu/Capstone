@@ -5,7 +5,7 @@ package project.bullet
 	 * ...
 	 * @author Cullen
 	 */
-	public class BulletType extends Enum
+	public final class BulletType extends Enum
 	{
 		{initEnum(BulletType); } // static ctor
 		
