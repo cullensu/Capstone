@@ -22,11 +22,13 @@ package project.ship
 		protected var _direction:String;
 
 		protected var _speed:Number;
+		protected var _maxCoord:int;
 
 		public function PlayerShip(X:Number=0,Y:Number=0,SimpleGraphic:Class=null)
 		{
 			super(X, Y, null);
 			loadGraphic(_shipPng, true, false, 30, 30);
+			_maxCoord = Constants.WORLDTILES * Constants.TILESIZE;
 			_gunXOffset = 15;
 			_gunYOffset = 15;
 			_speed = 400;
@@ -120,6 +122,16 @@ package project.ship
 		override public function update():void
 		{
 			super.update();
+			if (x < 0) {
+				x = 0;
+			} else if (x > _maxCoord) {
+				x = _maxCoord;
+			}
+			if (y < 0) {
+				y = 0;
+			} else if (y > _maxCoord) {
+				y = _maxCoord;
+			}
 			for each (var gun:GunUpgrade in _guns)
 			{
 				gun.preUpdate();
