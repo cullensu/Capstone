@@ -35,7 +35,7 @@ package project.upgrade.guns
 				var polar:PolarPoint = target.convertToPolar();
 				polar.rotate(_angleOffset);
 				target = polar.convertToCartesianPoint();
-				GameRegistry.gameState.bulletManager.fire(this, this.x + target.x, this.y + target.y);
+				GameRegistry.gameState.bulletManager.fire(this, this.x + target.x, this.y + target.y, _bulletType);
 				_currentCooldown = _gunCooldown;
 			}
 		}

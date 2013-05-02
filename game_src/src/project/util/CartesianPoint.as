@@ -35,6 +35,10 @@ package project.util
 			_y = value;
 		}
 		
+		/**
+		 * Converts this to a polar coordinate (radians)
+		 * @return
+		 */
 		public function convertToPolar():PolarPoint
 		{
 			var r:Number = Math.sqrt(x * x + y * y);

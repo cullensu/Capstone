@@ -1,5 +1,6 @@
 package project.upgrade 
 {
+	import project.bullet.BulletType;
 	import project.constant.GameRegistry;
 	import project.objects.AffiliatedObject;
 	/**
@@ -15,6 +16,7 @@ package project.upgrade
 		protected var _yOffset:Number;
 		
 		protected var _owner:AffiliatedObject;
+		protected var _bulletType:BulletType;
 		
 		public function GunUpgrade(X:Number=0,Y:Number=0,SimpleGraphic:Class=null) 
 		{
@@ -22,6 +24,7 @@ package project.upgrade
 			_gunCooldown = 20;
 			_xOffset = 0;
 			_yOffset = 0;
+			_bulletType = BulletType.CIRCLE;
 		}
 		
 		public function get xOffset():Number 
@@ -44,6 +47,20 @@ package project.upgrade
 			_yOffset = value;
 		}
 		
+		public function get bulletType():BulletType 
+		{
+			return _bulletType;
+		}
+		
+		public function set bulletType(value:BulletType):void 
+		{
+			_bulletType = value;
+		}
+		
+		/**
+		 * Registers an owner for this GunUpgrade, copies the affiliation of the owner and sets position
+		 * @param	owner
+		 */
 		public function registerOwner(owner:AffiliatedObject):void
 		{
 			_owner = owner;
@@ -56,7 +73,7 @@ package project.upgrade
 		{
 			if (_currentCooldown == 0)
 			{
-				GameRegistry.gameState.bulletManager.fire(this, targetX, targetY);
+				GameRegistry.gameState.bulletManager.fire(this, targetX, targetY, _bulletType);
 				_currentCooldown = _gunCooldown;
 			}
 		}

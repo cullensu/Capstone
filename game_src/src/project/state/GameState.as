@@ -36,7 +36,7 @@ package project.state
 		public function GameState()
 		{
 			super();
-
+			
 			_enemyManager = new EnemyManager();
 			_playerManager = new PlayerManager();
 			_neutralManager = new NeutralManager();

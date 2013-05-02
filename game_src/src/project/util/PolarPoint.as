@@ -35,11 +35,19 @@ package project.util
 			_theta = value;
 		}
 		
+		/**
+		 * Rotates by the number of radians
+		 * @param	rads
+		 */
 		public function rotate(rads:Number):void
 		{
 			theta += rads;
 		}
 		
+		/**
+		 * Converts this to a cartesian point
+		 * @return
+		 */
 		public function convertToCartesianPoint():CartesianPoint
 		{
 			var x:Number = r * Math.cos(theta);

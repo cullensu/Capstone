@@ -2,6 +2,7 @@ package project.manager
 {
 	import org.flixel.FlxGroup;
 	import project.bullet.Bullet;
+	import project.bullet.BulletType;
 	import project.constant.Constants;
 	import project.objects.AffiliatedObject;
 	import project.ship.Ship;
@@ -21,11 +22,21 @@ package project.manager
 			}
 		}
 		
-		public function fire(owner:AffiliatedObject, targetX:Number, targetY:Number):void
+		/**
+		 * Fires a bullet from the owner's location to the target with the type of bullet specified
+		 * The bullet will start from the owner's (x,y) and be the same affiliation as the owner
+		 * @param	owner
+		 * @param	targetX
+		 * @param	targetY
+		 * @param	bulletType
+		 */
+		public function fire(owner:AffiliatedObject, targetX:Number, targetY:Number, bulletType:BulletType):void
 		{
 			if (this.getFirstAvailable() != null)
 			{
-				(getFirstAvailable() as Bullet).fire(owner, targetX, targetY)
+				var b:Bullet = (getFirstAvailable() as Bullet);
+				b.type = bulletType;
+				b.fire(owner, targetX, targetY)
 			}
 			
 		}
