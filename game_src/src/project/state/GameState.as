@@ -13,6 +13,7 @@ package project.state
 	import project.manager.MusicManager;
 	import project.manager.NeutralManager;
 	import project.manager.PlayerManager;
+	import project.menu.PauseMenu;
 	import project.ship.AIShip;
 	/**
 	 * Manages the the actual game and all entities it contains.
@@ -32,6 +33,8 @@ package project.state
 		protected var _starField2:StarField;
 		protected var _starField3:StarField;
 		
+		protected var _pauseMenu:PauseMenu;
+		
 
 		/**
 		 * Creates a new instance of the GameState
@@ -50,6 +53,8 @@ package project.state
 			_starField = new StarField(0.5, Constants.WORLDTILES);
 			_starField2 = new StarField(0.25, Constants.WORLDTILES);
 			_starField3 = new StarField(1, Constants.WORLDTILES);
+			_pauseMenu = new PauseMenu();
+			
 
 			add(_starField);
 			add(_starField2);
@@ -62,6 +67,8 @@ package project.state
 			add(_neutralManager);
 			add(_bulletManager);
 			add(_envManager);
+			
+			add (_pauseMenu);
 		}
 		
 		public function get playerManager():PlayerManager 
@@ -107,12 +114,49 @@ package project.state
 		}
 
 		/**
+		 * Prepares the GameState and all entities it contains for update
+		 */
+		override public function preUpdate():void 
+		{
+			if (!FlxG.paused)
+			{
+				super.preUpdate();
+			}
+			else
+			{
+				_pauseMenu.preUpdate();
+			}
+		}
+		
+		/**
 		 * Updates the GameState and all entities it contains.
 		 */
 		override public function update():void
 		{
-			processUserInput();
-			super.update();
+			if (!FlxG.paused)
+			{
+				processUserInput();
+				super.update();
+			}
+			else
+			{
+				_pauseMenu.update();
+			}
+		}
+		
+		/**
+		 * Performs post-updating upkeep in the GameState and all its entities.
+		 */
+		override public function postUpdate():void 
+		{
+			if (!FlxG.paused)
+			{
+				super.postUpdate();
+			}
+			else
+			{
+				_pauseMenu.postUpdate();
+			}
 		}
 
 		/**
@@ -150,15 +194,21 @@ package project.state
 			}
 
 			// Other controls
-			if (FlxG.keys.P)
+			if (FlxG.keys.justPressed("P"))
 			{
-				// For now toggles pause state
-				// TODO: Add some kind of visual cue
-				FlxG.paused = !FlxG.paused;
+				pauseGame();
 			}
 			if (FlxG.keys.justPressed("J")) {
 				trace(_playerManager.playerShip.x, _playerManager.playerShip.y);
 			}
+		}
+		
+		/**
+		 * Pauses the game
+		 */
+		private function pauseGame():void 
+		{
+			_pauseMenu.show();
 		}
 
 		
