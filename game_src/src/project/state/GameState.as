@@ -6,6 +6,7 @@ package project.state
 	import project.constant.GameRegistry;
 	import project.constant.Constants;
 	import project.env.StarField;
+	import project.hud.HUD;
 	import project.manager.AIShipManager;
 	import project.manager.BulletManager;
 	import project.manager.EnemyManager;
@@ -20,7 +21,7 @@ package project.state
 	 * @author Cullen
 	 */
 	public class GameState extends FlxState
-	{
+	{		
 		protected var _aiManager:AIShipManager;
 		protected var _enemyManager:EnemyManager;
 		protected var _playerManager:PlayerManager;
@@ -33,6 +34,8 @@ package project.state
 		protected var _starField2:StarField;
 		protected var _starField3:StarField;
 		
+		protected var _hud:HUD;
+		
 		protected var _pauseMenu:PauseMenu;
 		
 
@@ -42,6 +45,11 @@ package project.state
 		public function GameState()
 		{
 			super();
+			init();
+		}
+		
+		public function init():void
+		{
 			
 			_aiManager = new AIShipManager();
 			_enemyManager = new EnemyManager();
@@ -55,7 +63,8 @@ package project.state
 			_starField3 = new StarField(1, Constants.WORLDTILES);
 			_pauseMenu = new PauseMenu();
 			
-
+			_hud = new HUD(this);
+			
 			add(_starField);
 			add(_starField2);
 			add(_starField3);
@@ -67,6 +76,8 @@ package project.state
 			add(_neutralManager);
 			add(_bulletManager);
 			add(_envManager);
+			
+			add(_hud);
 			
 			add (_pauseMenu);
 		}

@@ -24,6 +24,8 @@ package project.ship
 
 		protected var _speed:Number;
 		protected var _maxCoord:int;
+		
+		protected var _healthDrainRate:Number;
 
 		public function PlayerShip(X:Number=0,Y:Number=0,SimpleGraphic:Class=null)
 		{
@@ -36,6 +38,10 @@ package project.ship
 			_gunYOffset = 15;
 			_speed = 400;
 			_affiliation = Affiliation.PLAYER;
+			
+			_maxHealth = 2000;
+			health = _maxHealth;
+			_healthDrainRate = 1;
 			
 			var gun1:OffsetGun = new OffsetGun();
 			gun1.angleOffset = 0;
@@ -114,6 +120,8 @@ package project.ship
 		override public function update():void
 		{
 			super.update();
+			
+			//Check world bounds
 			if (x < 0) {
 				x = 0;
 			} else if (x > _maxCoord) {
@@ -124,12 +132,35 @@ package project.ship
 			} else if (y > _maxCoord) {
 				y = _maxCoord;
 			}
+			
+			//Drain Health
+			health = health - _healthDrainRate;
 		}
 
 		override public function postUpdate():void
 		{
 			stopMovement();
 			super.postUpdate();
+		}
+		
+		public function get healthDrainRate():Number 
+		{
+			return _healthDrainRate;
+		}
+		
+		public function set healthDrainRate(value:Number):void 
+		{
+			_healthDrainRate = value;
+		}
+		
+		public function get maxHealth():Number 
+		{
+			return _maxHealth;
+		}
+		
+		public function set maxHealth(value:Number):void 
+		{
+			_maxHealth = value;
 		}
 
 	}

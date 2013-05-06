@@ -14,9 +14,13 @@ package project.ship
 		protected var _gunXOffset:Number;
 		protected var _gunYOffset:Number;
 		
+		protected var _maxHealth:Number;
+		
 		public function Ship(X:Number=0,Y:Number=0,SimpleGraphic:Class=null) 
 		{
 			super(X, Y, SimpleGraphic);
+			_maxHealth = 200;
+			health = _maxHealth;
 			_guns = new Vector.<GunUpgrade>();
 			gunXOffset = 0;
 			gunYOffset = 0;

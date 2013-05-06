@@ -21,19 +21,9 @@ package project.constant
 			return _gameState;
 		}
 		
-		static public function set gameState(value:GameState):void 
-		{
-			_gameState = value;
-		}
-		
 		static public function get menuState():MenuState 
 		{
 			return _menuState;
-		}
-		
-		static public function set menuState(value:MenuState):void 
-		{
-			_menuState = value;
 		}
 		
 	}
