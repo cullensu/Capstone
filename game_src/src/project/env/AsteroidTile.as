@@ -29,7 +29,7 @@ package project.env
 			
 			//Generate Asteroids for this tile. (They can overlap lol)
 			for (var i:int = 0; i < numAsteroids; i++) {
-				var newA:Asteroid = new Asteroid(Utility.random() * Constants.TILESIZE + x, Utility.random() * Constants.TILESIZE + y);
+				var newA:Asteroid = new Asteroid(Utility.random() * Constants.TILESIZE + x, Utility.random() * Constants.TILESIZE + y, 1);
 				add(newA);
 			}
 			this.visible = false;
