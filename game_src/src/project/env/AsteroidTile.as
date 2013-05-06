@@ -16,12 +16,12 @@ package project.env
 			super();
 			
 			//Decide number of Asteroids in this tile
-			var rand:int = Math.floor(Utility.random() * 11);
+			var rand:int = Utility.randomInt(10);
 			if (rand < 1) {
 				numAsteroids = 0;
 			} else if (rand < 5) {
 				numAsteroids = 1;
-			} else if (rand < 10) {
+			} else if (rand < 9) {
 				numAsteroids = 2;
 			} else {
 				numAsteroids = 3;
@@ -29,7 +29,18 @@ package project.env
 			
 			//Generate Asteroids for this tile. (They can overlap lol)
 			for (var i:int = 0; i < numAsteroids; i++) {
-				var newA:Asteroid = new Asteroid(Utility.random() * Constants.TILESIZE + x, Utility.random() * Constants.TILESIZE + y, 1);
+				rand = Utility.randomInt(10);
+				var size:int;
+				if (rand < 7) {
+					size = 1;
+				} else if (rand < 9) {
+					size = 2;
+				} else {
+					size = 3;
+				}
+				var newA:Asteroid = new Asteroid(Utility.random() * Constants.TILESIZE + x,
+												 Utility.random() * Constants.TILESIZE + y,
+												 size);
 				add(newA);
 			}
 			this.visible = false;

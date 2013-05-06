@@ -17,6 +17,7 @@ package project.state
 	import project.manager.PlayerManager;
 	import project.menu.PauseMenu;
 	import project.ship.AIShip;
+	import project.util.Utility;
 	/**
 	 * Manages the the actual game and all entities it contains.
 	 * @author Cullen
@@ -52,6 +53,9 @@ package project.state
 		
 		public function init():void
 		{
+			//Set random seed. We will also need to set this for replays
+			var rand:Number = Math.random();
+			Utility.setSeed(rand);
 			
 			_aiManager = new AIShipManager();
 			_enemyManager = new EnemyManager();
