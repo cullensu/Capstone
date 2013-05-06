@@ -44,12 +44,15 @@ package project.ship
 		
 		public function addGunUpgrade(gunUpgrade:GunUpgrade):void
 		{
+			gunXOffset = width / 2;
+			gunYOffset = height / 2;
 			if (_guns.indexOf(gunUpgrade) < 0)
 			{
 				_guns.push(gunUpgrade);
 				gunUpgrade.registerOwner(this);
-				gunUpgrade.xOffset = width / 2;
-				gunUpgrade.yOffset = height / 2;
+				gunUpgrade.xOffset = gunXOffset;
+				gunUpgrade.yOffset = gunYOffset;
+				
 			}
 		}
 		
@@ -58,6 +61,17 @@ package project.ship
 			while (_guns.length > 0)
 			{
 				_guns.pop();
+			}
+		}
+		
+		override public function update():void
+		{
+			super.update();
+			for each (var gun:GunUpgrade in _guns)
+			{
+				gun.preUpdate();
+				gun.update();
+				gun.postUpdate();
 			}
 		}
 		

@@ -37,7 +37,7 @@ package project.manager
 			gun3.bulletType = BulletType.TRIANGLE;
 			
 			_guns = new Vector.<GunUpgrade>();
-			_guns.push(gun1, gun2, gun3);
+			_guns.push(gun3);
 			
 			for (var i:int = 0; i < Constants.MAX_AI_SHIPS; i++)
 			{
@@ -45,15 +45,15 @@ package project.manager
 			}
 		}
 		
-		public function createShip(behavior:ShipBehavior, guns:Vector.<GunUpgrade>):void
+		public function createShip(behavior:ShipBehavior, guns:Vector.<GunUpgrade>, xLoc:Number, yLoc:Number):void
 		{
 			if (this.getFirstAvailable() != null)
 			{
 				var s:AIShip = (getFirstAvailable() as AIShip);
 				s.behavior = behavior;
 				s.removeAllGunUpgrades();
-				s.x = 5000
-				s.y = 5000;
+				s.x = xLoc;
+				s.y = yLoc;
 				for each(var gun:GunUpgrade in guns)
 				{
 					s.addGunUpgrade(gun);
@@ -65,7 +65,8 @@ package project.manager
 		override public function update():void
 		{
 			super.update();
-			createShip(_behavior, _guns);
+			//TODO: move ship creation somewhere else
+			createShip(_behavior, _guns, 5000, 5000);
 		}
 		
 	}

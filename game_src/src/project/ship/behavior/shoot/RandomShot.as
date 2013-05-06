@@ -20,7 +20,7 @@ package project.ship.behavior.shoot
 		{
 			var polar:PolarPoint = new PolarPoint(1, Math.random() * 2 * Math.PI);
 			var rect:CartesianPoint = polar.convertToCartesianPoint();
-			ship.fire(ship.x + rect.x, ship.y + rect.y);
+			ship.fire(ship.x + ship.gunXOffset + rect.x, ship.y + ship.gunYOffset + rect.y);
 		}
 		
 	}

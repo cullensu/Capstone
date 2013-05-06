@@ -76,7 +76,7 @@ package project.bullet
 			this.x = owner.x + width / 2;
 			this.y = owner.y + height / 2;
 			
-			var vel:Point = new Point(targetX - this.x, targetY - this.y);
+			var vel:Point = new Point(targetX - owner.x, targetY - owner.y);
 			vel.normalize(_speed);
 			
 			this.velocity.copyFromFlash(vel);

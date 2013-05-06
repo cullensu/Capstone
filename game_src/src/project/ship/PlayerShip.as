@@ -124,12 +124,6 @@ package project.ship
 			} else if (y > _maxCoord) {
 				y = _maxCoord;
 			}
-			for each (var gun:GunUpgrade in _guns)
-			{
-				gun.preUpdate();
-				gun.update();
-				gun.postUpdate();
-			}
 		}
 
 		override public function postUpdate():void

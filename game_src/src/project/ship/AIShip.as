@@ -24,19 +24,6 @@ package project.ship
 			_behavior.shooting = new RandomShot();
 			_behavior.movement = new Suicide();
 			
-			var gun1:OffsetGun = new OffsetGun();
-			gun1.angleOffset = 0;
-			gun1.bulletType = BulletType.CIRCLE;
-			var gun2:OffsetGun = new OffsetGun();
-			gun2.angleOffset = Math.PI / 6;
-			gun2.bulletType = BulletType.SQUARE;
-			var gun3:OffsetGun = new OffsetGun();
-			gun3.angleOffset = -1 * Math.PI / 6;
-			gun3.bulletType = BulletType.TRIANGLE;
-			addGunUpgrade(gun1);
-			addGunUpgrade(gun2);
-			addGunUpgrade(gun3);
-			
 			exists = false;
 		}
 		
