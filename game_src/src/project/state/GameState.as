@@ -45,6 +45,12 @@ package project.state
 		
 		protected var _pauseMenu:PauseMenu;
 		
+		protected var _level:Number;
+		protected var _thresholdH:Number;
+		protected var _thresholdL:Number;
+		protected var _tickSize:Number;
+		protected var _canSpawn:Boolean;
+		
 
 		/**
 		 * Creates a new instance of the GameState
@@ -56,11 +62,7 @@ package project.state
 		}
 		
 		public function init():void
-		{
-			//Set random seed. We will also need to set this for replays
-			var rand:Number = Math.random();
-			Utility.setSeed(rand);
-			
+		{			
 			_aiManager = new AIShipManager();
 			_playerManager = new PlayerManager();
 			_envManager = new EnvironmentManager();
@@ -74,6 +76,12 @@ package project.state
 			_pauseMenu = new PauseMenu();
 			
 			_hud = new HUD(this);
+			
+			_level = 0;
+			_tickSize = Constants.TICK1;
+			_thresholdH = Constants.THRESHOLD_H1;
+			_thresholdL = Constants.THRESHOLD_L1;
+			_canSpawn = true;
 			
 			add(_starField);
 			add(_starField2);
@@ -90,6 +98,21 @@ package project.state
 			add(_hud);
 			
 			add (_pauseMenu);
+		}
+		
+		public function get canSpawn():Boolean
+		{
+			return _canSpawn;
+		}
+		
+		public function get level():Number
+		{
+			return _level;
+		}
+		
+		public function addLevel(n:Number):void
+		{
+			_level += n;
 		}
 		
 		public function get playerManager():PlayerManager 
@@ -154,6 +177,17 @@ package project.state
 				processUserInput();
 				processCollision();
 				super.update();
+				/*
+				if (_aiManager.canTick()) {
+					tick();
+				}
+				*/
+				tick();
+				if (_level > _thresholdH) {
+					_canSpawn = false;
+				} else if (_level < _thresholdL) {
+					_canSpawn = true;
+				}
 			}
 			else
 			{
@@ -174,6 +208,11 @@ package project.state
 			{
 				_pauseMenu.postUpdate();
 			}
+		}
+		
+		protected function tick():void
+		{
+			_level -= FlxG.elapsed * _tickSize;
 		}
 
 		/**

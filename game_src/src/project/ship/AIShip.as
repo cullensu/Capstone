@@ -7,6 +7,8 @@ package project.ship
 	import project.ship.behavior.shoot.RandomShot;
 	import project.upgrade.drops.DropType;
 	import project.upgrade.guns.OffsetGun;
+	import project.constant.GameRegistry;
+	import project.constant.Constants;
 	import project.util.ICollidable;
 	/**
 	 * ...
@@ -57,6 +59,16 @@ package project.ship
 		override public function kill():void
 		{
 			super.kill();
+		}
+		
+		override public function update():void
+		{
+			super.update();
+			if (Math.abs(x - GameRegistry.gameState.playerManager.playerShip.x) > Constants.TILESIZE ||
+				Math.abs(y - GameRegistry.gameState.playerManager.playerShip.y) > Constants.TILESIZE)
+			{
+				exists = false;
+			}
 		}
 		
 		public function get behavior():ShipBehavior 
