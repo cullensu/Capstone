@@ -6,10 +6,13 @@ package project.ship
 	import project.bullet.BulletType;
 	import project.constant.Constants;
 	import project.constant.GameRegistry;
+	import project.upgrade.drops.DropType;
+	import project.upgrade.drops.DropUpgrade;
 	import project.upgrade.guns.OffsetGun;
 	import project.upgrade.GunUpgrade;
 	import project.util.Affiliation;
 	import project.util.Direction;
+	import project.util.ICollidable;
 	/**
 	 * ...
 	 * @author Cullen
@@ -135,6 +138,10 @@ package project.ship
 			
 			//Drain Health
 			health = health - _healthDrainRate;
+			
+			//update graphic
+			var healthDisplay:int = 24 - health / maxHealth * 24;
+			this.play(healthDisplay.toString());
 		}
 
 		override public function postUpdate():void
@@ -158,6 +165,36 @@ package project.ship
 			super.kill();
 			//TODO: Put end game stuff in here
 			trace("GAME OVER");
+		}
+		
+		override public function canCollide(other:ICollidable):Boolean
+		{
+			var res:Boolean = super.canCollide(other);
+			if (other is DropUpgrade)
+			{
+				res = true;
+			}
+			return res;
+		}
+		
+		override public function collide(other:ICollidable):void
+		{
+			if (other is DropUpgrade)
+			{
+				var up:DropUpgrade = other as DropUpgrade;
+				if (up.type == DropType.OXYGEN)
+				{
+					health = health + 100;
+					if (health > maxHealth)
+					{
+						health = maxHealth;
+					}
+				}
+			}
+			else
+			{
+				super.collide(other);
+			}
 		}
 
 	}

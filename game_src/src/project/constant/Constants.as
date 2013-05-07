@@ -15,6 +15,8 @@ package project.constant
 		
 		public static const MAX_AI_SHIPS:int = 1;
 		
+		public static const MAX_UPGRADES_ON_SCREEN:int = 10;
+		
 		private static const TICK:Number = 5;
 		private static const MULT2:Number = 2;
 		private static const MULT3:Number = 6;
