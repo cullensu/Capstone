@@ -1,9 +1,11 @@
 package project.ship 
 {
 	import project.bullet.BulletType;
+	import project.constant.GameRegistry;
 	import project.ship.behavior.move.Suicide;
 	import project.ship.behavior.ShipBehavior;
 	import project.ship.behavior.shoot.RandomShot;
+	import project.upgrade.drops.DropType;
 	import project.upgrade.guns.OffsetGun;
 	import project.constant.GameRegistry;
 	import project.constant.Constants;
@@ -35,6 +37,12 @@ package project.ship
 		override public function collide(other:ICollidable):void
 		{
 			super.collide(other);
+			if (health <= 0)
+			{
+				kill();
+				GameRegistry.gameState.upgradeManager.createDrop(DropType.OXYGEN, this.x, this.y);
+			}
+			
 			if (other is Ship)
 			{
 				this.kill();
@@ -46,6 +54,11 @@ package project.ship
 			super.preUpdate();
 			_behavior.movement.move(this);
 			_behavior.shooting.shoot(this);
+		}
+		
+		override public function kill():void
+		{
+			super.kill();
 		}
 		
 		override public function update():void
