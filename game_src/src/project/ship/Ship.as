@@ -1,15 +1,18 @@
 package project.ship 
 {
 	import org.flixel.FlxSprite;
+	import project.bullet.Bullet;
 	import project.objects.AffiliatedObject;
 	import project.upgrade.GunUpgrade;
+	import project.util.ICollidable;
 	/**
 	 * ...
 	 * @author Cullen
 	 */
-	public class Ship extends AffiliatedObject implements IShip
+	public class Ship extends AffiliatedObject implements ICollidable, IShip
 	{
 		protected var _guns:Vector.<GunUpgrade>;
+		protected var _collisionDamage:Number;
 		
 		protected var _gunXOffset:Number;
 		protected var _gunYOffset:Number;
@@ -19,6 +22,7 @@ package project.ship
 		public function Ship(X:Number=0,Y:Number=0,SimpleGraphic:Class=null) 
 		{
 			super(X, Y, SimpleGraphic);
+			_collisionDamage = 20;
 			_maxHealth = 200;
 			health = _maxHealth;
 			_guns = new Vector.<GunUpgrade>();
@@ -44,6 +48,46 @@ package project.ship
 		public function set gunYOffset(value:Number):void 
 		{
 			_gunYOffset = value;
+		}
+		
+		public function get collisionDamage():Number 
+		{
+			return _collisionDamage;
+		}
+		
+		public function set collisionDamage(value:Number):void 
+		{
+			_collisionDamage = value;
+		}
+		
+		public function get maxHealth():Number 
+		{
+			return _maxHealth;
+		}
+		
+		public function set maxHealth(value:Number):void 
+		{
+			_maxHealth = value;
+		}
+		
+		public function canCollide(other:ICollidable):Boolean
+		{
+			if (other is AffiliatedObject)
+			{
+				var affobj:AffiliatedObject = other as AffiliatedObject;
+				return affobj.affiliation != this.affiliation;
+			}
+			return false;
+		}
+		
+		public function collide(other:ICollidable):void
+		{
+			if (!canCollide(other))
+				return;
+			if (other is Bullet || other is Ship)
+			{
+				this.health = this.health - other.collisionDamage;
+			}
 		}
 		
 		public function addGunUpgrade(gunUpgrade:GunUpgrade):void
@@ -76,6 +120,10 @@ package project.ship
 				gun.preUpdate();
 				gun.update();
 				gun.postUpdate();
+			}
+			if (health <= 0)
+			{
+				this.kill();
 			}
 		}
 		

@@ -54,6 +54,7 @@ package project.manager
 				s.removeAllGunUpgrades();
 				s.x = xLoc;
 				s.y = yLoc;
+				s.health = s.maxHealth;
 				for each(var gun:GunUpgrade in guns)
 				{
 					s.addGunUpgrade(gun);

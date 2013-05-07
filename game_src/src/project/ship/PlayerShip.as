@@ -153,14 +153,11 @@ package project.ship
 			_healthDrainRate = value;
 		}
 		
-		public function get maxHealth():Number 
+		override public function kill():void
 		{
-			return _maxHealth;
-		}
-		
-		public function set maxHealth(value:Number):void 
-		{
-			_maxHealth = value;
+			super.kill();
+			//TODO: Put end game stuff in here
+			trace("GAME OVER");
 		}
 
 	}

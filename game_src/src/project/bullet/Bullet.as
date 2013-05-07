@@ -5,12 +5,13 @@ package project.bullet
 	import project.objects.AffiliatedObject;
 	import project.ship.Ship;
 	import project.util.Affiliation;
+	import project.util.ICollidable;
 	import project.util.Utility;
 	/**
 	 * ...
 	 * @author Cullen
 	 */
-	public class Bullet extends AffiliatedObject
+	public class Bullet extends AffiliatedObject implements ICollidable
 	{
 		[Embed(source = "../../../assets/playerbullet.png")] private var playerBulletSpr:Class;
 		[Embed(source = "../../../assets/enemybullet.png")] private var enemyBulletSpr:Class;
@@ -21,6 +22,7 @@ package project.bullet
 		protected static const HEIGHT:Number = 5;
 		
 		protected var _speed:Number = 600;
+		protected var _collisionDamage:Number = 10;
 		
 		/**
 		 * Type for the bullet
@@ -60,6 +62,26 @@ package project.bullet
 					loadGraphic(enemyBulletSpr, false, false, WIDTH, HEIGHT);
 				}
 				_graphicType = _type;
+			}
+		}
+		
+		public function canCollide(other:ICollidable):Boolean
+		{
+			if (other is AffiliatedObject)
+			{
+				var affobj:AffiliatedObject = other as AffiliatedObject;
+				return affobj.affiliation != this.affiliation;
+			}
+			return false;
+		}
+		
+		public function collide(other:ICollidable):void
+		{
+			if (!canCollide(other))
+				return;
+			if (other is Ship)
+			{
+				this.kill();
 			}
 		}
 		
@@ -104,6 +126,16 @@ package project.bullet
 		{
 			_type = value;
 			reloadGraphic();
+		}
+		
+		public function get collisionDamage():Number 
+		{
+			return _collisionDamage;
+		}
+		
+		public function set collisionDamage(value:Number):void 
+		{
+			_collisionDamage = value;
 		}
 		
 	}

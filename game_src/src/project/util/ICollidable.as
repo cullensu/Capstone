@@ -7,7 +7,11 @@ package project.util
 	 */
 	public interface ICollidable 
 	{
+		function canCollide(other:ICollidable):Boolean;
 		
+		function collide(other:ICollidable):void;
+		
+		function get collisionDamage():Number;
 	}
 	
 }
