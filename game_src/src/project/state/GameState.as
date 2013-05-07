@@ -2,7 +2,10 @@ package project.state
 {
 	import org.flixel.FlxCamera;
 	import org.flixel.FlxG;
+	import org.flixel.FlxSprite;
 	import org.flixel.FlxState;
+	import org.flixel.plugin.photonstorm.FlxCollision;
+	import project.bullet.Bullet;
 	import project.constant.GameRegistry;
 	import project.constant.Constants;
 	import project.env.StarField;
@@ -17,6 +20,8 @@ package project.state
 	import project.manager.PlayerManager;
 	import project.menu.PauseMenu;
 	import project.ship.AIShip;
+	import project.ship.PlayerShip;
+	import project.ship.Ship;
 	import project.util.Utility;
 	/**
 	 * Manages the the actual game and all entities it contains.
@@ -178,6 +183,7 @@ package project.state
 			if (!FlxG.paused)
 			{
 				processUserInput();
+				processCollision();
 				super.update();
 				/*
 				if (_aiManager.canTick()) {
@@ -258,6 +264,51 @@ package project.state
 			}
 			if (FlxG.keys.justPressed("J")) {
 				trace(_playerManager.playerShip.x, _playerManager.playerShip.y);
+			}
+		}
+		
+		protected function processCollision():void
+		{
+			var aiShips:Array = _aiManager.members;
+			var playerShip:PlayerShip = _playerManager.playerShip;
+			
+			var bullets:Array = _bulletManager.members;
+			
+			for (var b:int = 0; b < bullets.length; b++)
+			{
+				var bullet:Bullet = bullets[b] as Bullet;
+				if (bullet == null || !bullet.exists) continue;
+				
+				if (bullet.canCollide(playerShip))
+				{
+					if (FlxCollision.pixelPerfectCheck(playerShip, bullet))
+					{
+						playerShip.collide(bullet);
+						bullet.collide(playerShip);
+					}
+				}
+				
+				for (var s:int = 0; s < aiShips.length; s++)
+				{
+					var aiship:AIShip = aiShips[s] as AIShip;
+					if (aiship == null || !aiship.exists) continue;
+					if (aiship.canCollide(playerShip))
+					{
+						if (FlxCollision.pixelPerfectCheck(aiship, playerShip))
+						{
+							aiship.collide(playerShip);
+							playerShip.collide(aiship);
+						}
+					}
+					if (aiship.canCollide(bullet))
+					{
+						if (FlxCollision.pixelPerfectCheck(aiship, bullet))
+						{
+							aiship.collide(bullet);
+							bullet.collide(aiship);
+						}
+					}
+				}
 			}
 		}
 		

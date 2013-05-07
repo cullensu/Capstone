@@ -11,6 +11,7 @@ package project.manager
 	import project.upgrade.GunUpgrade;
 	import project.constant.GameRegistry;
 	import project.util.Utility;
+	import project.util.Affiliation;
 	/**
 	 * ...
 	 * @author Cullen
@@ -41,7 +42,7 @@ package project.manager
 			gun3.bulletType = BulletType.TRIANGLE;
 			
 			_guns = new Vector.<GunUpgrade>();
-			_guns.push(gun3);
+			_guns.push(gun1, gun2, gun3);
 			
 			for (var i:int = 0; i < Constants.MAX_AI_SHIPS; i++)
 			{
@@ -49,7 +50,7 @@ package project.manager
 			}
 		}
 		
-		public function createShip(behavior:ShipBehavior, guns:Vector.<GunUpgrade>, xLoc:Number, yLoc:Number):void
+		public function createShip(behavior:ShipBehavior, guns:Vector.<GunUpgrade>, xLoc:Number, yLoc:Number, aff:Affiliation):void
 		{
 			if (this.getFirstAvailable() != null)
 			{
@@ -58,6 +59,8 @@ package project.manager
 				s.removeAllGunUpgrades();
 				s.x = xLoc;
 				s.y = yLoc;
+				s.affiliation = aff;
+				s.health = s.maxHealth;
 				for each(var gun:GunUpgrade in guns)
 				{
 					s.addGunUpgrade(gun);
@@ -76,7 +79,8 @@ package project.manager
 			createShip(_behavior,
 					   _guns,
 					   GameRegistry.gameState.playerManager.playerShip.x + Constants.TILESIZE * Utility.randomUnit(),
-					   GameRegistry.gameState.playerManager.playerShip.y + Constants.TILESIZE * Utility.randomUnit());
+					   GameRegistry.gameState.playerManager.playerShip.y + Constants.TILESIZE * Utility.randomUnit(),
+					   Affiliation.ENEMY);
 			GameRegistry.gameState.addLevel(3);
 		}
 		
