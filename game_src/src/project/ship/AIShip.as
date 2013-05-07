@@ -5,6 +5,8 @@ package project.ship
 	import project.ship.behavior.ShipBehavior;
 	import project.ship.behavior.shoot.RandomShot;
 	import project.upgrade.guns.OffsetGun;
+	import project.constant.GameRegistry;
+	import project.constant.Constants;
 	/**
 	 * ...
 	 * @author Cullen
@@ -32,6 +34,16 @@ package project.ship
 			super.preUpdate();
 			_behavior.movement.move(this);
 			_behavior.shooting.shoot(this);
+		}
+		
+		override public function update():void
+		{
+			super.update();
+			if (Math.abs(x - GameRegistry.gameState.playerManager.playerShip.x) > Constants.TILESIZE ||
+				Math.abs(y - GameRegistry.gameState.playerManager.playerShip.y) > Constants.TILESIZE)
+			{
+				exists = false;
+			}
 		}
 		
 		public function get behavior():ShipBehavior 

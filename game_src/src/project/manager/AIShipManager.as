@@ -9,6 +9,8 @@ package project.manager
 	import project.ship.behavior.shoot.RandomShot;
 	import project.upgrade.guns.OffsetGun;
 	import project.upgrade.GunUpgrade;
+	import project.constant.GameRegistry;
+	import project.util.Utility;
 	/**
 	 * ...
 	 * @author Cullen
@@ -17,6 +19,8 @@ package project.manager
 	{
 		protected var _behavior:ShipBehavior;
 		protected var _guns:Vector.<GunUpgrade>;
+		protected var _levelThresholdH:Number;
+		protected var _levelThresholdL:Number;
 		
 		public function AIShipManager() 
 		{
@@ -62,11 +66,26 @@ package project.manager
 			}
 		}
 		
+		public function canTick():Boolean
+		{
+			return getFirstExtant() == null;
+		}
+		
+		private function spawn():void
+		{
+			createShip(_behavior,
+					   _guns,
+					   GameRegistry.gameState.playerManager.playerShip.x + Constants.TILESIZE * Utility.randomUnit(),
+					   GameRegistry.gameState.playerManager.playerShip.y + Constants.TILESIZE * Utility.randomUnit());
+			GameRegistry.gameState.addLevel(3);
+		}
+		
 		override public function update():void
 		{
 			super.update();
-			//TODO: move ship creation somewhere else
-			createShip(_behavior, _guns, 5000, 5000);
+			if (GameRegistry.gameState.canSpawn) {
+				spawn();
+			}
 		}
 		
 	}
