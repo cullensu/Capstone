@@ -13,7 +13,7 @@ package project.constant
 		
 		public static const MAX_BULLETS:int = 100;
 		
-		public static const MAX_AI_SHIPS:int = 1;
+		public static const MAX_AI_SHIPS:int = 30;
 		
 		private static const TICK:Number = 5;
 		private static const MULT2:Number = 2;
