@@ -13,10 +13,8 @@ package project.state
 	import project.hud.HUD;
 	import project.manager.AIShipManager;
 	import project.manager.BulletManager;
-	import project.manager.EnemyManager;
 	import project.manager.EnvironmentManager;
 	import project.manager.MusicManager;
-	import project.manager.NeutralManager;
 	import project.manager.PlayerManager;
 	import project.manager.UpgradeManager;
 	import project.menu.PauseMenu;
@@ -32,9 +30,7 @@ package project.state
 	public class GameState extends FlxState
 	{		
 		protected var _aiManager:AIShipManager;
-		protected var _enemyManager:EnemyManager;
 		protected var _playerManager:PlayerManager;
-		protected var _neutralManager:NeutralManager;
 		protected var _envManager:EnvironmentManager;
 		protected var _bulletManager:BulletManager;
 		protected var _musicManager:MusicManager;
@@ -66,9 +62,7 @@ package project.state
 			Utility.setSeed(rand);
 			
 			_aiManager = new AIShipManager();
-			_enemyManager = new EnemyManager();
 			_playerManager = new PlayerManager();
-			_neutralManager = new NeutralManager();
 			_envManager = new EnvironmentManager();
 			_bulletManager = new BulletManager();
 			_musicManager = new MusicManager();
@@ -88,9 +82,7 @@ package project.state
 			
 			add(_aiManager);
 			add(_musicManager);
-			add(_enemyManager);
 			add(_playerManager);
-			add(_neutralManager);
 			add(_bulletManager);
 			add(_envManager);
 			add(_upgradeManager);
@@ -108,16 +100,6 @@ package project.state
 		public function get bulletManager():BulletManager 
 		{
 			return _bulletManager;
-		}
-		
-		public function get enemyManager():EnemyManager 
-		{
-			return _enemyManager;
-		}
-		
-		public function get neutralManager():NeutralManager 
-		{
-			return _neutralManager;
 		}
 		
 		public function get musicManager():MusicManager 
