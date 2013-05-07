@@ -158,6 +158,7 @@ package project.state
 			super.create();
 			FlxG.mouse.show()
 			FlxG.camera.follow(_playerManager.playerShip, FlxCamera.STYLE_LOCKON);
+			GameRegistry.gameState = this;
 		}
 
 		/**

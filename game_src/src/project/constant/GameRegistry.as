@@ -9,7 +9,6 @@ package project.constant
 	public class GameRegistry 
 	{
 		protected static var _gameState:GameState = new GameState();
-		protected static var _menuState:MenuState = new MenuState();
 		
 		public function GameRegistry() 
 		{
@@ -21,9 +20,9 @@ package project.constant
 			return _gameState;
 		}
 		
-		static public function get menuState():MenuState 
+		static public function set gameState(value:GameState):void 
 		{
-			return _menuState;
+			_gameState = value;
 		}
 		
 	}

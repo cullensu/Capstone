@@ -5,8 +5,8 @@ package
 	import org.flixel.FlxG;
 	import org.flixel.FlxGame;
 	import project.constant.GameRegistry;
-	import project.state.LoadState;
 	import project.state.GameState;
+	import project.state.MenuState;
 
 	/**
 	 * ...
@@ -22,7 +22,7 @@ package
 		public function Main() 
 		{
 			FlxG.debug = true;
-			super(800, 600, LoadState);
+			super(800, 600, MenuState);
 		}
 
 	}
