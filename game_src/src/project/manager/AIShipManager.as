@@ -9,6 +9,7 @@ package project.manager
 	import project.ship.behavior.shoot.RandomShot;
 	import project.upgrade.guns.OffsetGun;
 	import project.upgrade.GunUpgrade;
+	import project.util.Affiliation;
 	/**
 	 * ...
 	 * @author Cullen
@@ -37,7 +38,7 @@ package project.manager
 			gun3.bulletType = BulletType.TRIANGLE;
 			
 			_guns = new Vector.<GunUpgrade>();
-			_guns.push(gun3);
+			_guns.push(gun1, gun2, gun3);
 			
 			for (var i:int = 0; i < Constants.MAX_AI_SHIPS; i++)
 			{
@@ -45,7 +46,7 @@ package project.manager
 			}
 		}
 		
-		public function createShip(behavior:ShipBehavior, guns:Vector.<GunUpgrade>, xLoc:Number, yLoc:Number):void
+		public function createShip(behavior:ShipBehavior, guns:Vector.<GunUpgrade>, xLoc:Number, yLoc:Number, aff:Affiliation):void
 		{
 			if (this.getFirstAvailable() != null)
 			{
@@ -54,6 +55,7 @@ package project.manager
 				s.removeAllGunUpgrades();
 				s.x = xLoc;
 				s.y = yLoc;
+				s.affiliation = aff;
 				s.health = s.maxHealth;
 				for each(var gun:GunUpgrade in guns)
 				{
@@ -67,7 +69,7 @@ package project.manager
 		{
 			super.update();
 			//TODO: move ship creation somewhere else
-			createShip(_behavior, _guns, 5000, 5000);
+			createShip(_behavior, _guns, 5000, 5000, Affiliation.ENEMY);
 		}
 		
 	}
