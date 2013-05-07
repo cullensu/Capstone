@@ -18,10 +18,12 @@ package project.state
 	import project.manager.MusicManager;
 	import project.manager.NeutralManager;
 	import project.manager.PlayerManager;
+	import project.manager.UpgradeManager;
 	import project.menu.PauseMenu;
 	import project.ship.AIShip;
 	import project.ship.PlayerShip;
 	import project.ship.Ship;
+	import project.upgrade.drops.DropUpgrade;
 	import project.util.Utility;
 	/**
 	 * Manages the the actual game and all entities it contains.
@@ -36,6 +38,7 @@ package project.state
 		protected var _envManager:EnvironmentManager;
 		protected var _bulletManager:BulletManager;
 		protected var _musicManager:MusicManager;
+		protected var _upgradeManager:UpgradeManager;
 		
 		protected var _starField:StarField;
 		protected var _starField2:StarField;
@@ -69,6 +72,7 @@ package project.state
 			_envManager = new EnvironmentManager();
 			_bulletManager = new BulletManager();
 			_musicManager = new MusicManager();
+			_upgradeManager = new UpgradeManager();
 			_starField = new StarField(0.5, Constants.WORLDTILES);
 			_starField2 = new StarField(0.25, Constants.WORLDTILES);
 			_starField3 = new StarField(1, Constants.WORLDTILES);
@@ -89,6 +93,7 @@ package project.state
 			add(_neutralManager);
 			add(_bulletManager);
 			add(_envManager);
+			add(_upgradeManager);
 			
 			add(_hud);
 			
@@ -128,6 +133,11 @@ package project.state
 		public function get aiManager():AIShipManager 
 		{
 			return _aiManager;
+		}
+		
+		public function get upgradeManager():UpgradeManager 
+		{
+			return _upgradeManager;
 		}
 
 		override public function create():void
@@ -234,6 +244,22 @@ package project.state
 			var playerShip:PlayerShip = _playerManager.playerShip;
 			
 			var bullets:Array = _bulletManager.members;
+			var upgrades:Array = _upgradeManager.members;
+			
+			for (var u:int = 0; u < upgrades.length; u++)
+			{
+				var upgrade:DropUpgrade = upgrades[u];
+				if (upgrade == null || !upgrade.exists) continue;
+				
+				if (upgrade.canCollide(playerShip))
+				{
+					if (FlxCollision.pixelPerfectCheck(playerShip, upgrade))
+					{
+						playerShip.collide(upgrade);
+						upgrade.collide(playerShip);
+					}
+				}
+			}
 			
 			for (var b:int = 0; b < bullets.length; b++)
 			{
