@@ -9,6 +9,7 @@ package project.state
 	import project.constant.GameRegistry;
 	import project.constant.Constants;
 	import project.env.StarField;
+	import project.env.AsteroidField;
 	import project.hud.HUD;
 	import project.manager.AIShipManager;
 	import project.manager.BulletManager;
@@ -21,6 +22,7 @@ package project.state
 	import project.ship.AIShip;
 	import project.ship.PlayerShip;
 	import project.ship.Ship;
+	import project.util.Utility;
 	/**
 	 * Manages the the actual game and all entities it contains.
 	 * @author Cullen
@@ -38,6 +40,7 @@ package project.state
 		protected var _starField:StarField;
 		protected var _starField2:StarField;
 		protected var _starField3:StarField;
+		protected var _asteroidField:AsteroidField;
 		
 		protected var _hud:HUD;
 		
@@ -55,6 +58,9 @@ package project.state
 		
 		public function init():void
 		{
+			//Set random seed. We will also need to set this for replays
+			var rand:Number = Math.random();
+			Utility.setSeed(rand);
 			
 			_aiManager = new AIShipManager();
 			_enemyManager = new EnemyManager();
@@ -66,6 +72,7 @@ package project.state
 			_starField = new StarField(0.5, Constants.WORLDTILES);
 			_starField2 = new StarField(0.25, Constants.WORLDTILES);
 			_starField3 = new StarField(1, Constants.WORLDTILES);
+			_asteroidField = new AsteroidField(Constants.WORLDTILES);
 			_pauseMenu = new PauseMenu();
 			
 			_hud = new HUD(this);
@@ -73,6 +80,7 @@ package project.state
 			add(_starField);
 			add(_starField2);
 			add(_starField3);
+			add(_asteroidField);
 			
 			add(_aiManager);
 			add(_musicManager);

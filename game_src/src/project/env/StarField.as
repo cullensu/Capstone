@@ -3,7 +3,6 @@ package project.env
 
   import org.flixel.*;
   import project.ship.PlayerShip;
-  import project.util.Utility;
   import project.constant.GameRegistry;
   import project.constant.Constants;
 
@@ -17,7 +16,7 @@ package project.env
 		 *  @param worldSize the size of the world, in Constants.TILESIZExConstants.TILESIZE px tiles
 		 * 	The product of scrollFactor * worldSize must be a whole number
 		 */
-		public function StarField(scrollFactor:Number, worldSize:int):void
+		public function StarField(scrollFactor:Number, worldSize:int)
 		{
 			super();
 			multiplier = 1 / scrollFactor;

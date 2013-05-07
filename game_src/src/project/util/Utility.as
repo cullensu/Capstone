@@ -9,13 +9,31 @@ package project.util
 	 */
 	public class Utility 
 	{
-		private static var seed:Number = 0.4;
+		private static var seed:Number;
+		private static var seedSet:Boolean = false;
 		public function Utility() { }
+		
+		public static function setSeed(n:Number):void
+		{
+			if (seedSet) {
+				throw new Error("Random seed already set");
+			}
+			seedSet = true;
+			seed = n;
+		}
 		
 		public static function random():Number 
 		{
+			if (!seedSet) {
+				throw new Error("Random seed has not been set");
+			}
 			seed = FlxU.srand(seed);
 			return seed;
+		}
+		
+		public static function randomInt(n:int):int
+		{
+			return Math.floor(random() * n);
 		}
 		
 	}
