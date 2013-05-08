@@ -51,16 +51,9 @@ package project.state
 		protected var _tickSize:Number;
 		protected var _canSpawn:Boolean;
 		
+		protected var _recording:Boolean;
+		protected var _replaying:Boolean;
 
-		/**
-		 * Creates a new instance of the GameState
-		 */
-		public function GameState()
-		{
-			super();
-			init();
-		}
-		
 		public function init():void
 		{			
 			_aiManager = new AIShipManager();
@@ -98,6 +91,9 @@ package project.state
 			add(_hud);
 			
 			add (_pauseMenu);
+			
+			_recording = false;
+			_replaying = false;
 		}
 		
 		public function get canSpawn():Boolean
@@ -147,7 +143,11 @@ package project.state
 
 		override public function create():void
 		{
-			super.create();
+			if (!GameRegistry.recording && !GameRegistry.replaying)
+			{
+				startRecording();
+			}
+			init();
 			FlxG.mouse.show()
 			FlxG.camera.follow(_playerManager.playerShip, FlxCamera.STYLE_LOCKON);
 			GameRegistry.gameState = this;
@@ -160,7 +160,7 @@ package project.state
 		{
 			if (!FlxG.paused)
 			{
-				super.preUpdate();
+				//super.preUpdate();
 			}
 			else
 			{
@@ -172,7 +172,7 @@ package project.state
 		 * Updates the GameState and all entities it contains.
 		 */
 		override public function update():void
-		{
+		{	
 			if (!FlxG.paused)
 			{
 				processUserInput();
@@ -193,6 +193,10 @@ package project.state
 			else
 			{
 				_pauseMenu.update();
+			}
+			if (FlxG.keys.justPressed("R") && !GameRegistry.replaying)
+			{
+				startReplaying();
 			}
 		}
 		
@@ -328,9 +332,22 @@ package project.state
 		{
 			_pauseMenu.show();
 		}
-
 		
-
+		private function startRecording():void 
+		{
+			GameRegistry.recording = true;
+			GameRegistry.replaying = false;
+			
+			FlxG.recordReplay(false);
+		}
+				
+		private function startReplaying():void 
+		{
+			GameRegistry.recording = false;
+			GameRegistry.replaying = true;
+			
+			var save:String = FlxG.stopRecording();
+			FlxG.loadReplay(save, new GameState(), ["ANY"], 0, startRecording);
+		}
 	}
-
 }

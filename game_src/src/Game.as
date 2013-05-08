@@ -12,14 +12,13 @@ package
 	 * ...
 	 * @author Cullen
 	 */
-	[Frame(factoryClass="Preloader")]
-	public class Main extends FlxGame 
+	public class Game extends FlxGame 
 	{
 
 		[SWF(width="800", height="600", backgroundColor="#000000")]
 		[Frame(factoryClass = "Preloader")]
 		
-		public function Main() 
+		public function Game() 
 		{
 			FlxG.debug = true;
 			super(800, 600, MenuState);
