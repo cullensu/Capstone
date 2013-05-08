@@ -22,7 +22,7 @@ package project.ship
 		public function Ship(X:Number=0,Y:Number=0,SimpleGraphic:Class=null) 
 		{
 			super(X, Y, SimpleGraphic);
-			_collisionDamage = 20;
+			_collisionDamage = 10;
 			_maxHealth = 200;
 			health = _maxHealth;
 			_guns = new Vector.<GunUpgrade>();
@@ -82,12 +82,8 @@ package project.ship
 		
 		public function collide(other:ICollidable):void
 		{
-			if (!canCollide(other))
-				return;
-			if (other is Bullet || other is Ship)
-			{
-				this.health = this.health - other.collisionDamage;
-			}
+			if (!canCollide(other)) return;
+			this.health = this.health - other.collisionDamage;
 		}
 		
 		public function addGunUpgrade(gunUpgrade:GunUpgrade):void

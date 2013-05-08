@@ -328,7 +328,7 @@ package project.state
 					var asteroids:Array = aTile.members;
 					for (var k:int = 0; k < aTile.length; k++) {
 						var asteroid:Asteroid = asteroids[k] as Asteroid;
-						if (asteroid == null) continue;
+						if (asteroid == null || !asteroid.exists) continue;
 						if (FlxCollision.pixelPerfectCheck(asteroid, aiShip)) {
 							asteroid.collide(aiShip);
 							aiShip.collide(asteroid);
@@ -343,7 +343,7 @@ package project.state
 				var asteroids:Array = aTile.members;
 				for (var j:int = 0; j < aTile.length; j++) {
 					var asteroid:Asteroid = asteroids[j] as Asteroid;
-					if (asteroid == null) continue;
+					if (asteroid == null || !asteroid.exists) continue;
 					if (FlxCollision.pixelPerfectCheck(asteroid, playerShip)) {
 						asteroid.collide(playerShip);
 						playerShip.collide(asteroid);
@@ -361,65 +361,6 @@ package project.state
 					}
 				}
 			}
-			/*
-			for (var b:int = 0; b < _bulletManager.length; b++)
-			{
-				var bullet:Bullet = bullets[b] as Bullet;
-				if (bullet == null || !bullet.exists) continue;
-				
-				if (bullet.canCollide(playerShip))
-				{
-					if (FlxCollision.pixelPerfectCheck(playerShip, bullet))
-					{
-						playerShip.collide(bullet);
-						bullet.collide(playerShip);
-					}
-				}
-				
-				for (var s:int = 0; s < _aiManager.length; s++)
-				{
-					var aiship:AIShip = aiShips[s] as AIShip;
-					if (aiship == null || !aiship.exists) continue;
-					if (aiship.canCollide(playerShip))
-					{
-						if (FlxCollision.pixelPerfectCheck(aiship, playerShip))
-						{
-							aiship.collide(playerShip);
-							playerShip.collide(aiship);
-						}
-					}
-					if (aiship.canCollide(bullet))
-					{
-						if (FlxCollision.pixelPerfectCheck(aiship, bullet))
-						{
-							aiship.collide(bullet);
-							bullet.collide(aiship);
-						}
-					}
-					for (var i:int = 0; i < 9; i++)
-					{
-						var aTile:AsteroidTile = aTiles[i] as AsteroidTile;
-						if(aTile != null) {	
-							var asteroids:Array = aTile.members;
-							for (var j:int = 0; j < aTile.length; j++) {
-								var ast:Asteroid = asteroids[j] as Asteroid;
-								if (FlxCollision.pixelPerfectCheck(aiship, ast)) {
-									aiship.collide(ast);
-									ast.collide(aiship);
-								}
-								if (FlxCollision.pixelPerfectCheck(bullet, ast)) {
-									bullet.collide(ast);
-									ast.collide(bullet);
-								}
-								if (FlxCollision.pixelPerfectCheck(playerShip, ast)) {
-									playerShip.collide(ast);
-									ast.collide(playerShip);
-								}
-							}
-						}
-					}
-				}
-			}*/
 		}
 		
 		/**

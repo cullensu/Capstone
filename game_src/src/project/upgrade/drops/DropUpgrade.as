@@ -3,6 +3,7 @@ package project.upgrade.drops
 	import org.flixel.FlxSprite;
 	import project.ship.PlayerShip;
 	import project.util.ICollidable;
+	import project.constant.Constants;
 	/**
 	 * ...
 	 * @author Cullen
@@ -35,7 +36,7 @@ package project.upgrade.drops
 		
 		public function get collisionDamage():Number
 		{
-			return 0;
+			return -Constants.OXYGEN_ADD;
 		}
 		
 		public function get type():DropType 

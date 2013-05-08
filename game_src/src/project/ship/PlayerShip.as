@@ -42,7 +42,7 @@ package project.ship
 			_speed = 400;
 			_affiliation = Affiliation.PLAYER;
 			
-			_maxHealth = 2000;
+			_maxHealth = Constants.OXYGEN_MAX;
 			health = _maxHealth;
 			_healthDrainRate = 1;
 			
@@ -137,7 +137,7 @@ package project.ship
 			}
 			
 			//Drain Health
-			health = health - _healthDrainRate;
+			health = health - FlxG.elapsed * _healthDrainRate;
 			
 			//update graphic
 			var healthDisplay:int = 24 - health / maxHealth * 24;
@@ -179,21 +179,9 @@ package project.ship
 		
 		override public function collide(other:ICollidable):void
 		{
-			if (other is DropUpgrade)
-			{
-				var up:DropUpgrade = other as DropUpgrade;
-				if (up.type == DropType.OXYGEN)
-				{
-					health = health + 100;
-					if (health > maxHealth)
-					{
-						health = maxHealth;
-					}
-				}
-			}
-			else
-			{
-				super.collide(other);
+			super.collide(other);
+			if (health > maxHealth) {
+				health = maxHealth;
 			}
 		}
 

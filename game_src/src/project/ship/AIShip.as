@@ -9,7 +9,9 @@ package project.ship
 	import project.upgrade.guns.OffsetGun;
 	import project.constant.GameRegistry;
 	import project.constant.Constants;
+	import project.util.CartesianPoint;
 	import project.util.ICollidable;
+	import project.util.PolarPoint;
 	/**
 	 * ...
 	 * @author Cullen
@@ -25,7 +27,6 @@ package project.ship
 			
 			loadGraphic(_shipPng, false, false, 30, 28);
 			
-			_collisionDamage = 75;
 			_maxHealth = 30;
 			_behavior = new ShipBehavior();
 			_behavior.shooting = new RandomShot();
@@ -64,10 +65,12 @@ package project.ship
 		override public function update():void
 		{
 			super.update();
-			if (Math.abs(x - GameRegistry.gameState.playerManager.playerShip.x) > Constants.TILESIZE ||
-				Math.abs(y - GameRegistry.gameState.playerManager.playerShip.y) > Constants.TILESIZE)
+			var cPoint:CartesianPoint = new CartesianPoint(x - GameRegistry.gameState.playerManager.playerShip.x,
+														   y - GameRegistry.gameState.playerManager.playerShip.y);
+			var pPoint:PolarPoint = cPoint.convertToPolar();
+			if (pPoint.r > Constants.TILESIZE)
 			{
-				exists = false;
+				kill();
 			}
 		}
 		

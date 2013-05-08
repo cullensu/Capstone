@@ -77,7 +77,14 @@ package project.env
 		
 		public function get collisionDamage():Number
 		{
-			return health;
+			switch(_level) {
+				case 1:
+					return FULL_HEALTH;
+				case 2:
+					return HALF_HEALTH;
+				default:
+					return QUARTER_HEALTH;
+			}
 		}
 		
 	}

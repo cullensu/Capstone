@@ -10,6 +10,8 @@ package project.manager
 	import project.upgrade.guns.OffsetGun;
 	import project.upgrade.GunUpgrade;
 	import project.constant.GameRegistry;
+	import project.util.CartesianPoint;
+	import project.util.PolarPoint;
 	import project.util.Utility;
 	import project.util.Affiliation;
 	/**
@@ -77,10 +79,12 @@ package project.manager
 		
 		private function spawn():void
 		{
+			var pPoint:PolarPoint = new PolarPoint(Constants.TILESIZE, Utility.randomAngle());
+			var cPoint:CartesianPoint = pPoint.convertToCartesianPoint();
 			createShip(_behavior,
 					   _guns,
-					   GameRegistry.gameState.playerManager.playerShip.x + Constants.TILESIZE * Utility.randomUnit(),
-					   GameRegistry.gameState.playerManager.playerShip.y + Constants.TILESIZE * Utility.randomUnit(),
+					   GameRegistry.gameState.playerManager.playerShip.x + cPoint.x,
+					   GameRegistry.gameState.playerManager.playerShip.y + cPoint.y,
 					   Affiliation.ENEMY);
 			GameRegistry.gameState.addLevel(3);
 		}
