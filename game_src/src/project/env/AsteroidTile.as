@@ -43,8 +43,7 @@ package project.env
 												 size);
 				add(newA);
 			}
-			this.visible = false;
-			this.active = false;
+			this.exists = false;
 		}
 		
 	}

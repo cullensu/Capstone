@@ -65,6 +65,7 @@ package project.manager
 				{
 					s.addGunUpgrade(gun);
 				}
+				s.alive = true;
 				s.exists = true;
 			}
 		}
