@@ -296,14 +296,13 @@ package project.state
 						}
 					}
 				}
-				
 				for (j = 0; j < 9; j++) {
 					var aTile:AsteroidTile = aTiles[j] as AsteroidTile;
 					if (aTile == null) continue;
 					var asteroids:Array = aTile.members;
 					for (var k:int = 0; k < aTile.length; k++) {
 						var asteroid:Asteroid = asteroids[k] as Asteroid;
-						if (asteroid == null) continue;
+						if (asteroid == null || !asteroid.exists) continue;
 						if (FlxCollision.pixelPerfectCheck(asteroid, bullet)) {
 							asteroid.collide(bullet);
 							bullet.collide(asteroid);
@@ -311,7 +310,6 @@ package project.state
 					}
 				}
 			}
-			
 			for (i = 0; i < _aiManager.length; i++) {
 				var aiShip:AIShip = aiShips[i] as AIShip;
 				if (aiShip == null || !aiShip.exists) continue;
@@ -321,7 +319,6 @@ package project.state
 						aiShip.collide(playerShip);
 					}
 				}
-				
 				for (var j:int = 0; j < 9; j++) {
 					var aTile:AsteroidTile = aTiles[j] as AsteroidTile;
 					if (aTile == null) continue;
@@ -336,7 +333,6 @@ package project.state
 					}
 				}
 			}
-			
 			for (i = 0; i < 9; i++) {
 				var aTile:AsteroidTile = aTiles[i] as AsteroidTile;
 				if (aTile == null) continue;
@@ -350,7 +346,6 @@ package project.state
 					}
 				}
 			}
-			
 			for (i = 0; i < _upgradeManager.length; i++) {
 				var upgrade:DropUpgrade = upgrades[i] as DropUpgrade;
 				if (upgrade == null || !upgrade.exists) continue;

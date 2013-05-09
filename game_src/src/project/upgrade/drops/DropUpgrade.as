@@ -10,14 +10,14 @@ package project.upgrade.drops
 	 */
 	public class DropUpgrade extends FlxSprite implements ICollidable
 	{
-		[Embed(source = "../../../../assets/neutralnormal.png")] private var _upgradePng:Class;
+		[Embed(source = "../../../../assets/upgradeoxygen.png")] private var _upgradePng:Class;
 		protected var _type:DropType;
 		
 		public function DropUpgrade() 
 		{
 			_type = DropType.OXYGEN;
 			
-			loadGraphic(_upgradePng, false, false, 30, 30);
+			loadGraphic(_upgradePng, false, false, 15, 15);
 		}
 		
 		public function canCollide(other:ICollidable):Boolean
