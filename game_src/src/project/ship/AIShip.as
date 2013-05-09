@@ -68,7 +68,7 @@ package project.ship
 			var cPoint:CartesianPoint = new CartesianPoint(x - GameRegistry.gameState.playerManager.playerShip.x,
 														   y - GameRegistry.gameState.playerManager.playerShip.y);
 			var pPoint:PolarPoint = cPoint.convertToPolar();
-			if (pPoint.r > Constants.TILESIZE)
+			if (pPoint.r > Constants.TILESIZE + 80)
 			{
 				kill();
 			}

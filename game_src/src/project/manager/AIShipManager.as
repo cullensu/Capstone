@@ -1,5 +1,6 @@
 package project.manager 
 {
+	import org.flixel.FlxBasic;
 	import org.flixel.FlxGroup;
 	import project.bullet.BulletType;
 	import project.constant.Constants;
@@ -72,11 +73,6 @@ package project.manager
 			}
 		}
 		
-		public function canTick():Boolean
-		{
-			return getFirstExtant() == null;
-		}
-		
 		private function spawn():void
 		{
 			var pPoint:PolarPoint = new PolarPoint(Constants.TILESIZE, Utility.randomAngle());
@@ -95,6 +91,7 @@ package project.manager
 			if (GameRegistry.gameState.canSpawn) {
 				spawn();
 			}
+			
 		}
 		
 	}

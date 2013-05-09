@@ -95,6 +95,8 @@ package project.state
 			
 			add (_pauseMenu);
 			
+			_musicManager.setLevel(1);
+			
 			_recording = false;
 			_replaying = false;
 		}
@@ -191,6 +193,11 @@ package project.state
 					_canSpawn = false;
 				} else if (_level < _thresholdL) {
 					_canSpawn = true;
+				}
+				if (_level > 0) {
+					_musicManager.setLevel(2);
+				} else {
+					_musicManager.setLevel(1);
 				}
 			}
 			else
