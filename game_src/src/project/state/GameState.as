@@ -363,7 +363,7 @@ package project.state
 				FlxG.uploadRecording(Constants.LOGGING_SERVER);
 				trace("Replay logged!");
 			}
-			catch (Error)
+			catch (e:Error)
 			{
 				trace("Logging server could not be contacted.");
 			}
