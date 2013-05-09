@@ -16,7 +16,16 @@ package project.bullet
 		[Embed(source = "../../../assets/playerbullet.png")] private var playerBulletSpr:Class;
 		[Embed(source = "../../../assets/enemybullet.png")] private var enemyBulletSpr:Class;
 		[Embed(source = "../../../assets/neutralbullet.png")] private var neutralBulletSpr:Class;
+		[Embed(source = "../../../assets/playerbulletbig.png")] private var playerBigBulletSpr:Class;
+		[Embed(source = "../../../assets/neutralbulletbig.png")] private var neutralBigBulletSpr:Class;
+		[Embed(source = "../../../assets/enemybulletbig.png")] private var enemyBigBulletSpr:Class;
 		
+		private static const PLAYER_BULLET_DIMENSIONS:Point = new Point(5, 5);
+		private static const ENEMY_BULLET_DIMENSION:Point = new Point(5, 4);
+		private static const NEUTRAL_BULLET_DIMENSIONS:Point = new Point(5, 5);
+		private static const PLAYER_BIG_BULLET_DIMENSIONS:Point = new Point(10, 10);
+		private static const ENEMY_BIG_BULLET_DIMENSIONS:Point = new Point(10, 9);
+		private static const NEUTRAL_BIG_BULLET_DIMENSIONS:Point = new Point(10, 10);
 		
 		protected static const WIDTH:Number = 5;
 		protected static const HEIGHT:Number = 5;
@@ -38,28 +47,56 @@ package project.bullet
 		{
 			super(X, Y, SimpleGraphic);
 			_type = BulletType.CIRCLE;
-			reloadGraphic();
+			reloadGraphicAndDamage();
 			exists = false;
 		}
 		
 		/**
 		 * Reloads the graphic for this bullet if needed
 		 */
-		protected function reloadGraphic():void
+		protected function reloadGraphicAndDamage():void
 		{
 			if (_type != _graphicType)
 			{
 				if (_type == BulletType.CIRCLE)
 				{
-					loadGraphic(playerBulletSpr, false, false, WIDTH, HEIGHT);
+					loadGraphic(playerBulletSpr, false, false, PLAYER_BULLET_DIMENSIONS.x, PLAYER_BULLET_DIMENSIONS.y);
+					_collisionDamage = 10;
+					_speed = 600;
 				}
 				else if (_type == BulletType.SQUARE)
 				{
-					loadGraphic(neutralBulletSpr, false, false, WIDTH, HEIGHT);
+					loadGraphic(neutralBulletSpr, false, false, NEUTRAL_BULLET_DIMENSIONS.x, NEUTRAL_BULLET_DIMENSIONS.y);
+					_collisionDamage = 10;
+					_speed = 600;
 				}
 				else if (_type == BulletType.TRIANGLE)
 				{
-					loadGraphic(enemyBulletSpr, false, false, WIDTH, HEIGHT);
+					loadGraphic(enemyBulletSpr, false, false, ENEMY_BULLET_DIMENSION.x, ENEMY_BULLET_DIMENSION.y);
+					_collisionDamage = 10;
+					_speed = 600;
+				}
+				else if (_type == BulletType.BIG_CIRCLE)
+				{
+					loadGraphic(playerBigBulletSpr, false, false, PLAYER_BIG_BULLET_DIMENSIONS.x, PLAYER_BIG_BULLET_DIMENSIONS.y);
+					_collisionDamage = 20;
+					_speed = 450;
+				}
+				else if (_type == BulletType.BIG_SQUARE)
+				{
+					loadGraphic(neutralBigBulletSpr, false, false, NEUTRAL_BIG_BULLET_DIMENSIONS.x, NEUTRAL_BIG_BULLET_DIMENSIONS.y);
+					_collisionDamage = 20;
+					_speed = 450;
+				}
+				else if (_type == BulletType.BIG_TRIANGLE)
+				{
+					loadGraphic(enemyBigBulletSpr, false, false, ENEMY_BIG_BULLET_DIMENSIONS.x, ENEMY_BIG_BULLET_DIMENSIONS.y);
+					_collisionDamage = 20;
+					_speed = 450;
+				}
+				else 
+				{
+					throw new Error("Unknown Bullet Type provided to Bullet.as");
 				}
 				_graphicType = _type;
 			}
@@ -122,7 +159,7 @@ package project.bullet
 		public function set type(value:BulletType):void 
 		{
 			_type = value;
-			reloadGraphic();
+			reloadGraphicAndDamage();
 		}
 		
 		public function get collisionDamage():Number 

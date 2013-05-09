@@ -18,9 +18,9 @@ package project.ship.behavior.shoot
 		
 		public function shoot(ship:AIShip):void
 		{
-			var polar:PolarPoint = new PolarPoint(100, Math.random() * 2 * Math.PI);
-			var rect:CartesianPoint = polar.convertToCartesianPoint();
-			ship.fire(ship.x + ship.gunXOffset + rect.x, ship.y + ship.gunYOffset + rect.y);
+			var randpolar:PolarPoint = new PolarPoint(100, Math.random() * 2 * Math.PI);
+			var randrect:CartesianPoint = randpolar.convertToCartesianPoint();
+			ship.fire(ship.x + ship.gunXOffset + randrect.x, ship.y + ship.gunYOffset + randrect.y);
 		}
 		
 	}

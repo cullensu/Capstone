@@ -57,6 +57,33 @@ package project.upgrade
 			_bulletType = value;
 		}
 		
+		public function get gunCooldown():uint 
+		{
+			return _gunCooldown;
+		}
+		
+		public function set gunCooldown(value:uint):void 
+		{
+			_gunCooldown = value;
+		}
+		
+		protected function copyAttributesTo(other:GunUpgrade):void
+		{
+			other._owner = this._owner;
+			other._bulletType = this._bulletType;
+			other._affiliation = this._affiliation;
+			other._gunCooldown = this._gunCooldown;
+			other._xOffset = this._xOffset;
+			other._yOffset = this._yOffset;
+		}
+		
+		public function getClone():GunUpgrade
+		{
+			var clone:GunUpgrade = new GunUpgrade();
+			copyAttributesTo(clone);
+			return clone;
+		}
+		
 		/**
 		 * Registers an owner for this GunUpgrade, copies the affiliation of the owner and sets position
 		 * @param	owner

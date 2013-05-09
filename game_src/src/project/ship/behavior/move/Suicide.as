@@ -12,18 +12,16 @@ package project.ship.behavior.move
 	 */
 	public class Suicide implements IShipMovement
 	{
-		protected var _speed:Number;
-		
 		public function Suicide() 
 		{
-			_speed = 300;
+			
 		}
 		
 		public function move(ship:AIShip):void
 		{
 			var player:PlayerShip = GameRegistry.gameState.playerManager.playerShip;
 			var vel:CartesianPoint = new CartesianPoint(player.x - ship.x, player.y - ship.y);
-			vel.normalize(_speed);
+			vel.normalize(ship.speed);
 			ship.velocity.copyFromFlash(vel);
 		}
 		

@@ -15,7 +15,9 @@ package project.constant
 		
 		//Manager constants
 		public static const MAX_BULLETS:int = 100;
+		
 		public static const MAX_AI_SHIPS:int = 30;
+		
 		public static const MAX_UPGRADES_ON_SCREEN:int = 10;
 		
 		//Enemy spawning constants

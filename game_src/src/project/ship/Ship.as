@@ -18,6 +18,7 @@ package project.ship
 		protected var _gunYOffset:Number;
 		
 		protected var _maxHealth:Number;
+		protected var _speed:Number;
 		
 		public function Ship(X:Number=0,Y:Number=0,SimpleGraphic:Class=null) 
 		{
@@ -68,6 +69,16 @@ package project.ship
 		public function set maxHealth(value:Number):void 
 		{
 			_maxHealth = value;
+		}
+		
+		public function get speed():Number 
+		{
+			return _speed;
+		}
+		
+		public function set speed(value:Number):void 
+		{
+			_speed = value;
 		}
 		
 		public function canCollide(other:ICollidable):Boolean

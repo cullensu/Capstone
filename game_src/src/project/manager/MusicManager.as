@@ -40,16 +40,17 @@ package project.manager
 		
 		public function setLevel(n:int):void
 		{
-			if (n > 4) {
+			if (n >= _arr.length) {
 				throw Error("Don't do that (Music Manager)");
 			}
-			for (var i:int = 0; i <= n; i++) {
+			
+			for (var i:int = 0; i < _arr.length; i++)
+			{
 				var sound:FlxSound = _arr[i] as FlxSound;
-				sound.fadeIn(1);
-			}
-			for (var j:int = n + 1; i <= 4; i++) {
-				var sound:FlxSound = _arr[j] as FlxSound;
-				sound.fadeOut(1);
+				if (i <= n)
+					sound.fadeIn(1);
+				else
+					sound.fadeOut(1);
 			}
 		}
 	}
