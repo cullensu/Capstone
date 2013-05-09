@@ -15,6 +15,7 @@ package project.upgrade.guns
 		public function OffsetGun(X:Number=0,Y:Number=0,SimpleGraphic:Class=null) 
 		{
 			super(X, Y, SimpleGraphic);
+			_angleOffset = 0;
 		}
 		
 		public function get angleOffset():Number 
@@ -38,6 +39,23 @@ package project.upgrade.guns
 				GameRegistry.gameState.bulletManager.fire(this, this.x + target.x, this.y + target.y, _bulletType);
 				_currentCooldown = _gunCooldown;
 			}
+		}
+		
+		override protected function copyAttributesTo(other:GunUpgrade):void
+		{
+			super.copyAttributesTo(other);
+			if (other is OffsetGun)
+			{
+				var offset:OffsetGun = (other as OffsetGun);
+				offset._angleOffset = this._angleOffset;
+			}
+		}
+		
+		override public function getClone():GunUpgrade
+		{
+			var clone:OffsetGun = new OffsetGun();
+			copyAttributesTo(clone);
+			return clone;
 		}
 		
 	}

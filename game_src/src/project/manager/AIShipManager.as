@@ -6,6 +6,7 @@ package project.manager
 	import project.ship.AIShip;
 	import project.ship.behavior.move.Suicide;
 	import project.ship.behavior.ShipBehavior;
+	import project.ship.behavior.ShipBehaviorType;
 	import project.ship.behavior.shoot.RandomShot;
 	import project.upgrade.guns.OffsetGun;
 	import project.upgrade.GunUpgrade;
@@ -18,7 +19,6 @@ package project.manager
 	 */
 	public class AIShipManager extends FlxGroup
 	{
-		protected var _behavior:ShipBehavior;
 		protected var _guns:Vector.<GunUpgrade>;
 		protected var _levelThresholdH:Number;
 		protected var _levelThresholdL:Number;
@@ -26,45 +26,23 @@ package project.manager
 		public function AIShipManager() 
 		{
 			super();
-			
-			_behavior = new ShipBehavior();
-			_behavior.shooting = new RandomShot();
-			_behavior.movement = new Suicide();
-			
-			var gun1:OffsetGun = new OffsetGun();
-			gun1.angleOffset = 0;
-			gun1.bulletType = BulletType.CIRCLE;
-			var gun2:OffsetGun = new OffsetGun();
-			gun2.angleOffset = Math.PI / 6;
-			gun2.bulletType = BulletType.SQUARE;
-			var gun3:OffsetGun = new OffsetGun();
-			gun3.angleOffset = -1 * Math.PI / 6;
-			gun3.bulletType = BulletType.TRIANGLE;
-			
-			_guns = new Vector.<GunUpgrade>();
-			_guns.push(gun1, gun2, gun3);
-			
 			for (var i:int = 0; i < Constants.MAX_AI_SHIPS; i++)
 			{
 				add(new AIShip());
 			}
 		}
 		
-		public function createShip(behavior:ShipBehavior, guns:Vector.<GunUpgrade>, xLoc:Number, yLoc:Number, aff:Affiliation):void
+		public function createShip(behaviorType:ShipBehaviorType, xLoc:Number, yLoc:Number, aff:Affiliation):void
 		{
 			if (this.getFirstAvailable() != null)
 			{
 				var s:AIShip = (getFirstAvailable() as AIShip);
-				s.behavior = behavior;
-				s.removeAllGunUpgrades();
+				s.registerBehaviorType(behaviorType);
+				
 				s.x = xLoc;
 				s.y = yLoc;
 				s.affiliation = aff;
-				s.health = s.maxHealth;
-				for each(var gun:GunUpgrade in guns)
-				{
-					s.addGunUpgrade(gun);
-				}
+				
 				s.exists = true;
 			}
 		}
@@ -76,8 +54,9 @@ package project.manager
 		
 		private function spawn():void
 		{
-			createShip(_behavior,
-					   _guns,
+			var rand:int = Utility.randomInt(2);
+			var behaviorType:ShipBehaviorType = rand == 0 ? ShipBehaviorType.ENEMY_NORMAL : ShipBehaviorType.ENEMY_FAST;
+			createShip(behaviorType,
 					   GameRegistry.gameState.playerManager.playerShip.x + Constants.TILESIZE * Utility.randomUnit(),
 					   GameRegistry.gameState.playerManager.playerShip.y + Constants.TILESIZE * Utility.randomUnit(),
 					   Affiliation.ENEMY);

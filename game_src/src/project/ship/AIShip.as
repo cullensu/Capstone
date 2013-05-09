@@ -4,11 +4,13 @@ package project.ship
 	import project.constant.GameRegistry;
 	import project.ship.behavior.move.Suicide;
 	import project.ship.behavior.ShipBehavior;
+	import project.ship.behavior.ShipBehaviorType;
 	import project.ship.behavior.shoot.RandomShot;
 	import project.upgrade.drops.DropType;
 	import project.upgrade.guns.OffsetGun;
 	import project.constant.GameRegistry;
 	import project.constant.Constants;
+	import project.upgrade.GunUpgrade;
 	import project.util.ICollidable;
 	/**
 	 * ...
@@ -17,7 +19,12 @@ package project.ship
 	public class AIShip extends Ship
 	{
 		[Embed(source = "../../../assets/enemynormal.png")] private var _shipPng:Class
-		protected var _behavior:ShipBehavior;
+		
+		//Should remain invisible to outside classes
+		private var _behavior:ShipBehavior;
+		
+		//This is what outside classes should interact with
+		protected var _behaviorType:ShipBehaviorType;
 		
 		public function AIShip(X:Number=0,Y:Number=0,SimpleGraphic:Class=null) 
 		{
@@ -26,10 +33,6 @@ package project.ship
 			loadGraphic(_shipPng, false, false, 30, 28);
 			
 			_collisionDamage = 75;
-			_maxHealth = 30;
-			_behavior = new ShipBehavior();
-			_behavior.shooting = new RandomShot();
-			_behavior.movement = new Suicide();
 			
 			exists = false;
 		}
@@ -71,14 +74,34 @@ package project.ship
 			}
 		}
 		
-		public function get behavior():ShipBehavior 
+		
+		/**
+		 * Uses this ShipBehavior for this ship, clones all guns, and treats all other properties
+		 * of the ShipBehavior as Read-Only, loads the appropriate graphic as well
+		 * @param	value
+		 */
+		public function registerBehaviorType(value:ShipBehaviorType):void 
 		{
-			return _behavior;
+			_behaviorType = value;
+			_behavior = GameRegistry.gameState.shipBehaviorFactory.getShipBehavior(_behaviorType);
+			
+			loadGraphic(_behavior.shipGraphic, false, false, _behavior.shipGraphicDimensions.x, _behavior.shipGraphicDimensions.y);
+			
+			_maxHealth = _behavior.maxHealth;
+			health = _maxHealth;
+			_speed = _behavior.speed;
+			
+			removeAllGunUpgrades();
+			for each(var gun:GunUpgrade in _behavior.guns)
+			{
+				var clone:GunUpgrade = gun.getClone();
+				addGunUpgrade(clone);
+			}
 		}
 		
-		public function set behavior(value:ShipBehavior):void 
+		public function get behaviorType():ShipBehaviorType 
 		{
-			_behavior = value;
+			return _behaviorType;
 		}
 		
 	}

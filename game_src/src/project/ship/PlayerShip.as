@@ -24,8 +24,6 @@ package project.ship
 		protected var _yDir:Number;
 		
 		protected var _direction:String;
-
-		protected var _speed:Number;
 		protected var _maxCoord:int;
 		
 		protected var _healthDrainRate:Number;
@@ -46,6 +44,7 @@ package project.ship
 			health = _maxHealth;
 			_healthDrainRate = 1;
 			
+			//This chunk should be moved eventually
 			var gun1:OffsetGun = new OffsetGun();
 			gun1.angleOffset = 0;
 			gun1.bulletType = BulletType.CIRCLE;
@@ -169,12 +168,9 @@ package project.ship
 		
 		override public function canCollide(other:ICollidable):Boolean
 		{
-			var res:Boolean = super.canCollide(other);
-			if (other is DropUpgrade)
-			{
-				res = true;
-			}
-			return res;
+			var result:Boolean = super.canCollide(other);
+			result ||= (other is DropUpgrade);
+			return result;
 		}
 		
 		override public function collide(other:ICollidable):void

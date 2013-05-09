@@ -19,6 +19,7 @@ package project.state
 	import project.manager.UpgradeManager;
 	import project.menu.PauseMenu;
 	import project.ship.AIShip;
+	import project.ship.behavior.ShipBehaviorFactory;
 	import project.ship.PlayerShip;
 	import project.ship.Ship;
 	import project.upgrade.drops.DropUpgrade;
@@ -44,6 +45,7 @@ package project.state
 		protected var _hud:HUD;
 		
 		protected var _pauseMenu:PauseMenu;
+		protected var _shipBehaviorFactory:ShipBehaviorFactory;
 		
 		protected var _level:Number;
 		protected var _thresholdH:Number;
@@ -76,6 +78,7 @@ package project.state
 			_pauseMenu = new PauseMenu();
 			
 			_hud = new HUD(this);
+			_shipBehaviorFactory = new ShipBehaviorFactory();
 			
 			_level = 0;
 			_tickSize = Constants.TICK1;
@@ -143,6 +146,11 @@ package project.state
 		public function get upgradeManager():UpgradeManager 
 		{
 			return _upgradeManager;
+		}
+		
+		public function get shipBehaviorFactory():ShipBehaviorFactory 
+		{
+			return _shipBehaviorFactory;
 		}
 
 		override public function create():void
