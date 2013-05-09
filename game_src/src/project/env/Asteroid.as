@@ -1,5 +1,6 @@
 package project.env 
 {
+	import org.flixel.FlxPoint;
 	import org.flixel.FlxSprite;
 	import project.objects.AffiliatedObject;
 	import project.util.Affiliation;
@@ -23,12 +24,15 @@ package project.env
 		public static const QUARTER_HEALTH:Number = FULL_HEALTH / 4;
 		
 		protected var _level:int;
+		protected var _aTile:AsteroidTile;
 		
-		public function Asteroid(x:int, y:int, level:int, velX:Number = 0, velY:Number = 0) 
+		public function Asteroid(pTile:AsteroidTile, x:int, y:int, level:int, velX:Number = 0, velY:Number = 0) 
 		{
 			super(x, y);
 			_affiliation = Affiliation.ENV;
 			_level = level;
+			_aTile = pTile;
+			velocity = new FlxPoint(velX, velY);
 			switch(level) {
 				case 1:
 					loadGraphic(_asteroidFull);
@@ -61,25 +65,28 @@ package project.env
 			if (health <= 0) {
 				//There will be provisioning here for having asteroids break
 				//up into smaller ones when destroyed later.
-				switch(_level) {
-					case 1:
-						kill();
-						break;
-					case 2:
-						kill();
-						break;
-					case 3:
-						kill();
-						break;
+				kill();
+				if (_level < 3) {
+					var pPoint:PolarPoint = new PolarPoint(_level * 25, Utility.randomAngle());
+					var cPoint:CartesianPoint = pPoint.convertToCartesianPoint();
+					_aTile.add(new Asteroid(_aTile, x, y, _level + 1, cPoint.x, cPoint.y));
+					pPoint.rotate(Math.PI);
+					cPoint = pPoint.convertToCartesianPoint();
+					_aTile.add(new Asteroid(_aTile, x, y, _level + 1, cPoint.x, cPoint.y));
 				}
 			}
 		}
 		
 		public function get collisionDamage():Number
 		{
-			return health;
-		}
-		
+			switch(_level) {
+				case 1:
+					return FULL_HEALTH;
+				case 2:
+					return HALF_HEALTH;
+				default:
+					return QUARTER_HEALTH;
+			}
+		}		
 	}
-
 }

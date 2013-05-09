@@ -27,6 +27,11 @@ package project.util
 			return random() < 0.5 ? -1 : 1;
 		}
 		
+		public static function randomAngle():Number
+		{
+			return random() * 2 * Math.PI;
+		}
+		
 	}
 
 }

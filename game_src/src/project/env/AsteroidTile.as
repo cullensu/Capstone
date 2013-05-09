@@ -38,7 +38,8 @@ package project.env
 				} else {
 					size = 3;
 				}
-				var newA:Asteroid = new Asteroid(Utility.random() * Constants.TILESIZE + x,
+				var newA:Asteroid = new Asteroid(this,
+												 Utility.random() * Constants.TILESIZE + x,
 												 Utility.random() * Constants.TILESIZE + y,
 												 size);
 				add(newA);

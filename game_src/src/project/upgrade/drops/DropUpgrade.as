@@ -3,20 +3,21 @@ package project.upgrade.drops
 	import org.flixel.FlxSprite;
 	import project.ship.PlayerShip;
 	import project.util.ICollidable;
+	import project.constant.Constants;
 	/**
 	 * ...
 	 * @author Cullen
 	 */
 	public class DropUpgrade extends FlxSprite implements ICollidable
 	{
-		[Embed(source = "../../../../assets/neutralnormal.png")] private var _upgradePng:Class;
+		[Embed(source = "../../../../assets/upgradeoxygen.png")] private var _upgradePng:Class;
 		protected var _type:DropType;
 		
 		public function DropUpgrade() 
 		{
 			_type = DropType.OXYGEN;
 			
-			loadGraphic(_upgradePng, false, false, 30, 30);
+			loadGraphic(_upgradePng, false, false, 15, 15);
 		}
 		
 		public function canCollide(other:ICollidable):Boolean
@@ -35,7 +36,7 @@ package project.upgrade.drops
 		
 		public function get collisionDamage():Number
 		{
-			return 0;
+			return -Constants.OXYGEN_ADD;
 		}
 		
 		public function get type():DropType 
