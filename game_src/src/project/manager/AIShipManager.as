@@ -53,15 +53,21 @@ package project.manager
 		
 		private function spawn():void
 		{
-			var rand:int = Utility.randomInt(2);
-			var behaviorType:ShipBehaviorType = rand == 0 ? ShipBehaviorType.ENEMY_NORMAL : ShipBehaviorType.ENEMY_FAST;
+			var rand:int = Utility.randomInt(5);
+			var behaviorType:ShipBehaviorType;
+			if (rand == 0) {
+				behaviorType = ShipBehaviorType.ENEMY_FAST;
+				GameRegistry.gameState.addLevel(4);
+			} else {
+				behaviorType = ShipBehaviorType.ENEMY_NORMAL;
+				GameRegistry.gameState.addLevel(3);
+			}
 			var pPoint:PolarPoint = new PolarPoint(Constants.TILESIZE, Utility.randomAngle());
 			var cPoint:CartesianPoint = pPoint.convertToCartesianPoint();
 			createShip(behaviorType,
 					   GameRegistry.gameState.playerManager.playerShip.x + cPoint.x,
 					   GameRegistry.gameState.playerManager.playerShip.y + cPoint.y,
 					   Affiliation.ENEMY);
-			GameRegistry.gameState.addLevel(3);
 		}
 		
 		override public function update():void

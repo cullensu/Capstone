@@ -51,7 +51,7 @@ package project.ship.behavior
 			_enemyFast.affiliation = Affiliation.ENEMY;
 			_enemyFast.guns = new Vector.<GunUpgrade>();
 			_enemyFast.maxHealth = 20;
-			_enemyFast.speed = 300;
+			_enemyFast.speed = 400;
 			_enemyFast.shipGraphic = _enemyFastPng;
 			_enemyFast.shipGraphicDimensions = new Point(26, 16);
 			_enemyFast.movement = new Suicide();
