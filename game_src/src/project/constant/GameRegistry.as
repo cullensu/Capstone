@@ -11,6 +11,8 @@ package project.constant
 		protected static var _gameState:GameState = new GameState();
 		protected static var _recording:Boolean = false;
 		protected static var _replaying:Boolean = false;
+		protected static var _doReplay:Boolean = false;
+		protected static var _loadedReplay:String = null;
 		
 		public function GameRegistry() 
 		{
@@ -45,6 +47,26 @@ package project.constant
 		static public function set replaying(value:Boolean):void 
 		{
 			_replaying = value;
+		}
+		
+		static public function get loadedReplay():String 
+		{
+			return _loadedReplay;
+		}
+		
+		static public function set loadedReplay(value:String):void 
+		{
+			_loadedReplay = value;
+		}
+		
+		static public function get doReplay():Boolean 
+		{
+			return _doReplay;
+		}
+		
+		static public function set doReplay(value:Boolean):void 
+		{
+			_doReplay = value;
 		}
 		
 	}
