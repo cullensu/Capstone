@@ -6,6 +6,7 @@ package project.constant
 	 */
 	public class Constants 
 	{
+		public static const LOGGING_SERVER:String = "http://www.cs.washington.edu/education/courses/cse481d/13sp/c481d-d/www/logging/logger.php"
 		
 		public static const WORLDTILES:int = 16;
 		public static const TILESIZE:int = 800;

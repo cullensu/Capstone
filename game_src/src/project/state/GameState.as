@@ -199,7 +199,8 @@ package project.state
 			}
 			if (FlxG.keys.justPressed("R") && !GameRegistry.replaying)
 			{
-				startReplaying();
+				var save:String = stopRecording();
+				startReplaying(save);
 			}
 		}
 		
@@ -433,17 +434,33 @@ package project.state
 		private function startRecording():void 
 		{
 			GameRegistry.recording = true;
-			GameRegistry.replaying = false;
 			
 			FlxG.recordReplay(false);
 		}
 				
-		private function startReplaying():void 
+		private function stopRecording():String 
 		{
 			GameRegistry.recording = false;
-			GameRegistry.replaying = true;
 			
 			var save:String = FlxG.stopRecording();
+			
+			try {
+				// Upload replay
+				FlxG.uploadRecording(Constants.LOGGING_SERVER);
+				trace("Replay logged!");
+			}
+			catch (Error)
+			{
+				trace("Logging server could not be contacted.");
+			}
+			
+			return save;
+		}
+		
+		private function startReplaying(save:String):void
+		{
+			GameRegistry.replaying = true;
+			
 			FlxG.loadReplay(save, new GameState(), ["ANY"], 0, startRecording);
 		}
 	}
