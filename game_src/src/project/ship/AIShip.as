@@ -95,6 +95,7 @@ package project.ship
 			_maxHealth = _behavior.maxHealth;
 			health = _maxHealth;
 			_speed = _behavior.speed;
+			_collisionDamage = _behavior.collisionDamage;
 			
 			removeAllGunUpgrades();
 			for each(var gun:GunUpgrade in _behavior.guns)

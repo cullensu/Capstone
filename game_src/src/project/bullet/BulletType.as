@@ -13,7 +13,9 @@ package project.bullet
 		public static const SQUARE:BulletType = new BulletType();
 		public static const TRIANGLE:BulletType = new BulletType();
 		
-		
+		public static const BIG_CIRCLE:BulletType = new BulletType();
+		public static const BIG_SQUARE:BulletType = new BulletType();
+		public static const BIG_TRIANGLE:BulletType = new BulletType();
 	}
 
 }

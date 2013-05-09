@@ -58,6 +58,9 @@ package project.manager
 			if (rand == 0) {
 				behaviorType = ShipBehaviorType.ENEMY_FAST;
 				GameRegistry.gameState.addLevel(4);
+			} else if (rand == 1) {
+				behaviorType = ShipBehaviorType.ENEMY_BIG;
+				GameRegistry.gameState.addLevel(5);
 			} else {
 				behaviorType = ShipBehaviorType.ENEMY_NORMAL;
 				GameRegistry.gameState.addLevel(3);
