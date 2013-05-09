@@ -283,6 +283,12 @@ package project.state
 			if (FlxG.keys.justPressed("J")) {
 				trace(_playerManager.playerShip.x, _playerManager.playerShip.y);
 			}
+			if (FlxG.keys.justPressed("M")) {
+				FlxG.mute = !FlxG.mute;
+			}
+			if (FlxG.keys.justPressed("H")) {
+				_playerManager.playerShip.health = _playerManager.playerShip.maxHealth;
+			}
 		}
 		
 		protected function processCollision():void

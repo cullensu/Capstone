@@ -65,6 +65,7 @@ package project.ship.behavior
 			_enemyBig.guns = new Vector.<GunUpgrade>();
 			var bigGun:OffsetGun = new OffsetGun();
 			bigGun.bulletType = BulletType.BIG_TRIANGLE;
+			bigGun.gunCooldown = 50;
 			_enemyBig.guns.push(bigGun);
 			_enemyBig.maxHealth = 100;
 			_enemyBig.speed = 200;

@@ -40,11 +40,12 @@ package project.manager
 			if (this.getFirstAvailable() != null)
 			{
 				var s:AIShip = (getFirstAvailable() as AIShip);
-				s.registerBehaviorType(behaviorType);
 				
 				s.x = xLoc;
 				s.y = yLoc;
 				s.affiliation = aff;
+				
+				s.registerBehaviorType(behaviorType);
 				
 				s.alive = true;
 				s.exists = true;

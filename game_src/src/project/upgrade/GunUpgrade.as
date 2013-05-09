@@ -57,6 +57,16 @@ package project.upgrade
 			_bulletType = value;
 		}
 		
+		public function get gunCooldown():uint 
+		{
+			return _gunCooldown;
+		}
+		
+		public function set gunCooldown(value:uint):void 
+		{
+			_gunCooldown = value;
+		}
+		
 		protected function copyAttributesTo(other:GunUpgrade):void
 		{
 			other._owner = this._owner;

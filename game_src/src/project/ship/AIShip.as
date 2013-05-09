@@ -56,8 +56,6 @@ package project.ship
 		override public function preUpdate():void
 		{
 			super.preUpdate();
-			_behavior.movement.move(this);
-			_behavior.shooting.shoot(this);
 		}
 		
 		override public function kill():void
@@ -68,6 +66,8 @@ package project.ship
 		
 		override public function update():void
 		{
+			_behavior.movement.move(this);
+			_behavior.shooting.shoot(this);
 			super.update();
 			var cPoint:CartesianPoint = new CartesianPoint(x - GameRegistry.gameState.playerManager.playerShip.x,
 														   y - GameRegistry.gameState.playerManager.playerShip.y);
