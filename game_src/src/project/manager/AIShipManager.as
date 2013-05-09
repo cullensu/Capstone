@@ -53,8 +53,21 @@ package project.manager
 		
 		private function spawn():void
 		{
-			var rand:int = Utility.randomInt(2);
-			var behaviorType:ShipBehaviorType = rand == 0 ? ShipBehaviorType.ENEMY_NORMAL : ShipBehaviorType.ENEMY_FAST;
+			var rand:int = Utility.randomInt(3);
+			var behaviorType:ShipBehaviorType = ShipBehaviorType.ENEMY_NORMAL;;
+			switch(rand)
+			{
+				case 0:
+					behaviorType = ShipBehaviorType.ENEMY_NORMAL;
+					break;
+				case 1:
+					behaviorType = ShipBehaviorType.ENEMY_FAST;
+					break;
+				case 2:
+					behaviorType = ShipBehaviorType.ENEMY_BIG;
+					break;
+			}
+			
 			var pPoint:PolarPoint = new PolarPoint(Constants.TILESIZE, Utility.randomAngle());
 			var cPoint:CartesianPoint = pPoint.convertToCartesianPoint();
 			createShip(behaviorType,

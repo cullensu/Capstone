@@ -48,13 +48,13 @@ package project.ship
 			//This chunk should be moved eventually
 			var gun1:OffsetGun = new OffsetGun();
 			gun1.angleOffset = 0;
-			gun1.bulletType = BulletType.CIRCLE;
+			gun1.bulletType = BulletType.BIG_CIRCLE;
 			var gun2:OffsetGun = new OffsetGun();
 			gun2.angleOffset = Math.PI / 6;
-			gun2.bulletType = BulletType.SQUARE;
+			gun2.bulletType = BulletType.CIRCLE;
 			var gun3:OffsetGun = new OffsetGun();
 			gun3.angleOffset = -1 * Math.PI / 6;
-			gun3.bulletType = BulletType.TRIANGLE;
+			gun3.bulletType = BulletType.CIRCLE;
 			addGunUpgrade(gun1);
 			addGunUpgrade(gun2);
 			addGunUpgrade(gun3);

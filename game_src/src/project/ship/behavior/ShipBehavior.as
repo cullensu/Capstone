@@ -21,6 +21,7 @@ package project.ship.behavior
 		protected var _guns:Vector.<GunUpgrade>;
 		protected var _maxHealth:Number;
 		protected var _speed:Number;
+		protected var _collisionDamage:Number;
 		
 		public function ShipBehavior() 
 		{
@@ -105,6 +106,16 @@ package project.ship.behavior
 		public function set affiliation(value:Affiliation):void 
 		{
 			_affiliation = value;
+		}
+		
+		public function get collisionDamage():Number 
+		{
+			return _collisionDamage;
+		}
+		
+		public function set collisionDamage(value:Number):void 
+		{
+			_collisionDamage = value;
 		}
 		
 	}

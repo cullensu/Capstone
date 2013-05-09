@@ -41,6 +41,7 @@ package project.ship.behavior
 			_enemyNormal.guns.push(normalGun);
 			_enemyNormal.maxHealth = 40;
 			_enemyNormal.speed = 250;
+			_enemyNormal.collisionDamage = 10;
 			_enemyNormal.shipGraphic = _enemyNormalPng;
 			_enemyNormal.shipGraphicDimensions = new Point(30, 28);
 			_enemyNormal.movement = new Suicide();
@@ -52,11 +53,27 @@ package project.ship.behavior
 			_enemyFast.guns = new Vector.<GunUpgrade>();
 			_enemyFast.maxHealth = 20;
 			_enemyFast.speed = 300;
+			_enemyFast.collisionDamage = 10;
 			_enemyFast.shipGraphic = _enemyFastPng;
 			_enemyFast.shipGraphicDimensions = new Point(26, 16);
 			_enemyFast.movement = new Suicide();
 			_enemyFast.shooting = new RandomShot();
 			_typeToBehavior[ShipBehaviorType.ENEMY_FAST] = _enemyFast;
+			
+			_enemyBig = new ShipBehavior();
+			_enemyBig.affiliation = Affiliation.ENEMY;
+			_enemyBig.guns = new Vector.<GunUpgrade>();
+			var bigGun:OffsetGun = new OffsetGun();
+			bigGun.bulletType = BulletType.BIG_TRIANGLE;
+			_enemyBig.guns.push(bigGun);
+			_enemyBig.maxHealth = 100;
+			_enemyBig.speed = 200;
+			_enemyBig.collisionDamage = 40;
+			_enemyBig.shipGraphic = _enemyBigPng;
+			_enemyBig.shipGraphicDimensions = new Point(46, 17);
+			_enemyBig.movement = new Suicide();
+			_enemyBig.shooting = new RandomShot();
+			_typeToBehavior[ShipBehaviorType.ENEMY_BIG] = _enemyBig;
 		}
 		
 		public function getShipBehavior(type:ShipBehaviorType):ShipBehavior
