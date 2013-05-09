@@ -8,6 +8,8 @@ package project.state
 	import project.bullet.Bullet;
 	import project.constant.GameRegistry;
 	import project.constant.Constants;
+	import project.env.Asteroid;
+	import project.env.AsteroidTile;
 	import project.env.StarField;
 	import project.env.AsteroidField;
 	import project.hud.HUD;
@@ -22,6 +24,7 @@ package project.state
 	import project.ship.behavior.ShipBehaviorFactory;
 	import project.ship.PlayerShip;
 	import project.ship.Ship;
+	import project.util.ICollidable;
 	import project.upgrade.drops.DropUpgrade;
 	import project.util.Utility;
 	/**
@@ -53,16 +56,9 @@ package project.state
 		protected var _tickSize:Number;
 		protected var _canSpawn:Boolean;
 		
+		protected var _recording:Boolean;
+		protected var _replaying:Boolean;
 
-		/**
-		 * Creates a new instance of the GameState
-		 */
-		public function GameState()
-		{
-			super();
-			init();
-		}
-		
 		public function init():void
 		{			
 			_aiManager = new AIShipManager();
@@ -101,6 +97,11 @@ package project.state
 			add(_hud);
 			
 			add (_pauseMenu);
+			
+			_musicManager.setLevel(1);
+			
+			_recording = false;
+			_replaying = false;
 		}
 		
 		public function get canSpawn():Boolean
@@ -155,9 +156,14 @@ package project.state
 
 		override public function create():void
 		{
-			super.create();
+			if (!GameRegistry.recording && !GameRegistry.replaying)
+			{
+				startRecording();
+			}
+			init();
 			FlxG.mouse.show()
 			FlxG.camera.follow(_playerManager.playerShip, FlxCamera.STYLE_LOCKON);
+			GameRegistry.gameState = this;
 		}
 
 		/**
@@ -167,7 +173,7 @@ package project.state
 		{
 			if (!FlxG.paused)
 			{
-				super.preUpdate();
+				//super.preUpdate();
 			}
 			else
 			{
@@ -179,7 +185,7 @@ package project.state
 		 * Updates the GameState and all entities it contains.
 		 */
 		override public function update():void
-		{
+		{	
 			if (!FlxG.paused)
 			{
 				processUserInput();
@@ -196,10 +202,20 @@ package project.state
 				} else if (_level < _thresholdL) {
 					_canSpawn = true;
 				}
+				if (_level > 0) {
+					_musicManager.setLevel(2);
+				} else {
+					_musicManager.setLevel(1);
+				}
 			}
 			else
 			{
 				_pauseMenu.update();
+			}
+			if (FlxG.keys.justPressed("R") && !GameRegistry.replaying)
+			{
+				var save:String = stopRecording();
+				startReplaying(save);
 			}
 		}
 		
@@ -271,58 +287,88 @@ package project.state
 		{
 			var aiShips:Array = _aiManager.members;
 			var playerShip:PlayerShip = _playerManager.playerShip;
-			
 			var bullets:Array = _bulletManager.members;
+			var aTiles:Array = _asteroidField.extantTiles;
 			var upgrades:Array = _upgradeManager.members;
 			
-			for (var u:int = 0; u < upgrades.length; u++)
-			{
-				var upgrade:DropUpgrade = upgrades[u];
-				if (upgrade == null || !upgrade.exists) continue;
-				
-				if (upgrade.canCollide(playerShip))
-				{
-					if (FlxCollision.pixelPerfectCheck(playerShip, upgrade))
-					{
-						playerShip.collide(upgrade);
-						upgrade.collide(playerShip);
-					}
-				}
-			}
-			
-			for (var b:int = 0; b < bullets.length; b++)
-			{
-				var bullet:Bullet = bullets[b] as Bullet;
+			var i:int;
+			for (i = 0; i < _bulletManager.length; i++) {
+				var bullet:Bullet = bullets[i] as Bullet;
 				if (bullet == null || !bullet.exists) continue;
-				
-				if (bullet.canCollide(playerShip))
-				{
-					if (FlxCollision.pixelPerfectCheck(playerShip, bullet))
-					{
+				if (bullet.canCollide(playerShip)) {
+					if (FlxCollision.pixelPerfectCheck(playerShip, bullet)) {
 						playerShip.collide(bullet);
 						bullet.collide(playerShip);
 					}
 				}
-				
-				for (var s:int = 0; s < aiShips.length; s++)
-				{
-					var aiship:AIShip = aiShips[s] as AIShip;
-					if (aiship == null || !aiship.exists) continue;
-					if (aiship.canCollide(playerShip))
-					{
-						if (FlxCollision.pixelPerfectCheck(aiship, playerShip))
-						{
-							aiship.collide(playerShip);
-							playerShip.collide(aiship);
+				var j:int;
+				for (j = 0; j < _aiManager.length; j++) {
+					var aiShip:AIShip = aiShips[j] as AIShip;
+					if (aiShip == null || !aiShip.exists) continue;
+					if (bullet.canCollide(aiShip)) {
+						if (FlxCollision.pixelPerfectCheck(aiShip, bullet)) {
+							aiShip.collide(bullet);
+							bullet.collide(aiShip);
 						}
 					}
-					if (aiship.canCollide(bullet))
-					{
-						if (FlxCollision.pixelPerfectCheck(aiship, bullet))
-						{
-							aiship.collide(bullet);
-							bullet.collide(aiship);
+				}
+				for (j = 0; j < 9; j++) {
+					var aTile:AsteroidTile = aTiles[j] as AsteroidTile;
+					if (aTile == null) continue;
+					var asteroids:Array = aTile.members;
+					for (var k:int = 0; k < aTile.length; k++) {
+						var asteroid:Asteroid = asteroids[k] as Asteroid;
+						if (asteroid == null || !asteroid.exists) continue;
+						if (FlxCollision.pixelPerfectCheck(asteroid, bullet)) {
+							asteroid.collide(bullet);
+							bullet.collide(asteroid);
 						}
+					}
+				}
+			}
+			for (i = 0; i < _aiManager.length; i++) {
+				var aiShip:AIShip = aiShips[i] as AIShip;
+				if (aiShip == null || !aiShip.exists) continue;
+				if (aiShip.canCollide(playerShip)) {
+					if (FlxCollision.pixelPerfectCheck(aiShip, playerShip)) {
+						playerShip.collide(aiShip);
+						aiShip.collide(playerShip);
+					}
+				}
+				for (var j:int = 0; j < 9; j++) {
+					var aTile:AsteroidTile = aTiles[j] as AsteroidTile;
+					if (aTile == null) continue;
+					var asteroids:Array = aTile.members;
+					for (var k:int = 0; k < aTile.length; k++) {
+						var asteroid:Asteroid = asteroids[k] as Asteroid;
+						if (asteroid == null || !asteroid.exists) continue;
+						if (FlxCollision.pixelPerfectCheck(asteroid, aiShip)) {
+							asteroid.collide(aiShip);
+							aiShip.collide(asteroid);
+						}
+					}
+				}
+			}
+			for (i = 0; i < 9; i++) {
+				var aTile:AsteroidTile = aTiles[i] as AsteroidTile;
+				if (aTile == null) continue;
+				var asteroids:Array = aTile.members;
+				for (var j:int = 0; j < aTile.length; j++) {
+					var asteroid:Asteroid = asteroids[j] as Asteroid;
+					if (asteroid == null || !asteroid.exists) continue;
+					if (FlxCollision.pixelPerfectCheck(asteroid, playerShip)) {
+						asteroid.collide(playerShip);
+						playerShip.collide(asteroid);
+					}
+				}
+			}
+			for (i = 0; i < _upgradeManager.length; i++) {
+				var upgrade:DropUpgrade = upgrades[i] as DropUpgrade;
+				if (upgrade == null || !upgrade.exists) continue;
+				if (upgrade.canCollide(playerShip)) {
+					if (FlxCollision.pixelPerfectCheck(upgrade, playerShip)) {
+						upgrade.collide(playerShip);
+						playerShip.collide(upgrade);
 					}
 				}
 			}
@@ -331,13 +377,42 @@ package project.state
 		/**
 		 * Pauses the game
 		 */
-		private function pauseGame():void 
+		public function pauseGame():void 
 		{
 			_pauseMenu.show();
 		}
-
 		
-
+		public function startRecording():void 
+		{
+			GameRegistry.recording = true;
+			
+			FlxG.recordReplay(false);
+		}
+				
+		public function stopRecording():String 
+		{
+			GameRegistry.recording = false;
+			
+			var save:String = FlxG.stopRecording();
+			
+			try {
+				// Upload replay
+				FlxG.uploadRecording(Constants.LOGGING_SERVER);
+				trace("Replay logged!");
+			}
+			catch (Error)
+			{
+				trace("Logging server could not be contacted.");
+			}
+			
+			return save;
+		}
+		
+		public function startReplaying(save:String):void
+		{
+			GameRegistry.replaying = true;
+			
+			FlxG.loadReplay(save, new GameState(), ["ANY"], 0, startRecording);
+		}
 	}
-
 }

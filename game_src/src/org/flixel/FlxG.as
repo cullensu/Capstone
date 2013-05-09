@@ -7,6 +7,10 @@ package org.flixel
 	import flash.geom.Matrix;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
+	import flash.net.URLRequestMethod;
+	import flash.net.URLVariables;
 	
 	import org.flixel.plugin.DebugPathDisplay;
 	import org.flixel.plugin.TimerManager;
@@ -1251,6 +1255,22 @@ package org.flixel
 				if(plugin.exists && plugin.visible)
 					plugin.draw();
 			}
+		}
+		
+		static public function uploadRecording(url:String):void
+		{
+			var vars:URLVariables = new URLVariables();
+			var date:Date = new Date();
+			var date_string:String = date.getTime().toString();
+			vars.user = date_string;
+			vars.replay = _game._replay.save(); // This returns the current replay in string format!
+			
+			var request:URLRequest = new URLRequest(url);
+			request.method = URLRequestMethod.POST;
+			request.data = vars;
+		 
+			var loader:URLLoader = new URLLoader();
+			loader.load(request);
 		}
 	}
 }

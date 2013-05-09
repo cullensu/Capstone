@@ -12,6 +12,7 @@ package project.util
 		public static const PLAYER:Affiliation = new Affiliation();
 		public static const ENEMY:Affiliation = new Affiliation();
 		public static const NEUTRAL:Affiliation = new Affiliation();
+		public static const ENV:Affiliation = new Affiliation();
 		
 		protected static var _friendly:Vector.<Affiliation>;
 		

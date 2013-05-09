@@ -19,6 +19,7 @@ package project.manager
 		protected var _pad:FlxSound;
 		protected var _strings:FlxSound;
 		protected var _synth:FlxSound;
+		protected var _arr:Array;
 		
 		public function MusicManager() 
 		{
@@ -28,25 +29,29 @@ package project.manager
 			_strings = (new FlxSound()).loadEmbedded(_stringsMp3, true, true);
 			_synth = (new FlxSound()).loadEmbedded(_synthMp3, true, true);
 			
-			add(_bass);
-			add(_pad);
-			add(_rhodes);
-			add(_strings);
-			add(_synth);
+			_arr = new Array(_pad, _rhodes, _bass, _synth, _strings);
 			
-			_bass.volume = 0.0;
-			_pad.volume = 0.0;
-			_rhodes.volume = 0.0;
-			_strings.volume = 0.0;
-			_synth.volume = 0.0;
-			
-			_bass.play();
-			_pad.play();
-			_rhodes.play();
-			_strings.play();
-			_synth.play();
+			for each(var sound:FlxSound in _arr) {
+				sound.volume = 0.0;
+				add(sound);
+				sound.play();
+			}
 		}
 		
+		public function setLevel(n:int):void
+		{
+			if (n > 4) {
+				throw Error("Don't do that (Music Manager)");
+			}
+			for (var i:int = 0; i <= n; i++) {
+				var sound:FlxSound = _arr[i] as FlxSound;
+				sound.fadeIn(1);
+			}
+			for (var j:int = n + 1; i <= 4; i++) {
+				var sound:FlxSound = _arr[j] as FlxSound;
+				sound.fadeOut(1);
+			}
+		}
 	}
 
 }

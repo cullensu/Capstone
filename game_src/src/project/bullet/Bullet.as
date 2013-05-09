@@ -79,10 +79,7 @@ package project.bullet
 		{
 			if (!canCollide(other))
 				return;
-			if (other is Ship)
-			{
-				this.kill();
-			}
+			this.kill();
 		}
 		
 		/**

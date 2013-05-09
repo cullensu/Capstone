@@ -4,12 +4,14 @@ package project.ship.behavior
 	import project.ship.behavior.move.IShipMovement;
 	import project.ship.behavior.shoot.IShipShoot;
 	import project.upgrade.GunUpgrade;
+	import project.util.Affiliation;
 	/**
 	 * ...
 	 * @author Cullen
 	 */
 	public class ShipBehavior 
 	{
+		protected var _affiliation:Affiliation;
 		protected var _movement:IShipMovement;
 		protected var _shooting:IShipShoot;
 		
@@ -93,6 +95,16 @@ package project.ship.behavior
 		public function set shipGraphicDimensions(value:Point):void 
 		{
 			_shipGraphicDimensions = value;
+		}
+		
+		public function get affiliation():Affiliation 
+		{
+			return _affiliation;
+		}
+		
+		public function set affiliation(value:Affiliation):void 
+		{
+			_affiliation = value;
 		}
 		
 	}

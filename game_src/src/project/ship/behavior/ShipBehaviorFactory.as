@@ -8,6 +8,7 @@ package project.ship.behavior
 	import project.ship.behavior.shoot.RandomShot;
 	import project.upgrade.guns.OffsetGun;
 	import project.upgrade.GunUpgrade;
+	import project.util.Affiliation;
 	/**
 	 * ...
 	 * @author Cullen
@@ -33,6 +34,7 @@ package project.ship.behavior
 		protected function initTypes():void
 		{
 			_enemyNormal = new ShipBehavior();
+			_enemyNormal.affiliation = Affiliation.ENEMY;
 			_enemyNormal.guns = new Vector.<GunUpgrade>();
 			var normalGun:OffsetGun = new OffsetGun();
 			normalGun.bulletType = BulletType.TRIANGLE;
@@ -46,6 +48,7 @@ package project.ship.behavior
 			_typeToBehavior[ShipBehaviorType.ENEMY_NORMAL] = _enemyNormal;
 			
 			_enemyFast = new ShipBehavior();
+			_enemyFast.affiliation = Affiliation.ENEMY;
 			_enemyFast.guns = new Vector.<GunUpgrade>();
 			_enemyFast.maxHealth = 20;
 			_enemyFast.speed = 300;

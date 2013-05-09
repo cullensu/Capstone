@@ -1,5 +1,6 @@
 package project.manager 
 {
+	import org.flixel.FlxBasic;
 	import org.flixel.FlxGroup;
 	import project.bullet.BulletType;
 	import project.constant.Constants;
@@ -11,6 +12,8 @@ package project.manager
 	import project.upgrade.guns.OffsetGun;
 	import project.upgrade.GunUpgrade;
 	import project.constant.GameRegistry;
+	import project.util.CartesianPoint;
+	import project.util.PolarPoint;
 	import project.util.Utility;
 	import project.util.Affiliation;
 	/**
@@ -43,22 +46,20 @@ package project.manager
 				s.y = yLoc;
 				s.affiliation = aff;
 				
+				s.alive = true;
 				s.exists = true;
 			}
-		}
-		
-		public function canTick():Boolean
-		{
-			return getFirstExtant() == null;
 		}
 		
 		private function spawn():void
 		{
 			var rand:int = Utility.randomInt(2);
 			var behaviorType:ShipBehaviorType = rand == 0 ? ShipBehaviorType.ENEMY_NORMAL : ShipBehaviorType.ENEMY_FAST;
+			var pPoint:PolarPoint = new PolarPoint(Constants.TILESIZE, Utility.randomAngle());
+			var cPoint:CartesianPoint = pPoint.convertToCartesianPoint();
 			createShip(behaviorType,
-					   GameRegistry.gameState.playerManager.playerShip.x + Constants.TILESIZE * Utility.randomUnit(),
-					   GameRegistry.gameState.playerManager.playerShip.y + Constants.TILESIZE * Utility.randomUnit(),
+					   GameRegistry.gameState.playerManager.playerShip.x + cPoint.x,
+					   GameRegistry.gameState.playerManager.playerShip.y + cPoint.y,
 					   Affiliation.ENEMY);
 			GameRegistry.gameState.addLevel(3);
 		}
@@ -69,6 +70,7 @@ package project.manager
 			if (GameRegistry.gameState.canSpawn) {
 				spawn();
 			}
+			
 		}
 		
 	}

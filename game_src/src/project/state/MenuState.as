@@ -24,7 +24,7 @@ package project.state
 		
 		private function startGame():void
 		{
-			FlxG.switchState(GameRegistry.gameState);
+			FlxG.switchState(new GameState());
 		}
 	}
 

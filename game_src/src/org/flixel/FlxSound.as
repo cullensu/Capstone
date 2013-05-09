@@ -207,10 +207,7 @@ package org.flixel
 				_fadeOutTimer -= FlxG.elapsed;
 				if(_fadeOutTimer <= 0)
 				{
-					if(_pauseOnFadeOut)
-						pause();
-					else
-						stop();
+					_volume = 0.0;
 				}
 				fade = _fadeOutTimer/_fadeOutTotal;
 				if(fade < 0) fade = 0;
@@ -432,10 +429,12 @@ package org.flixel
 		 */
 		public function fadeOut(Seconds:Number,PauseInstead:Boolean=false):void
 		{
-			_pauseOnFadeOut = PauseInstead;
-			_fadeInTimer = 0;
-			_fadeOutTimer = Seconds;
-			_fadeOutTotal = _fadeOutTimer;
+			if(_volume == 1.0) {
+				_pauseOnFadeOut = PauseInstead;
+				_fadeInTimer = 0;
+				_fadeOutTimer = Seconds;
+				_fadeOutTotal = _fadeOutTimer;
+			}
 		}
 		
 		/**
@@ -446,10 +445,12 @@ package org.flixel
 		 */
 		public function fadeIn(Seconds:Number):void
 		{
-			_fadeOutTimer = 0;
-			_fadeInTimer = Seconds;
-			_fadeInTotal = _fadeInTimer;
-			play();
+			if(_volume == 0.0) {
+				_volume = 1.0
+				_fadeOutTimer = 0;
+				_fadeInTimer = Seconds;
+				_fadeInTotal = _fadeInTimer;
+			}
 		}
 		
 		/**

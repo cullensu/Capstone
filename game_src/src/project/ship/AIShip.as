@@ -11,7 +11,9 @@ package project.ship
 	import project.constant.GameRegistry;
 	import project.constant.Constants;
 	import project.upgrade.GunUpgrade;
+	import project.util.CartesianPoint;
 	import project.util.ICollidable;
+	import project.util.PolarPoint;
 	/**
 	 * ...
 	 * @author Cullen
@@ -32,7 +34,6 @@ package project.ship
 			
 			loadGraphic(_shipPng, false, false, 30, 28);
 			
-			_collisionDamage = 75;
 			
 			exists = false;
 		}
@@ -61,16 +62,19 @@ package project.ship
 		
 		override public function kill():void
 		{
+			removeAllGunUpgrades();
 			super.kill();
 		}
 		
 		override public function update():void
 		{
 			super.update();
-			if (Math.abs(x - GameRegistry.gameState.playerManager.playerShip.x) > Constants.TILESIZE ||
-				Math.abs(y - GameRegistry.gameState.playerManager.playerShip.y) > Constants.TILESIZE)
+			var cPoint:CartesianPoint = new CartesianPoint(x - GameRegistry.gameState.playerManager.playerShip.x,
+														   y - GameRegistry.gameState.playerManager.playerShip.y);
+			var pPoint:PolarPoint = cPoint.convertToPolar();
+			if (pPoint.r > Constants.TILESIZE + 80)
 			{
-				exists = false;
+				kill();
 			}
 		}
 		
@@ -85,6 +89,7 @@ package project.ship
 			_behaviorType = value;
 			_behavior = GameRegistry.gameState.shipBehaviorFactory.getShipBehavior(_behaviorType);
 			
+			_affiliation = _behavior.affiliation;
 			loadGraphic(_behavior.shipGraphic, false, false, _behavior.shipGraphicDimensions.x, _behavior.shipGraphicDimensions.y);
 			
 			_maxHealth = _behavior.maxHealth;
