@@ -6,6 +6,7 @@ package project.ship
 	import project.bullet.BulletType;
 	import project.constant.Constants;
 	import project.constant.GameRegistry;
+	import project.state.MenuState;
 	import project.upgrade.drops.DropType;
 	import project.upgrade.drops.DropUpgrade;
 	import project.upgrade.guns.OffsetGun;
@@ -163,7 +164,9 @@ package project.ship
 		override public function kill():void
 		{
 			super.kill();
-			//TODO: Put end game stuff in here
+			//TODO: Put more end game stuff in here
+			GameRegistry.gameState.stopRecording();
+			FlxG.switchState(new MenuState());
 			trace("GAME OVER");
 		}
 		

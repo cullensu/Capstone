@@ -369,19 +369,19 @@ package project.state
 		/**
 		 * Pauses the game
 		 */
-		private function pauseGame():void 
+		public function pauseGame():void 
 		{
 			_pauseMenu.show();
 		}
 		
-		private function startRecording():void 
+		public function startRecording():void 
 		{
 			GameRegistry.recording = true;
 			
 			FlxG.recordReplay(false);
 		}
 				
-		private function stopRecording():String 
+		public function stopRecording():String 
 		{
 			GameRegistry.recording = false;
 			
@@ -400,7 +400,7 @@ package project.state
 			return save;
 		}
 		
-		private function startReplaying(save:String):void
+		public function startReplaying(save:String):void
 		{
 			GameRegistry.replaying = true;
 			
