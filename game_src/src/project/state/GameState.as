@@ -298,8 +298,7 @@ package project.state
 			collideAffilitedObjects(aiShips, playerShip);
 			collideAffilitedObjects(upgrades, playerShip);
 			
-			var shipsAndBullets:Array = new Array();
-			shipsAndBullets.push(bullets, aiShips, playerShip);
+			var shipsAndBullets:Array = bullets.concat(aiShips, playerShip);
 			for (var i:int = 0; i < aTiles.length; i++)
 			{
 				var aTile:AsteroidTile = aTiles[i] as AsteroidTile;
