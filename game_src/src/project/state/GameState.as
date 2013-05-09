@@ -1,5 +1,6 @@
 package project.state
 {
+	import mx.core.FlexSprite;
 	import org.flixel.FlxCamera;
 	import org.flixel.FlxG;
 	import org.flixel.FlxSprite;
@@ -20,6 +21,7 @@ package project.state
 	import project.manager.PlayerManager;
 	import project.manager.UpgradeManager;
 	import project.menu.PauseMenu;
+	import project.objects.AffiliatedObject;
 	import project.ship.AIShip;
 	import project.ship.behavior.ShipBehaviorFactory;
 	import project.ship.PlayerShip;
@@ -286,89 +288,50 @@ package project.state
 		protected function processCollision():void
 		{
 			var aiShips:Array = _aiManager.members;
-			var playerShip:PlayerShip = _playerManager.playerShip;
+			var playerShip:Array = _playerManager.members;
 			var bullets:Array = _bulletManager.members;
 			var aTiles:Array = _asteroidField.extantTiles;
 			var upgrades:Array = _upgradeManager.members;
 			
-			var i:int;
-			for (i = 0; i < _bulletManager.length; i++) {
-				var bullet:Bullet = bullets[i] as Bullet;
-				if (bullet == null || !bullet.exists) continue;
-				if (bullet.canCollide(playerShip)) {
-					if (FlxCollision.pixelPerfectCheck(playerShip, bullet)) {
-						playerShip.collide(bullet);
-						bullet.collide(playerShip);
-					}
-				}
-				var j:int;
-				for (j = 0; j < _aiManager.length; j++) {
-					var aiShip:AIShip = aiShips[j] as AIShip;
-					if (aiShip == null || !aiShip.exists) continue;
-					if (bullet.canCollide(aiShip)) {
-						if (FlxCollision.pixelPerfectCheck(aiShip, bullet)) {
-							aiShip.collide(bullet);
-							bullet.collide(aiShip);
-						}
-					}
-				}
-				for (j = 0; j < 9; j++) {
-					var aTile:AsteroidTile = aTiles[j] as AsteroidTile;
-					if (aTile == null) continue;
-					var asteroids:Array = aTile.members;
-					for (var k:int = 0; k < aTile.length; k++) {
-						var asteroid:Asteroid = asteroids[k] as Asteroid;
-						if (asteroid == null || !asteroid.exists) continue;
-						if (FlxCollision.pixelPerfectCheck(asteroid, bullet)) {
-							asteroid.collide(bullet);
-							bullet.collide(asteroid);
-						}
-					}
-				}
-			}
-			for (i = 0; i < _aiManager.length; i++) {
-				var aiShip:AIShip = aiShips[i] as AIShip;
-				if (aiShip == null || !aiShip.exists) continue;
-				if (aiShip.canCollide(playerShip)) {
-					if (FlxCollision.pixelPerfectCheck(aiShip, playerShip)) {
-						playerShip.collide(aiShip);
-						aiShip.collide(playerShip);
-					}
-				}
-				for (var j:int = 0; j < 9; j++) {
-					var aTile:AsteroidTile = aTiles[j] as AsteroidTile;
-					if (aTile == null) continue;
-					var asteroids:Array = aTile.members;
-					for (var k:int = 0; k < aTile.length; k++) {
-						var asteroid:Asteroid = asteroids[k] as Asteroid;
-						if (asteroid == null || !asteroid.exists) continue;
-						if (FlxCollision.pixelPerfectCheck(asteroid, aiShip)) {
-							asteroid.collide(aiShip);
-							aiShip.collide(asteroid);
-						}
-					}
-				}
-			}
-			for (i = 0; i < 9; i++) {
+			collideAffilitedObjects(bullets, playerShip);
+			collideAffilitedObjects(bullets, aiShips);
+			collideAffilitedObjects(aiShips, playerShip);
+			collideAffilitedObjects(upgrades, playerShip);
+			
+			var shipsAndBullets:Array = new Array();
+			shipsAndBullets.push(bullets, aiShips, playerShip);
+			for (var i:int = 0; i < aTiles.length; i++)
+			{
 				var aTile:AsteroidTile = aTiles[i] as AsteroidTile;
 				if (aTile == null) continue;
 				var asteroids:Array = aTile.members;
-				for (var j:int = 0; j < aTile.length; j++) {
-					var asteroid:Asteroid = asteroids[j] as Asteroid;
-					if (asteroid == null || !asteroid.exists) continue;
-					if (FlxCollision.pixelPerfectCheck(asteroid, playerShip)) {
-						asteroid.collide(playerShip);
-						playerShip.collide(asteroid);
-					}
-				}
+				collideAffilitedObjects(shipsAndBullets, asteroids);
 			}
-			for (i = 0; i < _upgradeManager.length; i++) {
-				var upgrade:DropUpgrade = upgrades[i] as DropUpgrade;
-				if (upgrade == null || !upgrade.exists) continue;
-				if (upgrade.canCollide(playerShip)) {
-					if (FlxCollision.pixelPerfectCheck(upgrade, playerShip)) {
-						upgrade.collide(playerShip);
-						playerShip.collide(upgrade);
+		}
+		
+		/**
+		 * Members in the array should be ICollidable and FlxSprites
+		 * @param	group1
+		 * @param	group2
+		 */
+		protected function collideAffilitedObjects(group1:Array, group2:Array):void
+		{
+			for (var i:int = 0; i < group1.length; i++) 
+			{
+				var obj1:FlxSprite = group1[i] as FlxSprite;
+				if (obj1 == null || !obj1.exists || !(obj1 is ICollidable)) continue;
+				var coll1:ICollidable = obj1 as ICollidable;
+				for (var j:int = 0; j < group2.length; j++) 
+				{
+					var obj2:FlxSprite = group2[j] as FlxSprite;
+					if (obj2 == null || !obj2.exists || !(obj2 is ICollidable)) continue;
+					var coll2:ICollidable = obj2 as ICollidable;
+					if (coll1.canCollide(coll2)) 
+					{
+						if (FlxCollision.pixelPerfectCheck(obj1, obj2)) {
+							coll1.collide(coll2);
+							coll2.collide(coll1);
+						}
 					}
 				}
 			}
