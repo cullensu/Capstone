@@ -9,7 +9,7 @@ package project.constant
 		public static const LOGGING_SERVER:String = "http://www.cs.washington.edu/education/courses/cse481d/13sp/c481d-d/www/logging/logger.php"
 
 		//Worldsize constants
-		public static const WORLDTILES:int = 16;
+		public static const WORLDTILES:int = 100;
 		public static const TILESIZE:int = 800;
 		public static const MAX_COORD:int = WORLDTILES * TILESIZE;
 		
