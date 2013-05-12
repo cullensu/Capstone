@@ -163,10 +163,15 @@ package project.ship
 		override public function kill():void
 		{
 			super.kill();
+			
 			//TODO: Put more end game stuff in here
-			GameRegistry.gameState.stopRecording();
-			FlxG.switchState(new MenuState());
 			trace("GAME OVER");
+			
+			if (GameRegistry.recording)
+			{
+				GameRegistry.gameState.stopRecording();
+			}
+			FlxG.switchState(new MenuState());
 		}
 		
 		override public function canCollide(other:ICollidable):Boolean

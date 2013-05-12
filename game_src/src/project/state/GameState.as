@@ -29,6 +29,7 @@ package project.state
 	import project.util.ICollidable;
 	import project.upgrade.drops.DropUpgrade;
 	import project.util.Utility;
+	import project.replay.ReplayHandler;
 	/**
 	 * Manages the the actual game and all entities it contains.
 	 * @author Cullen
@@ -158,7 +159,12 @@ package project.state
 
 		override public function create():void
 		{
-			if (!GameRegistry.recording && !GameRegistry.replaying)
+			if (GameRegistry.doReplay)
+			{
+				GameRegistry.doReplay = false;
+				startReplaying(GameRegistry.loadedReplay);
+			}
+			else if (!GameRegistry.recording && !GameRegistry.replaying)
 			{
 				startRecording();
 			}
@@ -213,11 +219,6 @@ package project.state
 			else
 			{
 				_pauseMenu.update();
-			}
-			if (FlxG.keys.justPressed("R") && !GameRegistry.replaying)
-			{
-				var save:String = stopRecording();
-				startReplaying(save);
 			}
 		}
 		
@@ -365,7 +366,7 @@ package project.state
 			
 			try {
 				// Upload replay
-				FlxG.uploadRecording(Constants.LOGGING_SERVER);
+				ReplayHandler.uploadRecording(save, Constants.LOGGING_SERVER);
 				trace("Replay logged!");
 			}
 			catch (e:Error)
@@ -379,8 +380,14 @@ package project.state
 		public function startReplaying(save:String):void
 		{
 			GameRegistry.replaying = true;
-			
-			FlxG.loadReplay(save, new GameState(), ["ANY"], 0, startRecording);
+			FlxG.loadReplay(save, new GameState(), ["ANY"], 0, doneReplaying);
+		}
+		
+		private function doneReplaying():void 
+		{
+			GameRegistry.replaying = false;
+			GameRegistry.loadedReplay = null;
+			FlxG.switchState(new MenuState());
 		}
 	}
 }
