@@ -4,8 +4,12 @@ package project.ship.behavior
 	import flash.utils.Dictionary;
 	import project.bullet.BulletType;
 	import project.constant.Constants;
+	import project.ship.behavior.move.CircleAround;
 	import project.ship.behavior.move.Suicide;
+	import project.ship.behavior.move.SuicideWithTurnRadius;
+	import project.ship.behavior.shoot.LeadingShot;
 	import project.ship.behavior.shoot.RandomShot;
+	import project.ship.behavior.shoot.TargetShot;
 	import project.upgrade.guns.OffsetGun;
 	import project.upgrade.GunUpgrade;
 	import project.util.Affiliation;
@@ -38,13 +42,13 @@ package project.ship.behavior
 			_enemyNormal.guns = new Vector.<GunUpgrade>();
 			var normalGun:OffsetGun = new OffsetGun();
 			normalGun.bulletType = BulletType.TRIANGLE;
-			_enemyNormal.guns.push(normalGun);
+			//_enemyNormal.guns.push(normalGun);
 			_enemyNormal.maxHealth = 40;
 			_enemyNormal.speed = 250;
 			_enemyNormal.collisionDamage = 10;
 			_enemyNormal.shipGraphic = _enemyNormalPng;
 			_enemyNormal.shipGraphicDimensions = new Point(30, 28);
-			_enemyNormal.movement = new Suicide();
+			_enemyNormal.movement = new CircleAround(200);
 			_enemyNormal.shooting = new RandomShot();
 			_typeToBehavior[ShipBehaviorType.ENEMY_NORMAL] = _enemyNormal;
 			
@@ -56,8 +60,8 @@ package project.ship.behavior
 			_enemyFast.collisionDamage = 10;
 			_enemyFast.shipGraphic = _enemyFastPng;
 			_enemyFast.shipGraphicDimensions = new Point(26, 16);
-			_enemyFast.movement = new Suicide();
-			_enemyFast.shooting = new RandomShot();
+			_enemyFast.movement = new SuicideWithTurnRadius(Math.PI / 3);
+			_enemyFast.shooting = new RandomShot(); //Needs this even though it doesn't have a gun to shoot
 			_typeToBehavior[ShipBehaviorType.ENEMY_FAST] = _enemyFast;
 			
 			_enemyBig = new ShipBehavior();
@@ -66,14 +70,14 @@ package project.ship.behavior
 			var bigGun:OffsetGun = new OffsetGun();
 			bigGun.bulletType = BulletType.BIG_TRIANGLE;
 			bigGun.gunCooldown = 50;
-			_enemyBig.guns.push(bigGun);
+			//_enemyBig.guns.push(bigGun);
 			_enemyBig.maxHealth = 100;
 			_enemyBig.speed = 200;
 			_enemyBig.collisionDamage = 40;
 			_enemyBig.shipGraphic = _enemyBigPng;
 			_enemyBig.shipGraphicDimensions = new Point(46, 17);
-			_enemyBig.movement = new Suicide();
-			_enemyBig.shooting = new RandomShot();
+			_enemyBig.movement = new CircleAround(250);
+			_enemyBig.shooting = new LeadingShot();
 			_typeToBehavior[ShipBehaviorType.ENEMY_BIG] = _enemyBig;
 		}
 		

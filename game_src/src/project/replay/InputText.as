@@ -72,7 +72,7 @@ package project.replay{
 			active = true;
 		}
 		
-		protected function openReplay(e:KeyboardEvent)
+		protected function openReplay(e:KeyboardEvent):void
 		{
 			if (e.keyCode == Keyboard.ENTER)
 			{

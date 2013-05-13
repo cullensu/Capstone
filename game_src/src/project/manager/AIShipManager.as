@@ -54,7 +54,7 @@ package project.manager
 		
 		private function spawn():void
 		{
-			var rand:int = Utility.randomInt(5);
+			var rand:int = Utility.randomInt(1);
 			var behaviorType:ShipBehaviorType;
 			if (rand == 0) {
 				behaviorType = ShipBehaviorType.ENEMY_FAST;

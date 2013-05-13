@@ -8,6 +8,9 @@ package project.constant
 	{
 		public static const LOGGING_SERVER:String = "http://www.cs.washington.edu/education/courses/cse481d/13sp/c481d-d/www/logging/logger.php"
 
+		public static const GAME_FRAME_RATE:int = 60;
+		public static const FLASH_FRAME_RATE:int = 60;
+		
 		//Worldsize constants
 		public static const WORLDTILES:int = 16;
 		public static const TILESIZE:int = 800;
