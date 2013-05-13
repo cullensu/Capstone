@@ -7,6 +7,7 @@ package project.ship.behavior
 	import project.ship.behavior.move.CircleAround;
 	import project.ship.behavior.move.Suicide;
 	import project.ship.behavior.move.SuicideWithTurnRadius;
+	import project.ship.behavior.move.TeleportingBoss;
 	import project.ship.behavior.shoot.LeadingShot;
 	import project.ship.behavior.shoot.RandomShot;
 	import project.ship.behavior.shoot.TargetShot;
@@ -42,13 +43,13 @@ package project.ship.behavior
 			_enemyNormal.guns = new Vector.<GunUpgrade>();
 			var normalGun:OffsetGun = new OffsetGun();
 			normalGun.bulletType = BulletType.TRIANGLE;
-			//_enemyNormal.guns.push(normalGun);
+			_enemyNormal.guns.push(normalGun);
 			_enemyNormal.maxHealth = 40;
 			_enemyNormal.speed = 250;
 			_enemyNormal.collisionDamage = 10;
 			_enemyNormal.shipGraphic = _enemyNormalPng;
 			_enemyNormal.shipGraphicDimensions = new Point(30, 28);
-			_enemyNormal.movement = new CircleAround(200);
+			_enemyNormal.movement = new CircleAround(175);
 			_enemyNormal.shooting = new RandomShot();
 			_typeToBehavior[ShipBehaviorType.ENEMY_NORMAL] = _enemyNormal;
 			
@@ -70,7 +71,7 @@ package project.ship.behavior
 			var bigGun:OffsetGun = new OffsetGun();
 			bigGun.bulletType = BulletType.BIG_TRIANGLE;
 			bigGun.gunCooldown = 50;
-			//_enemyBig.guns.push(bigGun);
+			_enemyBig.guns.push(bigGun);
 			_enemyBig.maxHealth = 100;
 			_enemyBig.speed = 200;
 			_enemyBig.collisionDamage = 40;
