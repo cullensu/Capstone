@@ -16,7 +16,6 @@ package project.env
 			for (var i:int = 0; i < Constants.NUM_STATIONS; i++) {
 				var newStation:Station = new Station(Utility.randomInt(worldSize) * Constants.TILESIZE,
 												 Utility.randomInt(worldSize) * Constants.TILESIZE);
-				trace(newStation.x, newStation.y);
 				add(newStation);
 			}
 			this.active = false;

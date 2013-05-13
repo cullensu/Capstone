@@ -21,6 +21,7 @@ package project.ship
 	public class PlayerShip extends Ship
 	{
 		[Embed(source = "../../../assets/playershipsheet.png")] private var _shipPng:Class
+		[Embed(source="../../../assets/sfx/PlayerHurt.mp3")] private var _hurtmp3:Class
 		protected var _xDir:Number;
 		protected var _yDir:Number;
 		
@@ -183,6 +184,7 @@ package project.ship
 		
 		override public function collide(other:ICollidable):void
 		{
+			FlxG.play(_hurtmp3);
 			super.collide(other);
 			if (health > maxHealth) {
 				health = maxHealth;

@@ -2,6 +2,7 @@ package project.ship
 {
 	import org.flixel.FlxPoint;
 	import org.flixel.FlxSprite;
+	import org.flixel.FlxG;
 	import project.bullet.Bullet;
 	import project.objects.AffiliatedObject;
 	import project.upgrade.GunUpgrade;
@@ -12,6 +13,8 @@ package project.ship
 	 */
 	public class Ship extends AffiliatedObject implements ICollidable, IShip
 	{
+		[Embed(source = "../../../assets/sfx/Explode.mp3")] protected var _explodemp3:Class;
+		
 		protected var _guns:Vector.<GunUpgrade>;
 		protected var _collisionDamage:Number;
 		
@@ -141,6 +144,12 @@ package project.ship
 			{
 				gun.fire(targetX, targetY, addVelocity);
 			}
+		}
+		
+		override public function kill():void
+		{
+			if(this.onScreen()) FlxG.play(_explodemp3);
+			super.kill();
 		}
 		
 	}

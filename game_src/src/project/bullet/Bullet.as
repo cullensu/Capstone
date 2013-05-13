@@ -2,6 +2,7 @@ package project.bullet
 {
 	import flash.geom.Point;
 	import org.flixel.FlxPoint;
+	import org.flixel.FlxG;
 	import project.objects.AffiliatedObject;
 	import project.ship.Ship;
 	import project.util.Affiliation;
@@ -19,6 +20,9 @@ package project.bullet
 		[Embed(source = "../../../assets/playerbulletbig.png")] private var playerBigBulletSpr:Class;
 		[Embed(source = "../../../assets/neutralbulletbig.png")] private var neutralBigBulletSpr:Class;
 		[Embed(source = "../../../assets/enemybulletbig.png")] private var enemyBigBulletSpr:Class;
+		
+		[Embed(source = "../../../assets/sfx/EnemyShoot.mp3")] private var _enemyShootmp3:Class;
+		[Embed(source = "../../../assets/sfx/PlayerShoot.mp3")] private var _playerShootmp3:Class;
 		
 		private static const PLAYER_BULLET_DIMENSIONS:Point = new Point(5, 5);
 		private static const ENEMY_BULLET_DIMENSION:Point = new Point(5, 4);
@@ -129,8 +133,17 @@ package project.bullet
 		public function fire(owner:AffiliatedObject, targetX:Number, targetY:Number, addVelocity:FlxPoint = null):void
 		{
 			_affiliation = owner.affiliation;
+			
 			this.x = owner.x + width / 2;
 			this.y = owner.y + height / 2;
+			
+			if(this.onScreen()) {
+				if (_affiliation == Affiliation.PLAYER) {
+					FlxG.play(_playerShootmp3);
+				} else {
+					FlxG.play(_enemyShootmp3);
+				}
+			}
 			
 			var vel:Point = new Point(targetX - owner.x, targetY - owner.y);
 			vel.normalize(_speed);

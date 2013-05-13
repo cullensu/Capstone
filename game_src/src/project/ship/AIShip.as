@@ -1,5 +1,6 @@
 package project.ship 
 {
+	import org.flixel.FlxG;
 	import project.bullet.BulletType;
 	import project.constant.GameRegistry;
 	import project.ship.behavior.move.Suicide;
@@ -21,6 +22,7 @@ package project.ship
 	public class AIShip extends Ship
 	{
 		[Embed(source = "../../../assets/enemynormal.png")] private var _shipPng:Class
+		[Embed(source = "../../../assets/sfx/EnemyHurt.mp3")] private var _hurtmp3:Class
 		
 		//Should remain invisible to outside classes
 		private var _behavior:ShipBehavior;
@@ -40,6 +42,7 @@ package project.ship
 		
 		override public function collide(other:ICollidable):void
 		{
+			FlxG.play(_hurtmp3);
 			super.collide(other);
 			if (health <= 0)
 			{
