@@ -41,6 +41,9 @@ package project.constant
 		public static const OXYGEN_ADD:Number = 10;
 		public static const OXYGEN_MAX:Number = 90;
 		
+		//Station constants
+		public static const NUM_STATIONS:Number = 3;
+		
 		public function Constants() 
 		{
 			
