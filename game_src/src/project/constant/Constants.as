@@ -12,7 +12,7 @@ package project.constant
 		public static const FLASH_FRAME_RATE:int = 60;
 		
 		//Worldsize constants
-		public static const WORLDTILES:int = 16;
+		public static const WORLDTILES:int = 100;
 		public static const TILESIZE:int = 800;
 		public static const MAX_COORD:int = WORLDTILES * TILESIZE;
 		
