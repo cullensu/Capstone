@@ -38,8 +38,8 @@ package project.constant
 		public static const TICK3:Number = TICK1 * MULT3;
 		
 		//Oxygen constants
-		public static const OXYGEN_ADD:Number = 6;
-		public static const OXYGEN_MAX:Number = 60;
+		public static const OXYGEN_ADD:Number = 10;
+		public static const OXYGEN_MAX:Number = 90;
 		
 		public function Constants() 
 		{

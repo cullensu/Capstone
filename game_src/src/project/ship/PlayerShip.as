@@ -50,10 +50,10 @@ package project.ship
 			gun1.angleOffset = 0;
 			gun1.bulletType = BulletType.BIG_CIRCLE;
 			var gun2:OffsetGun = new OffsetGun();
-			gun2.angleOffset = Math.PI / 6;
+			gun2.angleOffset = Math.PI / 18;
 			gun2.bulletType = BulletType.CIRCLE;
 			var gun3:OffsetGun = new OffsetGun();
-			gun3.angleOffset = -1 * Math.PI / 6;
+			gun3.angleOffset = -1 * Math.PI / 18;
 			gun3.bulletType = BulletType.CIRCLE;
 			addGunUpgrade(gun1);
 			addGunUpgrade(gun2);

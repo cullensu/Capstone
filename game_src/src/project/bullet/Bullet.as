@@ -80,19 +80,19 @@ package project.bullet
 				{
 					loadGraphic(playerBigBulletSpr, false, false, PLAYER_BIG_BULLET_DIMENSIONS.x, PLAYER_BIG_BULLET_DIMENSIONS.y);
 					_collisionDamage = 20;
-					_speed = 450;
+					_speed = 500;
 				}
 				else if (_type == BulletType.BIG_SQUARE)
 				{
 					loadGraphic(neutralBigBulletSpr, false, false, NEUTRAL_BIG_BULLET_DIMENSIONS.x, NEUTRAL_BIG_BULLET_DIMENSIONS.y);
 					_collisionDamage = 20;
-					_speed = 450;
+					_speed = 500;
 				}
 				else if (_type == BulletType.BIG_TRIANGLE)
 				{
 					loadGraphic(enemyBigBulletSpr, false, false, ENEMY_BIG_BULLET_DIMENSIONS.x, ENEMY_BIG_BULLET_DIMENSIONS.y);
 					_collisionDamage = 20;
-					_speed = 450;
+					_speed = 500;
 				}
 				else 
 				{
@@ -126,7 +126,7 @@ package project.bullet
 		 * @param	targetX
 		 * @param	targetY
 		 */
-		public function fire(owner:AffiliatedObject, targetX:Number, targetY:Number):void
+		public function fire(owner:AffiliatedObject, targetX:Number, targetY:Number, addVelocity:FlxPoint = null):void
 		{
 			_affiliation = owner.affiliation;
 			this.x = owner.x + width / 2;
@@ -134,6 +134,12 @@ package project.bullet
 			
 			var vel:Point = new Point(targetX - owner.x, targetY - owner.y);
 			vel.normalize(_speed);
+			
+			if (addVelocity != null)
+			{
+				vel.x = vel.x + addVelocity.x;
+				vel.y = vel.y + addVelocity.y;
+			}
 			
 			this.velocity.copyFromFlash(vel);
 			exists = true;

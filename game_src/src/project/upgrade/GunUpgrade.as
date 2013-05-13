@@ -1,5 +1,6 @@
 package project.upgrade 
 {
+	import org.flixel.FlxPoint;
 	import project.bullet.BulletType;
 	import project.constant.GameRegistry;
 	import project.objects.AffiliatedObject;
@@ -96,11 +97,11 @@ package project.upgrade
 			this.y = _owner.y + _yOffset;
 		}
 		
-		public function fire(targetX:Number, targetY:Number):void
+		public function fire(targetX:Number, targetY:Number, addVelocity:FlxPoint = null):void
 		{
 			if (_currentCooldown == 0)
 			{
-				GameRegistry.gameState.bulletManager.fire(this, targetX, targetY, _bulletType);
+				GameRegistry.gameState.bulletManager.fire(this, targetX, targetY, _bulletType, addVelocity);
 				_currentCooldown = _gunCooldown;
 			}
 		}

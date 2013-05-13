@@ -1,5 +1,6 @@
 package project.upgrade.guns 
 {
+	import org.flixel.FlxPoint;
 	import project.constant.GameRegistry;
 	import project.upgrade.GunUpgrade;
 	import project.util.CartesianPoint;
@@ -28,7 +29,7 @@ package project.upgrade.guns
 			_angleOffset = value;
 		}
 		
-		override public function fire(targetX:Number, targetY:Number):void
+		override public function fire(targetX:Number, targetY:Number, addVelocity:FlxPoint = null):void
 		{
 			if (_currentCooldown == 0)
 			{
@@ -36,7 +37,7 @@ package project.upgrade.guns
 				var polar:PolarPoint = target.convertToPolar();
 				polar.rotate(_angleOffset);
 				target = polar.convertToCartesianPoint();
-				GameRegistry.gameState.bulletManager.fire(this, this.x + target.x, this.y + target.y, _bulletType);
+				GameRegistry.gameState.bulletManager.fire(this, this.x + target.x, this.y + target.y, _bulletType, addVelocity);
 				_currentCooldown = _gunCooldown;
 			}
 		}

@@ -1,5 +1,6 @@
 package project.ship 
 {
+	import org.flixel.FlxPoint;
 	import org.flixel.FlxSprite;
 	import project.bullet.Bullet;
 	import project.objects.AffiliatedObject;
@@ -134,11 +135,11 @@ package project.ship
 			}
 		}
 		
-		public function fire(targetX:Number, targetY:Number):void
+		public function fire(targetX:Number, targetY:Number, addVelocity:FlxPoint = null):void
 		{
 			for each (var gun:GunUpgrade in _guns)
 			{
-				gun.fire(targetX, targetY);
+				gun.fire(targetX, targetY, addVelocity);
 			}
 		}
 		

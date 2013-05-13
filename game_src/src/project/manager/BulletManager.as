@@ -1,6 +1,7 @@
 package project.manager 
 {
 	import org.flixel.FlxGroup;
+	import org.flixel.FlxPoint;
 	import project.bullet.Bullet;
 	import project.bullet.BulletType;
 	import project.constant.Constants;
@@ -30,13 +31,13 @@ package project.manager
 		 * @param	targetY
 		 * @param	bulletType
 		 */
-		public function fire(owner:AffiliatedObject, targetX:Number, targetY:Number, bulletType:BulletType):void
+		public function fire(owner:AffiliatedObject, targetX:Number, targetY:Number, bulletType:BulletType, addVelocity:FlxPoint = null):void
 		{
 			if (this.getFirstAvailable() != null)
 			{
 				var b:Bullet = (getFirstAvailable() as Bullet);
 				b.type = bulletType;
-				b.fire(owner, targetX, targetY)
+				b.fire(owner, targetX, targetY, addVelocity)
 			}
 			
 		}

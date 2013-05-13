@@ -273,7 +273,7 @@ package project.state
 			//Mouse Clicks
 			if (FlxG.mouse.pressed())
 			{
-				_playerManager.playerShip.fire(FlxG.mouse.x, FlxG.mouse.y);
+				_playerManager.playerShip.fire(FlxG.mouse.x, FlxG.mouse.y/*, _playerManager.playerShip.velocity*/);
 			}
 
 			// Other controls
