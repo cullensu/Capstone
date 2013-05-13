@@ -12,7 +12,7 @@ package project.ship.behavior.move
 	 */
 	public class TeleportingBoss extends CircleAround
 	{
-		protected static const TELEPORT_DISTANCE:Number = 100;
+		protected static const TELEPORT_DISTANCE:Number = 150;
 		protected static const DISTANCE_VARIANCE:Number = 25;
 		protected static const TELEPORT_COOLDOWN:Number = 45;
 		protected static const COOLDOWN_VARIANCE:Number = 15;

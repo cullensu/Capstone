@@ -24,9 +24,13 @@ package project.ship.behavior
 		[Embed(source = "../../../../assets/enemyfast.png")] private var _enemyFastPng:Class;
 		[Embed(source = "../../../../assets/enemynormal.png")] private var _enemyNormalPng:Class;
 		
+		[Embed(source = "../../../../assets/minibossblink.png")] private var _bossBlinkPng:Class;
+		
 		protected var _enemyNormal:ShipBehavior;
 		protected var _enemyFast:ShipBehavior;
 		protected var _enemyBig:ShipBehavior;
+		
+		protected var _bossBlink:ShipBehavior;
 		
 		protected var _typeToBehavior:Dictionary;
 		
@@ -80,6 +84,22 @@ package project.ship.behavior
 			_enemyBig.movement = new CircleAround(250);
 			_enemyBig.shooting = new LeadingShot();
 			_typeToBehavior[ShipBehaviorType.ENEMY_BIG] = _enemyBig;
+			
+			_bossBlink = new ShipBehavior();
+			_bossBlink.affiliation = Affiliation.ENEMY;
+			_bossBlink.guns = new Vector.<GunUpgrade>();
+			var bossGun:OffsetGun = new OffsetGun();
+			bossGun.bulletType = BulletType.BIG_TRIANGLE;
+			bossGun.gunCooldown = 20;
+			_bossBlink.guns.push(bossGun);
+			_bossBlink.maxHealth = 1000;
+			_bossBlink.speed = 350;
+			_bossBlink.collisionDamage = 400;
+			_bossBlink.shipGraphic = _bossBlinkPng;
+			_bossBlink.shipGraphicDimensions = new Point(116, 105);
+			_bossBlink.movement = new TeleportingBoss(250);
+			_bossBlink.shooting = new LeadingShot();
+			_typeToBehavior[ShipBehaviorType.BOSS_BLINK] = _bossBlink;
 		}
 		
 		public function getShipBehavior(type:ShipBehaviorType):ShipBehavior
