@@ -4,7 +4,9 @@ package project.hud
 	import org.flixel.FlxPoint;
 	import org.flixel.FlxSprite;
 	import org.flixel.plugin.photonstorm.FlxBar;
+	import org.flixel.FlxG;
 	import project.constant.GameRegistry;
+	import project.env.Station;
 	import project.ship.PlayerShip;
 	import project.state.GameState;
 	import project.constant.Constants;
@@ -34,6 +36,18 @@ package project.hud
 			_miniMap = (new FlxSprite(699, 499)).loadGraphic(_map);
 			_miniMap.scrollFactor = new FlxPoint(0, 0);
 			add(_miniMap);
+			
+			if (FlxG.debug) {
+				var arr:Array = state.stations.members;
+				for (var i:int = 0; i < Constants.NUM_STATIONS; i++) {
+					var station:Station = arr[i] as Station;
+					var newSprite:FlxSprite = (new FlxSprite(station.x / Constants.TILESIZE, station.y / Constants.TILESIZE)).makeGraphic(1, 1, 0xff0000ff);
+					newSprite.x += 700;
+					newSprite.y += 500;
+					newSprite.scrollFactor = new FlxPoint(0, 0);
+					add(newSprite);
+				}
+			}
 			
 			//Player blip
 			_blip = (new FlxSprite(750, 550)).makeGraphic(1, 1);

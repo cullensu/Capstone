@@ -116,6 +116,11 @@ package project.state
 			_replaying = false;
 		}
 		
+		public function get stations():Stations
+		{
+			return _stations;
+		}
+		
 		public function get canSpawn():Boolean
 		{
 			return _canSpawn;
@@ -286,18 +291,20 @@ package project.state
 			}
 
 			// Other controls
-			if (FlxG.keys.justPressed("P"))
+			if (FlxG.keys.justPressed("ESCAPE"))
 			{
 				pauseGame();
 			}
-			if (FlxG.keys.justPressed("J")) {
-				trace(_playerManager.playerShip.x, _playerManager.playerShip.y);
-			}
-			if (FlxG.keys.justPressed("M")) {
-				FlxG.mute = !FlxG.mute;
-			}
-			if (FlxG.keys.justPressed("H")) {
-				_playerManager.playerShip.health = _playerManager.playerShip.maxHealth;
+			if(FlxG.debug) {
+				if (FlxG.keys.justPressed("J")) {
+					trace(_playerManager.playerShip.x, _playerManager.playerShip.y);
+				}
+				if (FlxG.keys.justPressed("M")) {
+					FlxG.mute = !FlxG.mute;
+				}
+				if (FlxG.keys.justPressed("H")) {
+					_playerManager.playerShip.health = _playerManager.playerShip.maxHealth;
+				}
 			}
 		}
 		
