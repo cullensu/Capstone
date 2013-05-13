@@ -13,6 +13,8 @@ package project.state
 	import project.env.AsteroidTile;
 	import project.env.StarField;
 	import project.env.AsteroidField;
+	import project.env.Station;
+	import project.env.Stations;
 	import project.hud.HUD;
 	import project.manager.AIShipManager;
 	import project.manager.BulletManager;
@@ -35,7 +37,9 @@ package project.state
 	 * @author Cullen
 	 */
 	public class GameState extends FlxState
-	{		
+	{
+		protected var _stations:Stations;
+		
 		protected var _aiManager:AIShipManager;
 		protected var _playerManager:PlayerManager;
 		protected var _envManager:EnvironmentManager;
@@ -63,7 +67,9 @@ package project.state
 		protected var _replaying:Boolean;
 
 		public function init():void
-		{			
+		{
+			_stations = new Stations(Constants.WORLDTILES);
+			
 			_aiManager = new AIShipManager();
 			_playerManager = new PlayerManager();
 			_envManager = new EnvironmentManager();
@@ -88,6 +94,9 @@ package project.state
 			add(_starField);
 			add(_starField2);
 			add(_starField3);
+			
+			add(_stations);
+			
 			add(_asteroidField);
 			
 			add(_aiManager);
