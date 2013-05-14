@@ -17,6 +17,7 @@ package project.hud
 	public class HUD extends FlxGroup
 	{
 		protected var _playerHealthBar:FlxBar;
+		protected var _playerActiveBar:FlxBar;
 		protected var _miniMap:FlxSprite;
 		protected var _blip:FlxSprite;
 		protected var _playerShip:PlayerShip;
@@ -24,13 +25,18 @@ package project.hud
 		public function HUD(state:GameState) 
 		{
 			super();
+			GameRegistry.hud = this;
 			
 			_playerShip = state.playerManager.playerShip;
 			
 			//Health bar
 			_playerHealthBar = new FlxBar(350, 0, FlxBar.FILL_LEFT_TO_RIGHT, 100, 10, _playerShip, "health", 0, _playerShip.health, false);
+			updateActiveBar();
+			_playerActiveBar.color = 0xff37FDFC;
 			add(_playerHealthBar);
+			add(_playerActiveBar);
 			_playerHealthBar.scrollFactor = new FlxPoint(0, 0);
+			_playerActiveBar.scrollFactor = new FlxPoint(0, 0);
 			
 			//Minimap
 			_miniMap = (new FlxSprite(699, 499)).loadGraphic(_map);
@@ -53,6 +59,11 @@ package project.hud
 			_blip = (new FlxSprite(750, 550)).makeGraphic(1, 1);
 			_blip.scrollFactor = new FlxPoint(0, 0);
 			add(_blip);
+		}
+		
+		public function updateActiveBar():void 
+		{
+			_playerActiveBar = new FlxBar(350, 12, FlxBar.FILL_LEFT_TO_RIGHT, 100, 10, _playerShip.activeUpgrade, "charge", 0, _playerShip.activeUpgrade.MAX_CHARGE, false);
 		}
 		
 		

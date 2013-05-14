@@ -102,6 +102,7 @@ package org.flixel.plugin.photonstorm
 		private var _y:int;
 		public var width:int;
 		public var height:int;
+		private var _scrollFactor:FlxPoint;
 		
 		/**
 		 * Creates a new <code>FlxButton</code> object with a gray background
@@ -434,6 +435,20 @@ package org.flixel.plugin.photonstorm
 				textNormal.text = value;
 				textHighlight.text = value;
 			}
+		}
+		
+		public function get scrollFactor():FlxPoint 
+		{
+			return _scrollFactor;
+		}
+		
+		public function set scrollFactor(value:FlxPoint):void 
+		{
+			_scrollFactor = value;
+			buttonNormal.scrollFactor = _scrollFactor;
+			buttonHighlight.scrollFactor = _scrollFactor;
+			textNormal.scrollFactor = _scrollFactor;
+			textHighlight.scrollFactor = _scrollFactor;
 		}
 		
 		/**

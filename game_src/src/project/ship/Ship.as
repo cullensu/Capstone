@@ -5,6 +5,8 @@ package project.ship
 	import org.flixel.FlxG;
 	import project.bullet.Bullet;
 	import project.objects.AffiliatedObject;
+	import project.upgrade.active.NullActive;
+	import project.upgrade.ActiveUpgrade;
 	import project.upgrade.GunUpgrade;
 	import project.util.ICollidable;
 	/**
@@ -16,6 +18,8 @@ package project.ship
 		[Embed(source = "../../../assets/sfx/Explode.mp3")] protected var _explodemp3:Class;
 		
 		protected var _guns:Vector.<GunUpgrade>;
+		protected var _activeUpgrade:ActiveUpgrade;
+		
 		protected var _collisionDamage:Number;
 		
 		protected var _gunXOffset:Number;
@@ -23,6 +27,8 @@ package project.ship
 		
 		protected var _maxHealth:Number;
 		protected var _speed:Number;
+		
+		protected var _activeShield:Boolean;
 		
 		public function Ship(X:Number=0,Y:Number=0,SimpleGraphic:Class=null) 
 		{
@@ -33,6 +39,11 @@ package project.ship
 			_guns = new Vector.<GunUpgrade>();
 			gunXOffset = 0;
 			gunYOffset = 0;
+			_activeShield = false;
+			
+						
+			// Set active to be empty
+			_activeUpgrade = new NullActive(this);
 		}
 		
 		public function get gunXOffset():Number 
@@ -85,6 +96,26 @@ package project.ship
 			_speed = value;
 		}
 		
+		public function get activeUpgrade():ActiveUpgrade 
+		{
+			return _activeUpgrade;
+		}
+		
+		public function set activeUpgrade(value:ActiveUpgrade):void 
+		{
+			_activeUpgrade = value;
+		}
+		
+		public function get activeShield():Boolean 
+		{
+			return _activeShield;
+		}
+		
+		public function set activeShield(value:Boolean):void 
+		{
+			_activeShield = value;
+		}
+		
 		public function canCollide(other:ICollidable):Boolean
 		{
 			if (other is AffiliatedObject)
@@ -98,7 +129,15 @@ package project.ship
 		public function collide(other:ICollidable):void
 		{
 			if (!canCollide(other)) return;
-			this.health = this.health - other.collisionDamage;
+			if (_activeShield)
+			{
+				trace("Shield absorbed " + other.collisionDamage + "damage!")
+				_activeUpgrade.charge -= other.collisionDamage * 2
+			}
+			else
+			{
+				this.health = this.health - other.collisionDamage;
+			}
 		}
 		
 		public function addGunUpgrade(gunUpgrade:GunUpgrade):void
@@ -150,6 +189,11 @@ package project.ship
 		{
 			if(this.onScreen()) FlxG.play(_explodemp3);
 			super.kill();
+		}
+		
+		public function useActive():void
+		{
+			_activeUpgrade.activate();
 		}
 		
 	}
