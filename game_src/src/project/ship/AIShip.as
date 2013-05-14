@@ -47,7 +47,7 @@ package project.ship
 			if (health <= 0)
 			{
 				kill();
-				GameRegistry.gameState.upgradeManager.createDrop(DropType.OXYGEN, this.x, this.y);
+				GameRegistry.gameState.upgradeManager.createRandomDrop(this.x, this.y);
 			}
 			
 			if (other is Ship)
@@ -72,6 +72,11 @@ package project.ship
 			_behavior.movement.move(this);
 			_behavior.shooting.shoot(this);
 			super.update();
+			checkDespawn();
+		}
+		
+		protected function checkDespawn():void
+		{
 			var cPoint:CartesianPoint = new CartesianPoint(x - GameRegistry.gameState.playerManager.playerShip.x,
 														   y - GameRegistry.gameState.playerManager.playerShip.y);
 			var pPoint:PolarPoint = cPoint.convertToPolar();

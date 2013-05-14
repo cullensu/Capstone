@@ -21,7 +21,22 @@ package project.constant
 		
 		public static const MAX_AI_SHIPS:int = 30;
 		
+		//Player Ship Drop Upgrade Constants
 		public static const MAX_UPGRADES_ON_SCREEN:int = 10;
+		public static const DROP_UPGRADE_LIFETIME:Number = 15;
+		public static const STARTING_BONUS_COOLDOWN:Number = 100;
+		public static const MAX_BONUS_COOLDOWN:Number = 150;
+		public static const BONUS_COOLDOWN_PER_UPGRADE:Number = 5;
+		public static const STARTING_BONUS_DAMAGE:Number = 0;
+		public static const MAX_BONUS_DAMAGE:Number = 30;
+		public static const BONUS_DAMAGE_PER_UPGRADE:Number = 3;
+		public static const STARTING_MOVE_SPEED:Number = 350;
+		public static const STARTING_BONUS_MOVE_SPEED:Number = 0;
+		public static const MAX_BONUS_MOVE_SPEED:Number = 150;
+		public static const BONUS_MOVE_SPEED_PER_UPGRADE:Number = 15;
+		public static const OXYGEN_ADD:Number = 12;
+		public static const OXYGEN_MAX:Number = 90;
+		public static const STARTING_HEALTH_DRAIN_RATE:Number = 1;
 		
 		//Enemy spawning constants
 		private static const TICK:Number = 5;
@@ -36,10 +51,6 @@ package project.constant
 		public static const THRESHOLD_L3:Number = THRESHOLD_L1 * MULT3;
 		public static const THRESHOLD_H3:Number = THRESHOLD_H1 * MULT3;
 		public static const TICK3:Number = TICK1 * MULT3;
-		
-		//Oxygen constants
-		public static const OXYGEN_ADD:Number = 10;
-		public static const OXYGEN_MAX:Number = 90;
 		
 		//Station constants
 		public static const NUM_STATIONS:Number = 3;

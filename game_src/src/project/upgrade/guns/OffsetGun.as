@@ -29,16 +29,16 @@ package project.upgrade.guns
 			_angleOffset = value;
 		}
 		
-		override public function fire(targetX:Number, targetY:Number, addVelocity:FlxPoint = null):void
+		override public function fire(targetX:Number, targetY:Number, addVelocity:FlxPoint = null, bonusAttack:Number = 0, bonusCooldown:Number = 100):void
 		{
-			if (_currentCooldown == 0)
+			if (_currentCooldown <= 0)
 			{
 				var target:CartesianPoint = new CartesianPoint(targetX - this.x, targetY - this.y);
 				var polar:PolarPoint = target.convertToPolar();
 				polar.rotate(_angleOffset);
 				target = polar.convertToCartesianPoint();
-				GameRegistry.gameState.bulletManager.fire(this, this.x + target.x, this.y + target.y, _bulletType, addVelocity);
-				_currentCooldown = _gunCooldown;
+				GameRegistry.gameState.bulletManager.fire(this, this.x + target.x, this.y + target.y, _bulletType, addVelocity, bonusAttack);
+				_currentCooldown = _gunCooldown / (bonusCooldown / 100);
 			}
 		}
 		

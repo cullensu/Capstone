@@ -1,8 +1,10 @@
 package project.hud 
 {
+	import flash.accessibility.Accessibility;
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxPoint;
 	import org.flixel.FlxSprite;
+	import org.flixel.FlxText;
 	import org.flixel.plugin.photonstorm.FlxBar;
 	import org.flixel.FlxG;
 	import project.constant.GameRegistry;
@@ -17,6 +19,15 @@ package project.hud
 	public class HUD extends FlxGroup
 	{
 		protected var _playerHealthBar:FlxBar;
+		protected var _playerBonusDamageBar:FlxBar;
+		protected var _playerBonusCooldownBar:FlxBar;
+		protected var _playerBonusMovespeedBar:FlxBar;
+		
+		protected var _healthBarLabel:FlxText;
+		protected var _bonusDamageLabel:FlxText;
+		protected var _bonusCooldownLabel:FlxText;
+		protected var _bonusMoveSpeedLabel:FlxText;
+		
 		protected var _miniMap:FlxSprite;
 		protected var _blip:FlxSprite;
 		protected var _playerShip:PlayerShip;
@@ -27,10 +38,46 @@ package project.hud
 			
 			_playerShip = state.playerManager.playerShip;
 			
+			var fillType:uint = FlxBar.FILL_LEFT_TO_RIGHT;
+			
+			_healthBarLabel = new FlxText(50, 0, 100, "OXYGEN");
+			add(_healthBarLabel);
+			_healthBarLabel.scrollFactor = new FlxPoint(0, 0);
+			
+			_bonusDamageLabel = new FlxText(250, 0, 100, "BONUS DAMAGE");
+			add(_bonusDamageLabel);
+			_bonusDamageLabel.scrollFactor = new FlxPoint(0, 0);
+			
+			_bonusCooldownLabel = new FlxText(450, 0, 100, "COOLDOWN REDUCTION");
+			add(_bonusCooldownLabel);
+			_bonusCooldownLabel.scrollFactor = new FlxPoint(0, 0);
+			
+			_bonusMoveSpeedLabel = new FlxText(650, 0, 100, "MOVE SPEED");
+			add(_bonusMoveSpeedLabel);
+			_bonusMoveSpeedLabel.scrollFactor = new FlxPoint(0, 0);
+			
 			//Health bar
-			_playerHealthBar = new FlxBar(350, 0, FlxBar.FILL_LEFT_TO_RIGHT, 100, 10, _playerShip, "health", 0, _playerShip.health, false);
+			_playerHealthBar = new FlxBar(50, 20, fillType, 100, 10, _playerShip, "health", 0, _playerShip.health);
+			_playerHealthBar.update();
 			add(_playerHealthBar);
 			_playerHealthBar.scrollFactor = new FlxPoint(0, 0);
+			
+			_playerBonusDamageBar = new FlxBar(250, 20, fillType, 100, 10, _playerShip, "bonusDamage", -0.1, Constants.MAX_BONUS_DAMAGE);
+			_playerBonusDamageBar.createFilledBar(0xff510000, 0xffF40000);
+			add(_playerBonusDamageBar);
+			_playerBonusDamageBar.scrollFactor = new FlxPoint(0, 0);
+			
+			_playerBonusCooldownBar = new FlxBar(450, 20, fillType, 100, 10, _playerShip, "bonusCooldownDisplayTracker", -0.1, 100);
+			_playerBonusCooldownBar.createFilledBar(0xff515100, 0xffF4F400);
+			_playerBonusCooldownBar.update();
+			add(_playerBonusCooldownBar);
+			_playerBonusCooldownBar.scrollFactor = new FlxPoint(0, 0);
+			
+			_playerBonusMovespeedBar = new FlxBar(650, 20, fillType, 100, 10, _playerShip, "bonusMoveSpeed", -0.1, Constants.MAX_BONUS_MOVE_SPEED);
+			_playerBonusMovespeedBar.createFilledBar(0xff000051, 0xff0000F4);
+			_playerBonusMovespeedBar.update();
+			add(_playerBonusMovespeedBar);
+			_playerBonusMovespeedBar.scrollFactor = new FlxPoint(0, 0);
 			
 			//Minimap
 			_miniMap = (new FlxSprite(699, 499)).loadGraphic(_map);

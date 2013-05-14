@@ -37,6 +37,8 @@ package project.bullet
 		protected var _speed:Number = 600;
 		protected var _collisionDamage:Number = 10;
 		
+		protected var _bonusDamage:Number = 0;
+		
 		/**
 		 * Type for the bullet
 		 */
@@ -130,9 +132,10 @@ package project.bullet
 		 * @param	targetX
 		 * @param	targetY
 		 */
-		public function fire(owner:AffiliatedObject, targetX:Number, targetY:Number, addVelocity:FlxPoint = null):void
+		public function fire(owner:AffiliatedObject, targetX:Number, targetY:Number, addVelocity:FlxPoint = null, bonusAttack:Number = 0):void
 		{
 			_affiliation = owner.affiliation;
+			_bonusDamage = bonusAttack;
 			
 			this.x = owner.x + width / 2;
 			this.y = owner.y + height / 2;
@@ -183,7 +186,7 @@ package project.bullet
 		
 		public function get collisionDamage():Number 
 		{
-			return _collisionDamage;
+			return _collisionDamage + _bonusDamage;
 		}
 		
 		public function set collisionDamage(value:Number):void 

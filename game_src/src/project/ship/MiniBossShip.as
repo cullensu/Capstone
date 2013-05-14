@@ -29,14 +29,13 @@ package project.ship
 			if (this.health <= 0) {
 				kill();
 				//TODO: STUFF
+				trace("Boss Killed");
 			}
 			trace(health);
 		}
 		
-		override public function update():void
+		override protected function checkDespawn():void
 		{
-			_behavior.movement.move(this);
-			_behavior.shooting.shoot(this);
 			var cPoint:CartesianPoint = new CartesianPoint(x - GameRegistry.gameState.playerManager.playerShip.x,
 														   y - GameRegistry.gameState.playerManager.playerShip.y);
 			var pPoint:PolarPoint = cPoint.convertToPolar();

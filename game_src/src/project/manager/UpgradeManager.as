@@ -1,9 +1,11 @@
 package project.manager 
 {
+	import flash.globalization.LocaleID;
 	import org.flixel.FlxGroup;
 	import project.constant.Constants;
 	import project.upgrade.drops.DropType;
 	import project.upgrade.drops.DropUpgrade;
+	import project.util.Utility;
 	/**
 	 * ...
 	 * @author Cullen
@@ -21,6 +23,29 @@ package project.manager
 			}
 		}
 		
+		public function createRandomDrop(xLoc:Number, yLoc:Number):void
+		{
+			var rand:Number = Utility.randomInt(10);
+			var type:DropType = DropType.OXYGEN;
+			if (rand == 0)
+			{
+				type = DropType.ATTACK;
+			}
+			else if (rand == 1)
+			{
+				type = DropType.ATTACK_SPEED;
+			}
+			else if (rand == 2)
+			{
+				type = DropType.MOVE_SPEED;
+			}
+			else
+			{
+				type = DropType.OXYGEN;
+			}
+			createDrop(type, xLoc, yLoc);
+		}
+		
 		public function createDrop(type:DropType, xLoc:Number, yLoc:Number):void
 		{
 			if (this.getFirstAvailable() != null)
@@ -29,6 +54,7 @@ package project.manager
 				dropUpgrade.type = type;
 				dropUpgrade.x = xLoc;
 				dropUpgrade.y = yLoc;
+				dropUpgrade.lifetime = Constants.DROP_UPGRADE_LIFETIME;
 				dropUpgrade.exists = true;
 			}
 		}

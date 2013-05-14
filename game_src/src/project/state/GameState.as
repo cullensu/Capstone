@@ -300,6 +300,11 @@ package project.state
 				if (FlxG.keys.justPressed("H")) {
 					_playerManager.playerShip.health = _playerManager.playerShip.maxHealth;
 				}
+				if (FlxG.keys.justPressed("SLASH")) {
+					_playerManager.playerShip.bonusCooldown = Constants.MAX_BONUS_COOLDOWN;
+					_playerManager.playerShip.bonusDamage = Constants.MAX_BONUS_DAMAGE;
+					_playerManager.playerShip.bonusMoveSpeed = Constants.MAX_BONUS_MOVE_SPEED;
+				}
 			}
 		}
 		

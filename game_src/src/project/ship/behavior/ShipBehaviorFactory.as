@@ -74,7 +74,7 @@ package project.ship.behavior
 			_enemyBig.guns = new Vector.<GunUpgrade>();
 			var bigGun:OffsetGun = new OffsetGun();
 			bigGun.bulletType = BulletType.BIG_TRIANGLE;
-			bigGun.gunCooldown = 50;
+			bigGun.gunCooldown = 1.0;
 			_enemyBig.guns.push(bigGun);
 			_enemyBig.maxHealth = 100;
 			_enemyBig.speed = 200;
@@ -90,14 +90,14 @@ package project.ship.behavior
 			_bossBlink.guns = new Vector.<GunUpgrade>();
 			var bossGun:OffsetGun = new OffsetGun();
 			bossGun.bulletType = BulletType.BIG_TRIANGLE;
-			bossGun.gunCooldown = 20;
+			bossGun.gunCooldown = 1.5;
 			_bossBlink.guns.push(bossGun);
-			_bossBlink.maxHealth = 1000;
+			_bossBlink.maxHealth = 500;
 			_bossBlink.speed = 350;
 			_bossBlink.collisionDamage = 400;
 			_bossBlink.shipGraphic = _bossBlinkPng;
 			_bossBlink.shipGraphicDimensions = new Point(116, 105);
-			_bossBlink.movement = new TeleportingBoss(250);
+			_bossBlink.movement = new TeleportingBoss(350);
 			_bossBlink.shooting = new LeadingShot();
 			_typeToBehavior[ShipBehaviorType.BOSS_BLINK] = _bossBlink;
 		}

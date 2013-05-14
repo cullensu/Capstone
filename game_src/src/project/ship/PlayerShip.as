@@ -2,6 +2,7 @@ package project.ship
 {
 	import flash.media.Video;
 	import org.flixel.FlxG;
+	import org.flixel.FlxPoint;
 	import org.flixel.FlxSprite;
 	import project.bullet.BulletType;
 	import project.constant.Constants;
@@ -29,6 +30,10 @@ package project.ship
 		protected var _maxCoord:int;
 		
 		protected var _healthDrainRate:Number;
+		
+		protected var _bonusDamage:Number;
+		protected var _bonusCooldown:Number;
+		protected var _bonusMoveSpeed:Number;
 
 		public function PlayerShip(X:Number=0,Y:Number=0,SimpleGraphic:Class=null)
 		{
@@ -39,26 +44,32 @@ package project.ship
 			_maxCoord = Constants.WORLDTILES * Constants.TILESIZE;
 			_gunXOffset = 15;
 			_gunYOffset = 15;
-			_speed = 400;
+			_speed = Constants.STARTING_MOVE_SPEED;
+			_bonusDamage = Constants.STARTING_BONUS_DAMAGE;
+			_bonusCooldown = Constants.STARTING_BONUS_COOLDOWN;
+			_bonusMoveSpeed = Constants.STARTING_BONUS_MOVE_SPEED;
 			_affiliation = Affiliation.PLAYER;
 			
 			_maxHealth = Constants.OXYGEN_MAX;
 			health = _maxHealth;
-			_healthDrainRate = 1;
+			_healthDrainRate = Constants.STARTING_HEALTH_DRAIN_RATE;
 			
 			//This chunk should be moved eventually
 			var gun1:OffsetGun = new OffsetGun();
 			gun1.angleOffset = 0;
 			gun1.bulletType = BulletType.BIG_CIRCLE;
+			gun1.gunCooldown = 0.5;
 			var gun2:OffsetGun = new OffsetGun();
 			gun2.angleOffset = Math.PI / 18;
 			gun2.bulletType = BulletType.CIRCLE;
+			gun2.gunCooldown = 0.75;
 			var gun3:OffsetGun = new OffsetGun();
 			gun3.angleOffset = -1 * Math.PI / 18;
 			gun3.bulletType = BulletType.CIRCLE;
+			gun3.gunCooldown = 0.75;
 			addGunUpgrade(gun1);
-			addGunUpgrade(gun2);
-			addGunUpgrade(gun3);
+			//addGunUpgrade(gun2);
+			//addGunUpgrade(gun3);
 			
 			addAnimation("0", [0], 0, false);
 			addAnimation("1", [1], 0, false);
@@ -118,7 +129,7 @@ package project.ship
 		{
 			super.preUpdate();
 			_direction = Direction.getDirection(_xDir, _yDir);
-			velocity = Direction.getVelocityVector(_direction, _speed);
+			velocity = Direction.getVelocityVector(_direction, speed);
 		}
 		
 		override public function update():void
@@ -151,6 +162,19 @@ package project.ship
 			super.postUpdate();
 		}
 		
+		public function get baseSpeed():Number
+		{
+			return _speed;
+		}
+		
+		/**
+		 * Returns the speed with bonus move speed added
+		 */
+		override public function get speed():Number
+		{
+			return super.speed + _bonusMoveSpeed;
+		}
+		
 		public function get healthDrainRate():Number 
 		{
 			return _healthDrainRate;
@@ -159,6 +183,41 @@ package project.ship
 		public function set healthDrainRate(value:Number):void 
 		{
 			_healthDrainRate = value;
+		}
+		
+		public function get bonusCooldown():Number 
+		{
+			return _bonusCooldown;
+		}
+		
+		public function set bonusCooldown(value:Number):void 
+		{
+			_bonusCooldown = value;
+		}
+		
+		public function get bonusCooldownDisplayTracker():Number
+		{
+			return 100 * (_bonusCooldown - Constants.STARTING_BONUS_COOLDOWN) / (Constants.MAX_BONUS_COOLDOWN - Constants.STARTING_BONUS_COOLDOWN)
+		}
+		
+		public function get bonusDamage():Number 
+		{
+			return _bonusDamage;
+		}
+		
+		public function set bonusDamage(value:Number):void 
+		{
+			_bonusDamage = value;
+		}
+		
+		public function get bonusMoveSpeed():Number 
+		{
+			return _bonusMoveSpeed;
+		}
+		
+		public function set bonusMoveSpeed(value:Number):void 
+		{
+			_bonusMoveSpeed = value;
 		}
 		
 		override public function kill():void
@@ -185,9 +244,26 @@ package project.ship
 		override public function collide(other:ICollidable):void
 		{
 			FlxG.play(_hurtmp3);
-			super.collide(other);
-			if (health > maxHealth) {
+			if (super.canCollide(other))
+			{
+				super.collide(other);
+			}
+			else if (other is DropUpgrade)
+			{
+				var dropUpgrade:DropUpgrade = other as DropUpgrade;
+				dropUpgrade.applyUpgradeToShip(this);
+			}
+			if (health > maxHealth) 
+			{
 				health = maxHealth;
+			}
+		}
+		
+		override public function fire(targetX:Number, targetY:Number, addVelocity:FlxPoint = null):void
+		{
+			for each (var gun:GunUpgrade in _guns)
+			{
+				gun.fire(targetX, targetY, addVelocity, _bonusDamage, _bonusCooldown);
 			}
 		}
 

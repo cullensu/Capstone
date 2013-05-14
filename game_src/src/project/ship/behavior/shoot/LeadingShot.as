@@ -22,9 +22,9 @@ package project.ship.behavior.shoot
 		public function shoot(ship:AIShip):void
 		{
 			var playerShip:PlayerShip = GameRegistry.gameState.playerManager.playerShip;
-			//This is a crude estimate of where to aim the shot, takes the player's location 1 second in the future as the target
-			var playerFutureLoc:CartesianPoint = new CartesianPoint(playerShip.x + playerShip.velocity.x, 
-				playerShip.y + playerShip.velocity.y);
+			//This is a crude estimate of where to aim the shot, takes the player's location .5 second in the future as the target
+			var playerFutureLoc:CartesianPoint = new CartesianPoint(playerShip.x + playerShip.velocity.x / 2, 
+				playerShip.y + playerShip.velocity.y / 2);
 			ship.fire(playerFutureLoc.x, playerFutureLoc.y);
 		}
 		

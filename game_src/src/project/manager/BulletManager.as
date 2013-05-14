@@ -31,13 +31,13 @@ package project.manager
 		 * @param	targetY
 		 * @param	bulletType
 		 */
-		public function fire(owner:AffiliatedObject, targetX:Number, targetY:Number, bulletType:BulletType, addVelocity:FlxPoint = null):void
+		public function fire(owner:AffiliatedObject, targetX:Number, targetY:Number, bulletType:BulletType, addVelocity:FlxPoint = null, bonusAttack:Number = 0):void
 		{
 			if (this.getFirstAvailable() != null)
 			{
 				var b:Bullet = (getFirstAvailable() as Bullet);
 				b.type = bulletType;
-				b.fire(owner, targetX, targetY, addVelocity)
+				b.fire(owner, targetX, targetY, addVelocity, bonusAttack)
 			}
 			
 		}

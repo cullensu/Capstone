@@ -1,5 +1,6 @@
 package project.upgrade 
 {
+	import org.flixel.FlxG;
 	import org.flixel.FlxPoint;
 	import project.bullet.BulletType;
 	import project.constant.GameRegistry;
@@ -10,8 +11,8 @@ package project.upgrade
 	 */
 	public class GunUpgrade extends AffiliatedObject
 	{
-		protected var _gunCooldown:uint;
-		protected var _currentCooldown:uint;
+		protected var _gunCooldown:Number;
+		protected var _currentCooldown:Number;
 		
 		protected var _xOffset:Number;
 		protected var _yOffset:Number;
@@ -22,7 +23,8 @@ package project.upgrade
 		public function GunUpgrade(X:Number=0,Y:Number=0,SimpleGraphic:Class=null) 
 		{
 			super(X, Y, SimpleGraphic);
-			_gunCooldown = 20;
+			_gunCooldown = 0.5;
+			_currentCooldown = 0;
 			_xOffset = 0;
 			_yOffset = 0;
 			_bulletType = BulletType.CIRCLE;
@@ -58,12 +60,12 @@ package project.upgrade
 			_bulletType = value;
 		}
 		
-		public function get gunCooldown():uint 
+		public function get gunCooldown():Number 
 		{
 			return _gunCooldown;
 		}
 		
-		public function set gunCooldown(value:uint):void 
+		public function set gunCooldown(value:Number):void 
 		{
 			_gunCooldown = value;
 		}
@@ -97,12 +99,12 @@ package project.upgrade
 			this.y = _owner.y + _yOffset;
 		}
 		
-		public function fire(targetX:Number, targetY:Number, addVelocity:FlxPoint = null):void
+		public function fire(targetX:Number, targetY:Number, addVelocity:FlxPoint = null, bonusAttack:Number = 0, bonusCooldown:Number = 100):void
 		{
-			if (_currentCooldown == 0)
+			if (_currentCooldown <= 0)
 			{
-				GameRegistry.gameState.bulletManager.fire(this, targetX, targetY, _bulletType, addVelocity);
-				_currentCooldown = _gunCooldown;
+				GameRegistry.gameState.bulletManager.fire(this, targetX, targetY, _bulletType, addVelocity, bonusAttack);
+				_currentCooldown = _gunCooldown / (bonusCooldown / 100);
 			}
 		}
 		
@@ -111,7 +113,7 @@ package project.upgrade
 			super.preUpdate();
 			if (_currentCooldown > 0)
 			{
-				_currentCooldown--;
+				_currentCooldown = _currentCooldown - FlxG.elapsed;
 			}
 		}
 		
