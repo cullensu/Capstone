@@ -150,7 +150,6 @@ package project.ship
 				gunUpgrade.registerOwner(this);
 				gunUpgrade.xOffset = gunXOffset;
 				gunUpgrade.yOffset = gunYOffset;
-				
 			}
 		}
 		

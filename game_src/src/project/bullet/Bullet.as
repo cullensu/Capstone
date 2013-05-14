@@ -137,8 +137,8 @@ package project.bullet
 			_affiliation = owner.affiliation;
 			_bonusDamage = bonusAttack;
 			
-			this.x = owner.x + width / 2;
-			this.y = owner.y + height / 2;
+			this.x = owner.x;
+			this.y = owner.y;
 			
 			if(this.onScreen()) {
 				if (_affiliation == Affiliation.PLAYER) {
