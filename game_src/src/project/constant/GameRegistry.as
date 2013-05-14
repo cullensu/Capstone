@@ -8,7 +8,7 @@ package project.constant
 	 */
 	public class GameRegistry 
 	{
-		protected static var _gameState:GameState = new GameState();
+		protected static var _gameState:GameState = null;
 		protected static var _recording:Boolean = false;
 		protected static var _replaying:Boolean = false;
 		protected static var _doReplay:Boolean = false;

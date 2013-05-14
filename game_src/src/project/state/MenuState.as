@@ -40,7 +40,9 @@ package project.state
 		
 		private function startGame():void
 		{
-			FlxG.switchState(new GameState());
+			var newGameState:GameState = new GameState();
+			GameRegistry.gameState = newGameState;
+			FlxG.switchState(newGameState);
 		}
 	}
 

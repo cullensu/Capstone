@@ -28,7 +28,6 @@ package project.ship
 			this.health = this.health - other.collisionDamage;
 			if (this.health <= 0) {
 				kill();
-				trace("boom");
 				//TODO: STUFF
 			}
 			trace(health);
@@ -44,7 +43,6 @@ package project.ship
 			if (pPoint.r > Constants.TILESIZE * 2.5) {
 				this.exists = false;
 				this.health = _maxHealth;
-				trace("Miniboss at", this.x, this.y, "deactivated");
 			}
 		}
 		
