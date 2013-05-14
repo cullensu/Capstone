@@ -21,11 +21,11 @@ package project.ship
 	 */
 	public class AIShip extends Ship
 	{
-		[Embed(source = "../../../assets/enemynormal.png")] private var _shipPng:Class
-		[Embed(source = "../../../assets/sfx/EnemyHurt.mp3")] private var _hurtmp3:Class
+		[Embed(source = "../../../assets/enemynormal.png")] protected var _shipPng:Class
+		[Embed(source = "../../../assets/sfx/EnemyHurt.mp3")] protected var _hurtmp3:Class
 		
 		//Should remain invisible to outside classes
-		private var _behavior:ShipBehavior;
+		protected var _behavior:ShipBehavior;
 		
 		//This is what outside classes should interact with
 		protected var _behaviorType:ShipBehaviorType;

@@ -18,7 +18,7 @@ package project.state
 	import project.hud.HUD;
 	import project.manager.AIShipManager;
 	import project.manager.BulletManager;
-	import project.manager.EnvironmentManager;
+	import project.manager.MiniBossManager;
 	import project.manager.MusicManager;
 	import project.manager.PlayerManager;
 	import project.manager.UpgradeManager;
@@ -42,10 +42,10 @@ package project.state
 		
 		protected var _aiManager:AIShipManager;
 		protected var _playerManager:PlayerManager;
-		protected var _envManager:EnvironmentManager;
 		protected var _bulletManager:BulletManager;
 		protected var _musicManager:MusicManager;
 		protected var _upgradeManager:UpgradeManager;
+		protected var _miniBossManager:MiniBossManager;
 		
 		protected var _starField:StarField;
 		protected var _starField2:StarField;
@@ -72,10 +72,10 @@ package project.state
 			
 			_aiManager = new AIShipManager();
 			_playerManager = new PlayerManager();
-			_envManager = new EnvironmentManager();
 			_bulletManager = new BulletManager();
 			_musicManager = new MusicManager();
 			_upgradeManager = new UpgradeManager();
+			_miniBossManager = new MiniBossManager(_stations);
 			_starField = new StarField(0.5, Constants.WORLDTILES);
 			_starField2 = new StarField(0.25, Constants.WORLDTILES);
 			_starField3 = new StarField(1, Constants.WORLDTILES);
@@ -99,11 +99,11 @@ package project.state
 			
 			add(_asteroidField);
 			
+			add(_miniBossManager);
 			add(_aiManager);
 			add(_musicManager);
 			add(_playerManager);
 			add(_bulletManager);
-			add(_envManager);
 			add(_upgradeManager);
 			
 			add(_hud);
@@ -149,11 +149,6 @@ package project.state
 		public function get musicManager():MusicManager 
 		{
 			return _musicManager;
-		}
-		
-		public function get envManager():EnvironmentManager 
-		{
-			return _envManager;
 		}
 		
 		public function get aiManager():AIShipManager 
@@ -315,13 +310,16 @@ package project.state
 			var bullets:Array = _bulletManager.members;
 			var aTiles:Array = _asteroidField.extantTiles;
 			var upgrades:Array = _upgradeManager.members;
+			var minibosses:Array = _miniBossManager.members;
 			
 			collideAffilitedObjects(bullets, playerShip);
 			collideAffilitedObjects(bullets, aiShips);
 			collideAffilitedObjects(aiShips, playerShip);
 			collideAffilitedObjects(upgrades, playerShip);
+			collideAffilitedObjects(minibosses, playerShip);
+			collideAffilitedObjects(minibosses, bullets);
 			
-			var shipsAndBullets:Array = bullets.concat(aiShips, playerShip);
+			var shipsAndBullets:Array = bullets.concat(aiShips, playerShip, minibosses);
 			for (var i:int = 0; i < aTiles.length; i++)
 			{
 				var aTile:AsteroidTile = aTiles[i] as AsteroidTile;
