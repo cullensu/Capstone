@@ -75,10 +75,10 @@ package project.menu
 			gun1.bulletType = BulletType.BIG_CIRCLE;
 			var gun2:OffsetGun = new OffsetGun();
 			gun2.angleOffset = Math.PI / 18;
-			gun2.bulletType = BulletType.CIRCLE;
+			gun2.bulletType = BulletType.BIG_CIRCLE;
 			var gun3:OffsetGun = new OffsetGun();
 			gun3.angleOffset = -1 * Math.PI / 18;
-			gun3.bulletType = BulletType.CIRCLE;
+			gun3.bulletType = BulletType.BIG_CIRCLE;
 			
 			ship.removeAllGunUpgrades();
 			ship.addGunUpgrade(gun1);
@@ -101,6 +101,9 @@ package project.menu
 		
 		private function upgradePassive():void
 		{
+			var ship:PlayerShip = GameRegistry.gameState.playerManager.playerShip;
+			ship.maxHealth = 150;
+			ship.health = ship.maxHealth;
 			trace("Passive upgraded!")
 			hide();
 		}

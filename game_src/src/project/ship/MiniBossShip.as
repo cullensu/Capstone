@@ -30,6 +30,7 @@ package project.ship
 				kill();
 				//TODO: STUFF
 				trace("Boss Killed");
+				GameRegistry.gameState.upgradeMenu.show();
 			}
 			trace(health);
 		}

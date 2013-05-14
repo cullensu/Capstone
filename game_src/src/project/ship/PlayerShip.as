@@ -58,7 +58,7 @@ package project.ship
 			//This chunk should be moved eventually
 			var gun1:OffsetGun = new OffsetGun();
 			gun1.angleOffset = 0;
-			gun1.bulletType = BulletType.CIRCLE;
+			gun1.bulletType = BulletType.BIG_CIRCLE;
 			addGunUpgrade(gun1);
 			
 			addAnimation("0", [0], 0, false);

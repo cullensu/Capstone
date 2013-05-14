@@ -169,6 +169,11 @@ package project.state
 		{
 			return _shipBehaviorFactory;
 		}
+		
+		public function get upgradeMenu():UpgradeMenu 
+		{
+			return _upgradeMenu;
+		}
 
 		override public function create():void
 		{
@@ -315,7 +320,7 @@ package project.state
 					_playerManager.playerShip.health = _playerManager.playerShip.maxHealth;
 				}
 				if (FlxG.keys.justPressed("U")) {
-					_upgradeMenu.show()
+					_upgradeMenu.show();
 				}
 				if (FlxG.keys.justPressed("SLASH")) {
 					_playerManager.playerShip.bonusCooldown = Constants.MAX_BONUS_COOLDOWN;

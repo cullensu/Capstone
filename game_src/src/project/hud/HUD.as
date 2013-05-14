@@ -29,6 +29,8 @@ package project.hud
 		protected var _bonusMoveSpeedLabel:FlxText;
 		
 		protected var _playerActiveBar:FlxBar;
+		protected var _playerActiveLabel:FlxText;
+		
 		protected var _miniMap:FlxSprite;
 		protected var _blip:FlxSprite;
 		protected var _playerShip:PlayerShip;
@@ -46,11 +48,11 @@ package project.hud
 			add(_healthBarLabel);
 			_healthBarLabel.scrollFactor = new FlxPoint(0, 0);
 			
-			_bonusDamageLabel = new FlxText(250, 0, 100, "BONUS DAMAGE");
+			_bonusDamageLabel = new FlxText(200, 0, 100, "BONUS DAMAGE");
 			add(_bonusDamageLabel);
 			_bonusDamageLabel.scrollFactor = new FlxPoint(0, 0);
 			
-			_bonusCooldownLabel = new FlxText(450, 0, 100, "COOLDOWN REDUCTION");
+			_bonusCooldownLabel = new FlxText(500, 0, 100, "COOLDOWN REDUCTION");
 			add(_bonusCooldownLabel);
 			_bonusCooldownLabel.scrollFactor = new FlxPoint(0, 0);
 			
@@ -61,19 +63,15 @@ package project.hud
 			//Health bar
 			_playerHealthBar = new FlxBar(50, 20, fillType, 100, 10, _playerShip, "health", 0, _playerShip.health);
 			_playerHealthBar.update();
-			updateActiveBar();
-			_playerActiveBar.color = 0xff37FDFC;
 			add(_playerHealthBar);
-			add(_playerActiveBar);
 			_playerHealthBar.scrollFactor = new FlxPoint(0, 0);
-			_playerActiveBar.scrollFactor = new FlxPoint(0, 0);
 			
-			_playerBonusDamageBar = new FlxBar(250, 20, fillType, 100, 10, _playerShip, "bonusDamage", -0.1, Constants.MAX_BONUS_DAMAGE);
+			_playerBonusDamageBar = new FlxBar(200, 20, fillType, 100, 10, _playerShip, "bonusDamage", -0.1, Constants.MAX_BONUS_DAMAGE);
 			_playerBonusDamageBar.createFilledBar(0xff510000, 0xffF40000);
 			add(_playerBonusDamageBar);
 			_playerBonusDamageBar.scrollFactor = new FlxPoint(0, 0);
 			
-			_playerBonusCooldownBar = new FlxBar(450, 20, fillType, 100, 10, _playerShip, "bonusCooldownDisplayTracker", -0.1, 100);
+			_playerBonusCooldownBar = new FlxBar(500, 20, fillType, 100, 10, _playerShip, "bonusCooldownDisplayTracker", -0.1, 100);
 			_playerBonusCooldownBar.createFilledBar(0xff515100, 0xffF4F400);
 			_playerBonusCooldownBar.update();
 			add(_playerBonusCooldownBar);
@@ -110,7 +108,14 @@ package project.hud
 		
 		public function updateActiveBar():void 
 		{
-			_playerActiveBar = new FlxBar(350, 12, FlxBar.FILL_LEFT_TO_RIGHT, 100, 10, _playerShip.activeUpgrade, "charge", 0, _playerShip.activeUpgrade.MAX_CHARGE, false);
+			_playerActiveBar = new FlxBar(350, 20, FlxBar.FILL_LEFT_TO_RIGHT, 100, 10, _playerShip.activeUpgrade, "charge", 0, _playerShip.activeUpgrade.MAX_CHARGE, false);
+			_playerActiveBar.color = 0xff37FDFC;
+			add(_playerActiveBar);
+			_playerActiveBar.scrollFactor = new FlxPoint(0, 0);
+			
+			_playerActiveLabel = new FlxText(350, 0, 100, "ACTIVE ABILITY");
+			add(_playerActiveLabel);
+			_playerActiveLabel.scrollFactor = new FlxPoint(0, 0);
 		}
 		
 		
