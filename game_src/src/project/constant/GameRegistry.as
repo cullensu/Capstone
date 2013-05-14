@@ -1,5 +1,6 @@
 package project.constant 
 {
+	import project.hud.HUD;
 	import project.state.GameState;
 	import project.state.MenuState;
 	/**
@@ -13,6 +14,7 @@ package project.constant
 		protected static var _replaying:Boolean = false;
 		protected static var _doReplay:Boolean = false;
 		protected static var _loadedReplay:String = null;
+		protected static var _hud:HUD = null;
 		
 		public function GameRegistry() 
 		{
@@ -67,6 +69,16 @@ package project.constant
 		static public function set doReplay(value:Boolean):void 
 		{
 			_doReplay = value;
+		}
+		
+		static public function get hud():HUD 
+		{
+			return _hud;
+		}
+		
+		static public function set hud(value:HUD):void 
+		{
+			_hud = value;
 		}
 		
 	}

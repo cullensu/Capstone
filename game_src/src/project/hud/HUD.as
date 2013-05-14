@@ -28,6 +28,7 @@ package project.hud
 		protected var _bonusCooldownLabel:FlxText;
 		protected var _bonusMoveSpeedLabel:FlxText;
 		
+		protected var _playerActiveBar:FlxBar;
 		protected var _miniMap:FlxSprite;
 		protected var _blip:FlxSprite;
 		protected var _playerShip:PlayerShip;
@@ -35,6 +36,7 @@ package project.hud
 		public function HUD(state:GameState) 
 		{
 			super();
+			GameRegistry.hud = this;
 			
 			_playerShip = state.playerManager.playerShip;
 			
@@ -59,8 +61,12 @@ package project.hud
 			//Health bar
 			_playerHealthBar = new FlxBar(50, 20, fillType, 100, 10, _playerShip, "health", 0, _playerShip.health);
 			_playerHealthBar.update();
+			updateActiveBar();
+			_playerActiveBar.color = 0xff37FDFC;
 			add(_playerHealthBar);
+			add(_playerActiveBar);
 			_playerHealthBar.scrollFactor = new FlxPoint(0, 0);
+			_playerActiveBar.scrollFactor = new FlxPoint(0, 0);
 			
 			_playerBonusDamageBar = new FlxBar(250, 20, fillType, 100, 10, _playerShip, "bonusDamage", -0.1, Constants.MAX_BONUS_DAMAGE);
 			_playerBonusDamageBar.createFilledBar(0xff510000, 0xffF40000);
@@ -100,6 +106,11 @@ package project.hud
 			_blip = (new FlxSprite(750, 550)).makeGraphic(1, 1);
 			_blip.scrollFactor = new FlxPoint(0, 0);
 			add(_blip);
+		}
+		
+		public function updateActiveBar():void 
+		{
+			_playerActiveBar = new FlxBar(350, 12, FlxBar.FILL_LEFT_TO_RIGHT, 100, 10, _playerShip.activeUpgrade, "charge", 0, _playerShip.activeUpgrade.MAX_CHARGE, false);
 		}
 		
 		

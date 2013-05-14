@@ -12,7 +12,7 @@ package project.menu
 	 * ...
 	 * @author akirilov
 	 */
-	public class PauseMenu extends FlxGroup
+	public class PauseMenu extends Menu
 	{
 		private var _resumeButton:FlxButton
 		private var _background:FlxSprite
@@ -22,30 +22,21 @@ package project.menu
 		{
 			_background = new FlxSprite(0, 0);
 			_background.makeGraphic(800, 600, 0xff000000);
-			_resumeButton = new FlxButton(100, 100, "Resume", hide);
-			_title = new FlxText(20, 100, 200, "PAUSED");
+			
+			_resumeButton = new FlxButton(100, 130, "Resume", hide);
+			
+			_title = new FlxText(100, 100, 200, "PAUSED");
 			_title.color = 0xffffffff;
 			
 			_background.scrollFactor = new FlxPoint(0, 0);
 			_resumeButton.scrollFactor = new FlxPoint(0, 0);
+			_title.scrollFactor = new FlxPoint(0, 0);
 			
 			add(_background);
 			add(_resumeButton);
 			add(_title);
 			
 			this.exists = false;
-		}
-		
-		public function show():void
-		{
-			FlxG.paused = true;
-			this.exists = true;
-		}
-		
-		public function hide():void
-		{
-			this.exists = false;
-			FlxG.paused = false;
 		}
 	}
 

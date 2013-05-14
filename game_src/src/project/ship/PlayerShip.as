@@ -8,6 +8,7 @@ package project.ship
 	import project.constant.Constants;
 	import project.constant.GameRegistry;
 	import project.state.MenuState;
+	import project.upgrade.active.NullActive;
 	import project.upgrade.drops.DropType;
 	import project.upgrade.drops.DropUpgrade;
 	import project.upgrade.guns.OffsetGun;
@@ -57,19 +58,8 @@ package project.ship
 			//This chunk should be moved eventually
 			var gun1:OffsetGun = new OffsetGun();
 			gun1.angleOffset = 0;
-			gun1.bulletType = BulletType.BIG_CIRCLE;
-			gun1.gunCooldown = 0.5;
-			var gun2:OffsetGun = new OffsetGun();
-			gun2.angleOffset = Math.PI / 18;
-			gun2.bulletType = BulletType.CIRCLE;
-			gun2.gunCooldown = 0.75;
-			var gun3:OffsetGun = new OffsetGun();
-			gun3.angleOffset = -1 * Math.PI / 18;
-			gun3.bulletType = BulletType.CIRCLE;
-			gun3.gunCooldown = 0.75;
+			gun1.bulletType = BulletType.CIRCLE;
 			addGunUpgrade(gun1);
-			//addGunUpgrade(gun2);
-			//addGunUpgrade(gun3);
 			
 			addAnimation("0", [0], 0, false);
 			addAnimation("1", [1], 0, false);
@@ -135,6 +125,7 @@ package project.ship
 		override public function update():void
 		{
 			super.update();
+			activeUpgrade.update();
 			
 			//Check world bounds
 			if (x < 0) {
@@ -268,5 +259,4 @@ package project.ship
 		}
 
 	}
-
 }

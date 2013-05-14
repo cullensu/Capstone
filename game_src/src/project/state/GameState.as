@@ -23,6 +23,7 @@ package project.state
 	import project.manager.PlayerManager;
 	import project.manager.UpgradeManager;
 	import project.menu.PauseMenu;
+	import project.menu.UpgradeMenu;
 	import project.objects.AffiliatedObject;
 	import project.ship.AIShip;
 	import project.ship.behavior.ShipBehaviorFactory;
@@ -55,6 +56,7 @@ package project.state
 		protected var _hud:HUD;
 		
 		protected var _pauseMenu:PauseMenu;
+		protected var _upgradeMenu:UpgradeMenu;
 		protected var _shipBehaviorFactory:ShipBehaviorFactory;
 		
 		protected var _level:Number;
@@ -81,6 +83,7 @@ package project.state
 			_starField3 = new StarField(1, Constants.WORLDTILES);
 			_asteroidField = new AsteroidField(Constants.WORLDTILES);
 			_pauseMenu = new PauseMenu();
+			_upgradeMenu = new UpgradeMenu();
 			
 			_hud = new HUD(this);
 			_shipBehaviorFactory = new ShipBehaviorFactory();
@@ -108,7 +111,8 @@ package project.state
 			
 			add(_hud);
 			
-			add (_pauseMenu);
+			add(_pauseMenu);
+			add(_upgradeMenu);
 			
 			_musicManager.setLevel(1);
 			
@@ -190,11 +194,12 @@ package project.state
 		{
 			if (!FlxG.paused)
 			{
-				//super.preUpdate();
+				super.preUpdate();
 			}
 			else
 			{
 				_pauseMenu.preUpdate();
+				_upgradeMenu.preUpdate();
 			}
 		}
 		
@@ -203,6 +208,7 @@ package project.state
 		 */
 		override public function update():void
 		{	
+			// Other controls
 			if (!FlxG.paused)
 			{
 				processUserInput();
@@ -228,6 +234,7 @@ package project.state
 			else
 			{
 				_pauseMenu.update();
+				_upgradeMenu.update();
 			}
 		}
 		
@@ -243,6 +250,7 @@ package project.state
 			else
 			{
 				_pauseMenu.postUpdate();
+				_upgradeMenu.postUpdate();
 			}
 		}
 		
@@ -284,12 +292,18 @@ package project.state
 			{
 				_playerManager.playerShip.fire(FlxG.mouse.x, FlxG.mouse.y/*, _playerManager.playerShip.velocity*/);
 			}
-
-			// Other controls
-			if (FlxG.keys.justPressed("ESCAPE"))
+			
+			// Spacebar (Active Ability)
+			if (FlxG.keys.justPressed("SPACE"))
+			{
+				playerManager.playerShip.useActive();
+			}
+			
+			if (FlxG.keys.justPressed("ESCAPE") || FlxG.keys.justPressed("P"))
 			{
 				pauseGame();
 			}
+			
 			if(FlxG.debug) {
 				if (FlxG.keys.justPressed("J")) {
 					trace(_playerManager.playerShip.x, _playerManager.playerShip.y);
@@ -299,6 +313,9 @@ package project.state
 				}
 				if (FlxG.keys.justPressed("H")) {
 					_playerManager.playerShip.health = _playerManager.playerShip.maxHealth;
+				}
+				if (FlxG.keys.justPressed("U")) {
+					_upgradeMenu.show()
 				}
 				if (FlxG.keys.justPressed("SLASH")) {
 					_playerManager.playerShip.bonusCooldown = Constants.MAX_BONUS_COOLDOWN;
@@ -368,6 +385,11 @@ package project.state
 		public function pauseGame():void 
 		{
 			_pauseMenu.show();
+		}
+		
+		public function unpauseGame():void
+		{
+			_pauseMenu.hide();
 		}
 		
 		public function startRecording():void 
