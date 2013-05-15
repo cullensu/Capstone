@@ -298,6 +298,19 @@ package project.state
 				_playerManager.playerShip.fire(FlxG.mouse.x, FlxG.mouse.y, _playerManager.playerShip.velocity);
 			}
 			
+			if (FlxG.keys.pressed("LEFT")) {
+				_playerManager.playerShip.fire(_playerManager.playerShip.x - 100, _playerManager.playerShip.y + 15);
+			}
+			if (FlxG.keys.pressed("RIGHT")) {
+				_playerManager.playerShip.fire(_playerManager.playerShip.x + 100, _playerManager.playerShip.y + 15);
+			}
+			if (FlxG.keys.pressed("UP")) {
+				_playerManager.playerShip.fire(_playerManager.playerShip.x + 15, _playerManager.playerShip.y - 100);
+			}
+			if (FlxG.keys.pressed("DOWN")) {
+				_playerManager.playerShip.fire(_playerManager.playerShip.x + 15, _playerManager.playerShip.y + 100);
+			}
+			
 			// Spacebar (Active Ability)
 			if (FlxG.keys.justPressed("SPACE"))
 			{
