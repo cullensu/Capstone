@@ -2,6 +2,7 @@ package project.ship.behavior.move
 {
 	import flash.geom.Point;
 	import flash.globalization.NumberFormatter;
+	import org.flixel.FlxG;
 	import project.ship.AIShip;
 	import project.util.CartesianPoint;
 	import project.util.PolarPoint;
@@ -12,10 +13,10 @@ package project.ship.behavior.move
 	 */
 	public class TeleportingBoss extends CircleAround
 	{
-		protected static const TELEPORT_DISTANCE:Number = 100;
+		protected static const TELEPORT_DISTANCE:Number = 250;
 		protected static const DISTANCE_VARIANCE:Number = 25;
-		protected static const TELEPORT_COOLDOWN:Number = 60;
-		protected static const COOLDOWN_VARIANCE:Number = 15;
+		protected static const TELEPORT_COOLDOWN:Number = 5.0;
+		protected static const COOLDOWN_VARIANCE:Number = 0.5;
 		
 		protected static const TELEPORT_ANGLE_VARIANCE:Number = Math.PI / 6;
 		
@@ -30,7 +31,7 @@ package project.ship.behavior.move
 		override public function move(ship:AIShip):void
 		{
 			super.move(ship);
-			_currentCooldown = _currentCooldown - 1;
+			_currentCooldown = _currentCooldown - FlxG.elapsed;
 			if (_currentCooldown <= 0)
 			{
 				var variance:Number = Utility.randomInt(COOLDOWN_VARIANCE * 2) - COOLDOWN_VARIANCE;

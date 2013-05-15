@@ -3,6 +3,7 @@ package project.bullet
 	import flash.geom.Point;
 	import org.flixel.FlxPoint;
 	import org.flixel.FlxG;
+	import project.constant.Constants;
 	import project.objects.AffiliatedObject;
 	import project.ship.Ship;
 	import project.util.Affiliation;
@@ -68,37 +69,37 @@ package project.bullet
 				{
 					loadGraphic(playerBulletSpr, false, false, PLAYER_BULLET_DIMENSIONS.x, PLAYER_BULLET_DIMENSIONS.y);
 					_collisionDamage = 10;
-					_speed = 600;
+					_speed = Constants.BULLET_PLAYER_SMALL_SPEED;
 				}
 				else if (_type == BulletType.SQUARE)
 				{
 					loadGraphic(neutralBulletSpr, false, false, NEUTRAL_BULLET_DIMENSIONS.x, NEUTRAL_BULLET_DIMENSIONS.y);
 					_collisionDamage = 10;
-					_speed = 600;
+					_speed = Constants.BULLET_SMALL_SPEED;
 				}
 				else if (_type == BulletType.TRIANGLE)
 				{
 					loadGraphic(enemyBulletSpr, false, false, ENEMY_BULLET_DIMENSION.x, ENEMY_BULLET_DIMENSION.y);
 					_collisionDamage = 10;
-					_speed = 600;
+					_speed = Constants.BULLET_SMALL_SPEED;
 				}
 				else if (_type == BulletType.BIG_CIRCLE)
 				{
 					loadGraphic(playerBigBulletSpr, false, false, PLAYER_BIG_BULLET_DIMENSIONS.x, PLAYER_BIG_BULLET_DIMENSIONS.y);
 					_collisionDamage = 20;
-					_speed = 500;
+					_speed = Constants.BULLET_PLAYER_BIG_SPEED;
 				}
 				else if (_type == BulletType.BIG_SQUARE)
 				{
 					loadGraphic(neutralBigBulletSpr, false, false, NEUTRAL_BIG_BULLET_DIMENSIONS.x, NEUTRAL_BIG_BULLET_DIMENSIONS.y);
 					_collisionDamage = 20;
-					_speed = 500;
+					_speed = Constants.BULLET_BIG_SPEED;
 				}
 				else if (_type == BulletType.BIG_TRIANGLE)
 				{
 					loadGraphic(enemyBigBulletSpr, false, false, ENEMY_BIG_BULLET_DIMENSIONS.x, ENEMY_BIG_BULLET_DIMENSIONS.y);
 					_collisionDamage = 20;
-					_speed = 500;
+					_speed = Constants.BULLET_BIG_SPEED;
 				}
 				else 
 				{

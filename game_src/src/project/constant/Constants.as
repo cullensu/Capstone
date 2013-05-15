@@ -21,6 +21,18 @@ package project.constant
 		
 		public static const MAX_AI_SHIPS:int = 30;
 		
+		//Bullet constants
+		public static const BULLET_PLAYER_SMALL_SPEED:Number = 1000;
+		public static const BULLET_PLAYER_BIG_SPEED:Number = 1000;
+		public static const BULLET_SMALL_SPEED:Number = 850;
+		public static const BULLET_BIG_SPEED:Number = 700;
+		
+		//Player Starting Values
+		public static const STARTING_HEALTH_DRAIN_RATE:Number = 1;
+		public static const OXYGEN_MAX:Number = 90;
+		public static const STARTING_MOVE_SPEED:Number = 350;
+		public static const STARTING_PLAYER_GUN_COOLDOWN:Number = 0.5;
+		
 		//Player Ship Drop Upgrade Constants
 		public static const MAX_UPGRADES_ON_SCREEN:int = 10;
 		public static const DROP_UPGRADE_LIFETIME:Number = 15;
@@ -30,13 +42,10 @@ package project.constant
 		public static const STARTING_BONUS_DAMAGE:Number = 0;
 		public static const MAX_BONUS_DAMAGE:Number = 30;
 		public static const BONUS_DAMAGE_PER_UPGRADE:Number = 3;
-		public static const STARTING_MOVE_SPEED:Number = 350;
 		public static const STARTING_BONUS_MOVE_SPEED:Number = 0;
-		public static const MAX_BONUS_MOVE_SPEED:Number = 150;
-		public static const BONUS_MOVE_SPEED_PER_UPGRADE:Number = 15;
+		public static const MAX_BONUS_MOVE_SPEED:Number = 100;
+		public static const BONUS_MOVE_SPEED_PER_UPGRADE:Number = 10;
 		public static const OXYGEN_ADD:Number = 12;
-		public static const OXYGEN_MAX:Number = 90;
-		public static const STARTING_HEALTH_DRAIN_RATE:Number = 1;
 		
 		//Enemy spawning constants
 		private static const TICK:Number = 5;

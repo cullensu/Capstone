@@ -58,6 +58,7 @@ package project.ship
 			//This chunk should be moved eventually
 			var gun1:OffsetGun = new OffsetGun();
 			gun1.angleOffset = 0;
+			gun1.gunCooldown = Constants.STARTING_PLAYER_GUN_COOLDOWN;
 			gun1.bulletType = BulletType.BIG_CIRCLE;
 			addGunUpgrade(gun1);
 			

@@ -47,6 +47,7 @@ package project.ship.behavior
 			_enemyNormal.guns = new Vector.<GunUpgrade>();
 			var normalGun:OffsetGun = new OffsetGun();
 			normalGun.bulletType = BulletType.TRIANGLE;
+			normalGun.gunCooldown = 1.2;
 			_enemyNormal.guns.push(normalGun);
 			_enemyNormal.maxHealth = 40;
 			_enemyNormal.speed = 250;
@@ -74,7 +75,7 @@ package project.ship.behavior
 			_enemyBig.guns = new Vector.<GunUpgrade>();
 			var bigGun:OffsetGun = new OffsetGun();
 			bigGun.bulletType = BulletType.BIG_TRIANGLE;
-			bigGun.gunCooldown = 1.0;
+			bigGun.gunCooldown = 2.0;
 			_enemyBig.guns.push(bigGun);
 			_enemyBig.maxHealth = 100;
 			_enemyBig.speed = 200;
@@ -90,7 +91,7 @@ package project.ship.behavior
 			_bossBlink.guns = new Vector.<GunUpgrade>();
 			var bossGun:OffsetGun = new OffsetGun();
 			bossGun.bulletType = BulletType.BIG_TRIANGLE;
-			bossGun.gunCooldown = 1.5;
+			bossGun.gunCooldown = 3;
 			_bossBlink.guns.push(bossGun);
 			_bossBlink.maxHealth = 500;
 			_bossBlink.speed = 350;
