@@ -24,14 +24,14 @@ package project.constant
 		//Bullet constants
 		public static const BULLET_PLAYER_SMALL_SPEED:Number = 1000;
 		public static const BULLET_PLAYER_BIG_SPEED:Number = 1000;
-		public static const BULLET_SMALL_SPEED:Number = 850;
-		public static const BULLET_BIG_SPEED:Number = 700;
+		public static const BULLET_SMALL_SPEED:Number = 750;
+		public static const BULLET_BIG_SPEED:Number = 550;
 		
 		//Player Starting Values
 		public static const STARTING_HEALTH_DRAIN_RATE:Number = 1;
 		public static const OXYGEN_MAX:Number = 90;
 		public static const STARTING_MOVE_SPEED:Number = 350;
-		public static const STARTING_PLAYER_GUN_COOLDOWN:Number = 0.5;
+		public static const STARTING_PLAYER_GUN_COOLDOWN:Number = 0.35;
 		
 		//Player Ship Drop Upgrade Constants
 		public static const MAX_UPGRADES_ON_SCREEN:int = 10;
