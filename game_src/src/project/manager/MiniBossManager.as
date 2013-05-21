@@ -13,6 +13,7 @@ package project.manager
 	import project.ship.behavior.ShipBehaviorType;
 	import project.util.CartesianPoint;
 	import project.util.PolarPoint;
+	import project.util.Utility;
 	
 	import org.flixel.FlxG;
 	/**
@@ -77,7 +78,26 @@ package project.manager
 		private function spawn(ship:MiniBossShip):void
 		{
 			//TODO: Randomize miniboss behavior
-			ship.registerBehaviorType(ShipBehaviorType.BOSS_BLINK);
+			var rand:int = Utility.randomInt(3);
+			switch(rand)
+			{
+				case 0:
+					ship.registerBehaviorType(ShipBehaviorType.BOSS_SWARM);
+					break;
+				case 1:
+					ship.registerBehaviorType(ShipBehaviorType.BOSS_BLINK);
+					break;
+				case 2:
+					ship.registerBehaviorType(ShipBehaviorType.BOSS_FAST);
+					break;
+				case 3:
+					ship.registerBehaviorType(ShipBehaviorType.BOSS_HOMING);
+					break;
+				default:
+					ship.registerBehaviorType(ShipBehaviorType.BOSS_FAST);
+					break;
+			}
+			
 			
 			ship.activated = true;
 		}

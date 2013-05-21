@@ -92,7 +92,7 @@ package project.hud
 				var arr:Array = state.stations.members;
 				for (var i:int = 0; i < Constants.NUM_STATIONS; i++) {
 					var station:Station = arr[i] as Station;
-					var newSprite:FlxSprite = (new FlxSprite(station.x / Constants.TILESIZE, station.y / Constants.TILESIZE)).makeGraphic(1, 1, 0xff0000ff);
+					var newSprite:FlxSprite = (new FlxSprite(station.x / Constants.TILESIZE - 1, station.y / Constants.TILESIZE - 1)).makeGraphic(3, 3, 0xff0000ff);
 					newSprite.x += 700;
 					newSprite.y += 500;
 					newSprite.scrollFactor = new FlxPoint(0, 0);
@@ -101,7 +101,7 @@ package project.hud
 			}
 			
 			//Player blip
-			_blip = (new FlxSprite(750, 550)).makeGraphic(1, 1);
+			_blip = (new FlxSprite(750, 550)).makeGraphic(3, 3);
 			_blip.scrollFactor = new FlxPoint(0, 0);
 			add(_blip);
 		}
@@ -122,8 +122,8 @@ package project.hud
 		override public function update():void
 		{
 			super.update();
-			_blip.x = (_playerShip.x / Constants.TILESIZE) * (100 / Constants.WORLDTILES) + 700;
-			_blip.y = (_playerShip.y / Constants.TILESIZE) * (100 / Constants.WORLDTILES) + 500;
+			_blip.x = (_playerShip.x / Constants.TILESIZE) * (100 / Constants.WORLDTILES) + 700 - 1;
+			_blip.y = (_playerShip.y / Constants.TILESIZE) * (100 / Constants.WORLDTILES) + 500 - 1;
 		}
 	}
 
