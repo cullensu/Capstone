@@ -335,6 +335,11 @@ package project.state
 				if (FlxG.keys.justPressed("U")) {
 					_upgradeMenu.show();
 				}
+				if (FlxG.keys.justPressed("C")) {
+					_playerManager.playerShip.speed = 1000;
+					_playerManager.playerShip.maxHealth = 1000000;
+					_playerManager.playerShip.health = 1000000;
+				}
 				if (FlxG.keys.justPressed("SLASH")) {
 					_playerManager.playerShip.bonusCooldown = Constants.MAX_BONUS_COOLDOWN;
 					_playerManager.playerShip.bonusDamage = Constants.MAX_BONUS_DAMAGE;

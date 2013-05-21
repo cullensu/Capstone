@@ -14,6 +14,9 @@ package project.ship.behavior
 		public static const ENEMY_BIG:ShipBehaviorType = new ShipBehaviorType();
 		
 		public static const BOSS_BLINK:ShipBehaviorType = new ShipBehaviorType();
+		public static const BOSS_FAST:ShipBehaviorType = new ShipBehaviorType();
+		public static const BOSS_HOMING:ShipBehaviorType = new ShipBehaviorType();
+		public static const BOSS_SWARM:ShipBehaviorType = new ShipBehaviorType();
 	}
 
 }
