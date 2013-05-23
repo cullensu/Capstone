@@ -9,7 +9,9 @@ package project.menu
 	import project.constant.GameRegistry;
 	import project.ship.PlayerShip;
 	import project.upgrade.active.ShieldUpgrade;
+	import project.upgrade.guns.GunUpgradeFactory;
 	import project.upgrade.guns.OffsetGun;
+	import project.upgrade.GunUpgrade;
 	/**
 	 * ...
 	 * @author akirilov
@@ -24,6 +26,9 @@ package project.menu
 		private var _activeUpgrade:FlxButton;
 		private var _passiveUpgrade:FlxButton;
 		private var _title:FlxText;
+		
+		private var _gunFactory:GunUpgradeFactory;
+		private var _tier:int = 1;
 		
 		private var _ship:PlayerShip;
 		
@@ -56,6 +61,9 @@ package project.menu
 			_title.y += X_OFFSET
 			_title.scrollFactor = new FlxPoint(0, 0);
 			
+			// Init factor
+			_gunFactory = new GunUpgradeFactory();
+			
 			add(_background);
 			add(_weaponUpgrade);
 			add(_activeUpgrade);
@@ -67,23 +75,15 @@ package project.menu
 		
 		private function upgradeWeapon():void
 		{
-			var ship:PlayerShip = GameRegistry.gameState.playerManager.playerShip;
-			
-			//This chunk should be moved eventually
-			var gun1:OffsetGun = new OffsetGun();
-			gun1.angleOffset = 0;
-			gun1.bulletType = BulletType.BIG_CIRCLE;
-			var gun2:OffsetGun = new OffsetGun();
-			gun2.angleOffset = Math.PI / 18;
-			gun2.bulletType = BulletType.BIG_CIRCLE;
-			var gun3:OffsetGun = new OffsetGun();
-			gun3.angleOffset = -1 * Math.PI / 18;
-			gun3.bulletType = BulletType.BIG_CIRCLE;
+			var ship:PlayerShip = GameRegistry.gameState.playerManager.playerShip;	
+			var guns:Vector.<GunUpgrade> = _gunFactory.getGunUpgrade(_tier);
+			_tier = Math.min(_tier + 1, 4);
 			
 			ship.removeAllGunUpgrades();
-			ship.addGunUpgrade(gun1);
-			ship.addGunUpgrade(gun2);
-			ship.addGunUpgrade(gun3);
+			for each (var gun:GunUpgrade in guns)
+			{
+				ship.addGunUpgrade(gun);
+			}
 			
 			trace("Weapon upgraded!");
 			hide();
