@@ -35,6 +35,7 @@ package project.hud
 		protected var _blip:FlxSprite;
 		protected var _playerShip:PlayerShip;
 		[Embed(source = "../../../assets/map.png")] private var _map:Class;
+		[Embed(source = "../../../assets/fonts/Kontrapunkt-Bold.otf", fontFamily = "Kontrapunkt", embedAsCFF="false")] private var _font:String;
 		public function HUD(state:GameState) 
 		{
 			super();
@@ -44,40 +45,39 @@ package project.hud
 			
 			var fillType:uint = FlxBar.FILL_LEFT_TO_RIGHT;
 			
-			_healthBarLabel = new FlxText(50, 0, 100, "OXYGEN");
-			add(_healthBarLabel);
-			_healthBarLabel.scrollFactor = new FlxPoint(0, 0);
-			
-			_bonusDamageLabel = new FlxText(200, 0, 100, "BONUS DAMAGE");
+			_bonusDamageLabel = new FlxText(118, 536, 200, "ad");
+			_bonusDamageLabel.setFormat("Kontrapunkt", 10);
 			add(_bonusDamageLabel);
 			_bonusDamageLabel.scrollFactor = new FlxPoint(0, 0);
 			
-			_bonusCooldownLabel = new FlxText(500, 0, 100, "COOLDOWN REDUCTION");
+			_bonusCooldownLabel = new FlxText(118, 556, 100, "as");
+			_bonusCooldownLabel.setFormat("Kontrapunkt", 10);
 			add(_bonusCooldownLabel);
 			_bonusCooldownLabel.scrollFactor = new FlxPoint(0, 0);
 			
-			_bonusMoveSpeedLabel = new FlxText(650, 0, 100, "MOVE SPEED");
+			_bonusMoveSpeedLabel = new FlxText(118, 576, 100, "ms");
+			_bonusMoveSpeedLabel.setFormat("Kontrapunkt", 10);
 			add(_bonusMoveSpeedLabel);
 			_bonusMoveSpeedLabel.scrollFactor = new FlxPoint(0, 0);
 			
 			//Health bar
-			_playerHealthBar = new FlxBar(50, 20, fillType, 100, 10, _playerShip, "health", 0, _playerShip.health);
+			_playerHealthBar = new FlxBar(350, 20, fillType, 100, 10, _playerShip, "health", 0, _playerShip.health);
 			_playerHealthBar.update();
 			add(_playerHealthBar);
 			_playerHealthBar.scrollFactor = new FlxPoint(0, 0);
 			
-			_playerBonusDamageBar = new FlxBar(200, 20, fillType, 100, 10, _playerShip, "bonusDamage", -0.1, Constants.MAX_BONUS_DAMAGE);
+			_playerBonusDamageBar = new FlxBar(10, 540, fillType, 100, 10, _playerShip, "bonusDamage", -0.1, Constants.MAX_BONUS_DAMAGE);
 			_playerBonusDamageBar.createFilledBar(0xff510000, 0xffF40000);
 			add(_playerBonusDamageBar);
 			_playerBonusDamageBar.scrollFactor = new FlxPoint(0, 0);
 			
-			_playerBonusCooldownBar = new FlxBar(500, 20, fillType, 100, 10, _playerShip, "bonusCooldownDisplayTracker", -0.1, 100);
+			_playerBonusCooldownBar = new FlxBar(10, 560, fillType, 100, 10, _playerShip, "bonusCooldownDisplayTracker", -0.1, 100);
 			_playerBonusCooldownBar.createFilledBar(0xff515100, 0xffF4F400);
 			_playerBonusCooldownBar.update();
 			add(_playerBonusCooldownBar);
 			_playerBonusCooldownBar.scrollFactor = new FlxPoint(0, 0);
 			
-			_playerBonusMovespeedBar = new FlxBar(650, 20, fillType, 100, 10, _playerShip, "bonusMoveSpeed", -0.1, Constants.MAX_BONUS_MOVE_SPEED);
+			_playerBonusMovespeedBar = new FlxBar(10, 580, fillType, 100, 10, _playerShip, "bonusMoveSpeed", -0.1, Constants.MAX_BONUS_MOVE_SPEED);
 			_playerBonusMovespeedBar.createFilledBar(0xff000051, 0xff0000F4);
 			_playerBonusMovespeedBar.update();
 			add(_playerBonusMovespeedBar);
@@ -108,14 +108,10 @@ package project.hud
 		
 		public function updateActiveBar():void 
 		{
-			_playerActiveBar = new FlxBar(350, 20, FlxBar.FILL_LEFT_TO_RIGHT, 100, 10, _playerShip.activeUpgrade, "charge", 0, _playerShip.activeUpgrade.MAX_CHARGE, false);
+			_playerActiveBar = new FlxBar(350, 40, FlxBar.FILL_LEFT_TO_RIGHT, 100, 10, _playerShip.activeUpgrade, "charge", 0, _playerShip.activeUpgrade.MAX_CHARGE, false);
 			_playerActiveBar.color = 0xff37FDFC;
 			add(_playerActiveBar);
 			_playerActiveBar.scrollFactor = new FlxPoint(0, 0);
-			
-			_playerActiveLabel = new FlxText(350, 0, 100, "ACTIVE ABILITY");
-			add(_playerActiveLabel);
-			_playerActiveLabel.scrollFactor = new FlxPoint(0, 0);
 		}
 		
 		
