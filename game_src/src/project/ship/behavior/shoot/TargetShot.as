@@ -21,7 +21,7 @@ package project.ship.behavior.shoot
 		public function shoot(ship:AIShip):void
 		{
 			var playerShip:PlayerShip = GameRegistry.gameState.playerManager.playerShip;
-			ship.fire(playerShip.x, playerShip.y);
+			ship.fire(playerShip.x + playerShip.width / 2, playerShip.y + playerShip.height / 2);
 		}
 		
 	}
