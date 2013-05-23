@@ -69,10 +69,10 @@ package project.env
 				if (_level < 3) {
 					var pPoint:PolarPoint = new PolarPoint(_level * 25, Utility.randomAngle());
 					var cPoint:CartesianPoint = pPoint.convertToCartesianPoint();
-					_aTile.add(new Asteroid(_aTile, x, y, _level + 1, cPoint.x, cPoint.y));
+					_aTile.add(new Asteroid(_aTile, x + width / 2, y + height / 2, _level + 1, cPoint.x, cPoint.y));
 					pPoint.rotate(Math.PI);
 					cPoint = pPoint.convertToCartesianPoint();
-					_aTile.add(new Asteroid(_aTile, x, y, _level + 1, cPoint.x, cPoint.y));
+					_aTile.add(new Asteroid(_aTile, x + width / 2, y + height / 2, _level + 1, cPoint.x, cPoint.y));
 				}
 			}
 		}
