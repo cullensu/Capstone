@@ -340,6 +340,9 @@ package project.state
 					_playerManager.playerShip.maxHealth = 1000000;
 					_playerManager.playerShip.health = 1000000;
 				}
+				if (FlxG.keys.justPressed("K")) {
+					_playerManager.playerShip.health = 1;
+				}
 				if (FlxG.keys.justPressed("SLASH")) {
 					_playerManager.playerShip.bonusCooldown = Constants.MAX_BONUS_COOLDOWN;
 					_playerManager.playerShip.bonusDamage = Constants.MAX_BONUS_DAMAGE;

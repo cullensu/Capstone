@@ -78,11 +78,11 @@ package project.manager
 		private function spawn(ship:MiniBossShip):void
 		{
 			//TODO: Randomize miniboss behavior
-			var rand:int = Utility.randomInt(3);
+			var rand:int = Utility.randomInt(4);
 			switch(rand)
 			{
 				case 0:
-					ship.registerBehaviorType(ShipBehaviorType.BOSS_SWARM);
+					ship.registerBehaviorType(ShipBehaviorType.BOSS_MINE);
 					break;
 				case 1:
 					ship.registerBehaviorType(ShipBehaviorType.BOSS_BLINK);
@@ -91,7 +91,7 @@ package project.manager
 					ship.registerBehaviorType(ShipBehaviorType.BOSS_FAST);
 					break;
 				case 3:
-					ship.registerBehaviorType(ShipBehaviorType.BOSS_HOMING);
+					ship.registerBehaviorType(ShipBehaviorType.BOSS_SWARM);
 					break;
 				default:
 					ship.registerBehaviorType(ShipBehaviorType.BOSS_FAST);
