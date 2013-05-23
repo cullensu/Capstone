@@ -23,9 +23,13 @@ package project.ship.behavior
 		protected var _speed:Number;
 		protected var _collisionDamage:Number;
 		
+		protected var _hasLifeTime:Boolean;
+		protected var _lifetime:Number;
+		
 		public function ShipBehavior() 
 		{
-			
+			_hasLifeTime = false;
+			_lifetime = 10;
 		}
 		
 		public function get movement():IShipMovement 
@@ -116,6 +120,26 @@ package project.ship.behavior
 		public function set collisionDamage(value:Number):void 
 		{
 			_collisionDamage = value;
+		}
+		
+		public function get hasLifeTime():Boolean 
+		{
+			return _hasLifeTime;
+		}
+		
+		public function set hasLifeTime(value:Boolean):void 
+		{
+			_hasLifeTime = value;
+		}
+		
+		public function get lifetime():Number 
+		{
+			return _lifetime;
+		}
+		
+		public function set lifetime(value:Number):void 
+		{
+			_lifetime = value;
 		}
 		
 	}

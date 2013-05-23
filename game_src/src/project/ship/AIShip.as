@@ -30,12 +30,16 @@ package project.ship
 		//This is what outside classes should interact with
 		protected var _behaviorType:ShipBehaviorType;
 		
+		protected var _hasLifetime:Boolean;
+		protected var _lifetime:Number;
+		
 		public function AIShip(X:Number=0,Y:Number=0,SimpleGraphic:Class=null) 
 		{
 			super(X, Y, SimpleGraphic);
 			
 			loadGraphic(_shipPng, false, false, 30, 28);
-			
+			_hasLifetime = false;
+			_lifetime = 10;
 			
 			exists = false;
 		}
@@ -73,6 +77,14 @@ package project.ship
 			_behavior.shooting.shoot(this);
 			super.update();
 			checkDespawn();
+			if (_hasLifetime)
+			{
+				_lifetime = _lifetime - FlxG.elapsed;
+				if (_lifetime < 0)
+				{
+					kill();
+				}
+			}
 		}
 		
 		protected function checkDespawn():void
@@ -104,6 +116,9 @@ package project.ship
 			health = _maxHealth;
 			_speed = _behavior.speed;
 			_collisionDamage = _behavior.collisionDamage;
+			
+			_hasLifetime = _behavior.hasLifeTime;
+			_lifetime = _behavior.lifetime;
 			
 			removeAllGunUpgrades();
 			for each(var gun:GunUpgrade in _behavior.guns)

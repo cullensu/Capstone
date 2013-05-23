@@ -6,6 +6,7 @@ package project.ship.behavior
 	import project.bullet.BulletType;
 	import project.constant.Constants;
 	import project.ship.behavior.move.CircleAround;
+	import project.ship.behavior.move.NoMove;
 	import project.ship.behavior.move.Suicide;
 	import project.ship.behavior.move.SuicideWithTurnRadius;
 	import project.ship.behavior.move.SwarmBoss;
@@ -25,6 +26,7 @@ package project.ship.behavior
 		[Embed(source = "../../../../assets/enemybig.png")] private var _enemyBigPng:Class;
 		[Embed(source = "../../../../assets/enemyfast.png")] private var _enemyFastPng:Class;
 		[Embed(source = "../../../../assets/enemynormal.png")] private var _enemyNormalPng:Class;
+		[Embed(source = "../../../../assets/enemymine.png")] private var _enemyMinePng:Class;
 		
 		[Embed(source = "../../../../assets/minibossblink.png")] private var _bossBlinkPng:Class;
 		[Embed(source = "../../../../assets/minibossfast.png")] private var _bossFastPng:Class;
@@ -39,11 +41,14 @@ package project.ship.behavior
 		protected var _enemyNormal:ShipBehavior;
 		protected var _enemyFast:ShipBehavior;
 		protected var _enemyBig:ShipBehavior;
+		protected var _enemyMine:ShipBehavior;
+		protected var _enemyTurret:ShipBehavior;
 		
 		protected var _bossBlink:ShipBehavior;
 		protected var _bossFast:ShipBehavior;
 		protected var _bossHoming:ShipBehavior;
 		protected var _bossSwarm:ShipBehavior;
+		protected var _bossMine:ShipBehavior;
 		
 		protected var _typeToBehavior:Dictionary;
 		
@@ -70,6 +75,48 @@ package project.ship.behavior
 			_enemyNormal.movement = new CircleAround(175);
 			_enemyNormal.shooting = new RandomShot();
 			_typeToBehavior[ShipBehaviorType.ENEMY_NORMAL] = _enemyNormal;
+			
+			_enemyMine = new ShipBehavior();
+			_enemyMine.affiliation = Affiliation.ENEMY;
+			_enemyMine.guns = new Vector.<GunUpgrade>();
+			_enemyMine.hasLifeTime = true;
+			_enemyMine.lifetime = 10;
+			_enemyMine.maxHealth = 40;
+			_enemyMine.speed = 0;
+			_enemyMine.collisionDamage = 40;
+			_enemyMine.shipGraphic = _enemyMinePng;
+			_enemyMine.shipGraphicDimensions = new Point(13, 11);
+			_enemyMine.movement = new NoMove();
+			_enemyMine.shooting = new RandomShot();
+			_typeToBehavior[ShipBehaviorType.ENEMY_MINE] = _enemyMine;
+			
+			_enemyTurret = new ShipBehavior();
+			_enemyTurret.affiliation = Affiliation.ENEMY;
+			_enemyTurret.guns = new Vector.<GunUpgrade>();
+			var turretGun:OffsetGun = new OffsetGun();
+			turretGun.bulletType = BulletType.TRIANGLE;
+			turretGun.gunCooldown = 1.0;
+			_enemyTurret.guns.push(turretGun);
+			//var turretGun2:OffsetGun = new OffsetGun();
+			//turretGun2.angleOffset = Math.PI / 18;
+			//turretGun2.bulletType = BulletType.TRIANGLE;
+			//turretGun2.gunCooldown = 2.0;
+			//_enemyTurret.guns.push(turretGun2);
+			//var turretGun3:OffsetGun = new OffsetGun();
+			//turretGun3.angleOffset = -Math.PI / 18;
+			//turretGun3.bulletType = BulletType.TRIANGLE;
+			//turretGun3.gunCooldown = 2.0;
+			//_enemyTurret.guns.push(turretGun3);
+			_enemyTurret.hasLifeTime = true;
+			_enemyTurret.lifetime = 6;
+			_enemyTurret.maxHealth = 1;
+			_enemyTurret.speed = 225;
+			_enemyTurret.collisionDamage = 10;
+			_enemyTurret.shipGraphic = _enemyMinePng;
+			_enemyTurret.shipGraphicDimensions = new Point(13, 11);
+			_enemyTurret.movement = new NoMove();
+			_enemyTurret.shooting = new TargetShot();
+			_typeToBehavior[ShipBehaviorType.ENEMY_TURRET] = _enemyTurret;
 			
 			_enemyFast = new ShipBehavior();
 			_enemyFast.affiliation = Affiliation.ENEMY;
@@ -137,7 +184,9 @@ package project.ship.behavior
 			_bossFast.collisionDamage = 400;
 			_bossFast.shipGraphic = _bossFastPng;
 			_bossFast.shipGraphicDimensions = new Point(129, 80);
-			_bossFast.movement = new CircleAround(300);
+			var bossFastMove:CircleAround = new CircleAround(300);
+			bossFastMove.randomlyReverse = true;
+			_bossFast.movement = bossFastMove;
 			_bossFast.shooting = new TargetShot();
 			_typeToBehavior[ShipBehaviorType.BOSS_FAST] = _bossFast;
 			
@@ -152,6 +201,23 @@ package project.ship.behavior
 			_bossSwarm.movement = new SwarmBoss(450);
 			_bossSwarm.shooting = new RandomShot();
 			_typeToBehavior[ShipBehaviorType.BOSS_SWARM] = _bossSwarm;
+			
+			_bossMine = new ShipBehavior();
+			_bossMine.affiliation = Affiliation.ENEMY;
+			_bossMine.guns = new Vector.<GunUpgrade>();
+			_bossMine.maxHealth = 1000;
+			_bossMine.speed = 550;
+			_bossMine.collisionDamage = 400;
+			_bossMine.shipGraphic = _bossSwarmPng;
+			_bossMine.shipGraphicDimensions = new Point(150, 140);
+			var bossMineMove:SwarmBoss = new SwarmBoss(250);
+			bossMineMove.randomlyReverse = true;
+			bossMineMove.spawnDelay = 1.5;
+			bossMineMove.spawnDelayVariance = 0.5;
+			bossMineMove.spawnType = ShipBehaviorType.ENEMY_TURRET;
+			_bossMine.movement = bossMineMove;
+			_bossMine.shooting = new RandomShot();
+			_typeToBehavior[ShipBehaviorType.BOSS_MINE] = _bossMine;
 		}
 		
 		public function getShipBehavior(type:ShipBehaviorType):ShipBehavior
