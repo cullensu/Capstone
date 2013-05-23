@@ -105,6 +105,13 @@ package project.ship
 			_speed = _behavior.speed;
 			_collisionDamage = _behavior.collisionDamage;
 			
+			if (_behavior.animations) {
+				for (var i:int = 0; i < _behavior.animations; i++) {
+					trace("adding animation", _behavior.animationNames[i]);
+					addAnimation(_behavior.animationNames[i], _behavior.animationFrames[i], Constants.GAME_FRAME_RATE, _behavior.animationLoops[i]);
+				}
+			}
+			
 			removeAllGunUpgrades();
 			for each(var gun:GunUpgrade in _behavior.guns)
 			{

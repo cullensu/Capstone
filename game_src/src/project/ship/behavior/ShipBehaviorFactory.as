@@ -113,6 +113,11 @@ package project.ship.behavior
 			_bossBlink.shipGraphicDimensions = new Point(116, 105);
 			_bossBlink.movement = new TeleportingBoss(350);
 			_bossBlink.shooting = new LeadingShot();
+			_bossBlink.animations = 2;
+			_bossBlink.animationNames = new Array("out", "in");
+			_bossBlink.animationFrames = new Array(new Array(0, 1, 2), new Array(2, 1, 0));
+			_bossBlink.animationLoops = new Array(false, false);
+			
 			_typeToBehavior[ShipBehaviorType.BOSS_BLINK] = _bossBlink;
 			
 			_bossFast = new ShipBehavior();

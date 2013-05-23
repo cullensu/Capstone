@@ -299,16 +299,16 @@ package project.state
 			}
 			
 			if (FlxG.keys.pressed("LEFT")) {
-				_playerManager.playerShip.fire(_playerManager.playerShip.x - 100, _playerManager.playerShip.y + 15);
+				_playerManager.playerShip.fire(_playerManager.playerShip.x - 100, _playerManager.playerShip.y + 15, _playerManager.playerShip.velocity);
 			}
 			if (FlxG.keys.pressed("RIGHT")) {
-				_playerManager.playerShip.fire(_playerManager.playerShip.x + 100, _playerManager.playerShip.y + 15);
+				_playerManager.playerShip.fire(_playerManager.playerShip.x + 100, _playerManager.playerShip.y + 15, _playerManager.playerShip.velocity);
 			}
 			if (FlxG.keys.pressed("UP")) {
-				_playerManager.playerShip.fire(_playerManager.playerShip.x + 15, _playerManager.playerShip.y - 100);
+				_playerManager.playerShip.fire(_playerManager.playerShip.x + 15, _playerManager.playerShip.y - 100, _playerManager.playerShip.velocity);
 			}
 			if (FlxG.keys.pressed("DOWN")) {
-				_playerManager.playerShip.fire(_playerManager.playerShip.x + 15, _playerManager.playerShip.y + 100);
+				_playerManager.playerShip.fire(_playerManager.playerShip.x + 15, _playerManager.playerShip.y + 100, _playerManager.playerShip.velocity);
 			}
 			
 			// Spacebar (Active Ability)

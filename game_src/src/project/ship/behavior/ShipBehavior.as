@@ -23,9 +23,54 @@ package project.ship.behavior
 		protected var _speed:Number;
 		protected var _collisionDamage:Number;
 		
+		protected var _animations:int;
+		protected var _animationNames:Array;
+		protected var _animationFrames:Array;
+		protected var _animationLoops:Array;
+		
 		public function ShipBehavior() 
 		{
 			
+		}
+		
+		public function get animations():int
+		{
+			return _animations;
+		}
+		
+		public function set animations(num:int):void
+		{
+			_animations = num;
+		}
+		
+		public function get animationNames():Array
+		{
+			return _animationNames;
+		}
+		
+		public function set animationNames(names:Array):void
+		{
+			_animationNames = names;
+		}
+		
+		public function get animationFrames():Array
+		{
+			return _animationFrames;
+		}
+		
+		public function set animationFrames(frames:Array):void
+		{
+			_animationFrames = frames;
+		}
+		
+		public function get animationLoops():Array
+		{
+			return _animationLoops;
+		}
+		
+		public function set animationLoops(loops:Array):void
+		{
+			_animationLoops = loops;
 		}
 		
 		public function get movement():IShipMovement 
