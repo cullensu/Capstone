@@ -16,8 +16,8 @@ package project.upgrade.active
 		public function ShieldUpgrade(ship:Ship):void
 		{
 			super(ship);
-			charge = 1000;
 			_MAX_CHARGE = 1000;
+			charge = _MAX_CHARGE;
 			_chargeRate = 1;
 			_useRate = 2;
 		}
@@ -27,39 +27,17 @@ package project.upgrade.active
 			// Can only use shield when fully charged
 			if (charge == _MAX_CHARGE)
 			{
+				super.activate();
 				trace("Shield Activated");
 				_ship.activeShield = true;
-				super.activate();
 			}
 		}
 		
-		override public function update():void
+		override public function deactivate():void
 		{
-			if (_isCharging)
-			{
-				if (charge < _MAX_CHARGE)
-				{
-					charge += _chargeRate;
-				}
-				else
-				{
-					_isCharging = false;
-				}
-			}
-			else if (_isUsing)
-			{
-				if (charge > 0)
-				{
-					charge -= _useRate;
-				}
-				else
-				{
-					_isUsing = false;
-					_isCharging = true;
-					_ship.activeShield = false;
-					trace("Shield down");
-				}
-			}
+			trace("Shield down");
+			_ship.activeShield = false;
+			super.deactivate();
 		}
 	}
 

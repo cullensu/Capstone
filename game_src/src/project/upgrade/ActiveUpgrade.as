@@ -28,6 +28,15 @@ package project.upgrade
 			}
 		}
 		
+		public function deactivate():void
+		{
+			if (_isUsing)
+			{
+				_isUsing = false;
+				_isCharging = true;
+			}
+		}
+		
 		public function update():void
 		{
 			if (_isCharging)
@@ -49,8 +58,7 @@ package project.upgrade
 				}
 				else
 				{
-					_isUsing = false;
-					_isCharging = true;
+					deactivate();
 				}
 			}
 				

@@ -9,6 +9,7 @@ package project.menu
 	import project.constant.GameRegistry;
 	import project.ship.PlayerShip;
 	import project.upgrade.active.ShieldUpgrade;
+	import project.upgrade.active.TeleportUpgrade;
 	import project.upgrade.guns.GunUpgradeFactory;
 	import project.upgrade.guns.OffsetGun;
 	import project.upgrade.GunUpgrade;
@@ -92,7 +93,7 @@ package project.menu
 		private function upgradeActive():void
 		{
 			var ship:PlayerShip = GameRegistry.gameState.playerManager.playerShip;
-			ship.activeUpgrade = new ShieldUpgrade(ship);
+			ship.activeUpgrade = new TeleportUpgrade(ship);
 			GameRegistry.hud.updateActiveBar();
 			
 			trace("Active upgraded!");
