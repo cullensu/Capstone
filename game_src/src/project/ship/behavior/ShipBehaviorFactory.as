@@ -49,6 +49,7 @@ package project.ship.behavior
 		protected var _bossHoming:ShipBehavior;
 		protected var _bossSwarm:ShipBehavior;
 		protected var _bossMine:ShipBehavior;
+		protected var _bossFinal:ShipBehavior;
 		
 		protected var _typeToBehavior:Dictionary;
 		
@@ -112,6 +113,8 @@ package project.ship.behavior
 			_enemyTurret.maxHealth = 1;
 			_enemyTurret.speed = 225;
 			_enemyTurret.collisionDamage = 10;
+			_enemyTurret.dropsHealthOnly = true;
+			_enemyTurret.upgradeDropRate = 0.5;
 			_enemyTurret.shipGraphic = _enemyMinePng;
 			_enemyTurret.shipGraphicDimensions = new Point(13, 11);
 			_enemyTurret.movement = new NoMove();
@@ -158,13 +161,14 @@ package project.ship.behavior
 			_bossBlink.collisionDamage = 400;
 			_bossBlink.shipGraphic = _bossBlinkPng;
 			_bossBlink.shipGraphicDimensions = new Point(116, 105);
-			_bossBlink.movement = new TeleportingBoss(350);
+			var bossBlinkMove:TeleportingBoss = new TeleportingBoss(300);
+			bossBlinkMove.randomlyReverse = true;
+			_bossBlink.movement = bossBlinkMove;
 			_bossBlink.shooting = new LeadingShot();
 			_bossBlink.animations = 2;
 			_bossBlink.animationNames = new Array("out", "in");
 			_bossBlink.animationFrames = new Array(new Array(0, 1, 2), new Array(2, 1, 0));
 			_bossBlink.animationLoops = new Array(false, false);
-			
 			_typeToBehavior[ShipBehaviorType.BOSS_BLINK] = _bossBlink;
 			
 			_bossFast = new ShipBehavior();
@@ -223,6 +227,47 @@ package project.ship.behavior
 			_bossMine.movement = bossMineMove;
 			_bossMine.shooting = new RandomShot();
 			_typeToBehavior[ShipBehaviorType.BOSS_MINE] = _bossMine;
+			
+			_bossFinal = new ShipBehavior();
+			_bossFinal.affiliation = Affiliation.ENEMY;
+			_bossFinal.guns = new Vector.<GunUpgrade>();
+			var bossFinalGun1:OffsetGun = new OffsetGun();
+			bossFinalGun1.bulletType = BulletType.BIG_TRIANGLE;
+			bossFinalGun1.gunCooldown = 0.6;
+			_bossFinal.guns.push(bossFinalGun1);
+			var bossFinalGun2:OffsetGun = new OffsetGun();
+			bossFinalGun2.bulletType = BulletType.BIG_TRIANGLE;
+			bossFinalGun2.gunCooldown = 0.6;
+			bossFinalGun2.angleOffset = Math.PI / 18;
+			_bossFinal.guns.push(bossFinalGun2);
+			var bossFinalGun3:OffsetGun = new OffsetGun();
+			bossFinalGun3.bulletType = BulletType.BIG_TRIANGLE;
+			bossFinalGun3.gunCooldown = 0.6;
+			bossFinalGun3.angleOffset = -Math.PI / 18;
+			_bossFinal.guns.push(bossFinalGun3);
+			var bossFinalGun4:OffsetGun = new OffsetGun();
+			bossFinalGun4.bulletType = BulletType.BIG_TRIANGLE;
+			bossFinalGun4.gunCooldown = 0.6;
+			bossFinalGun4.angleOffset = Math.PI / 9;
+			_bossFinal.guns.push(bossFinalGun4);
+			var bossFinalGun5:OffsetGun = new OffsetGun();
+			bossFinalGun5.bulletType = BulletType.BIG_TRIANGLE;
+			bossFinalGun5.gunCooldown = 0.6;
+			bossFinalGun5.angleOffset = -Math.PI / 9;
+			_bossFinal.guns.push(bossFinalGun5);
+			_bossFinal.maxHealth = 5000;
+			_bossFinal.speed = 500;
+			_bossFinal.collisionDamage = 400;
+			_bossFinal.shipGraphic = _bossSwarmPng;
+			_bossFinal.shipGraphicDimensions = new Point(150, 140);
+			var bossFinalMove:SwarmBoss = new SwarmBoss(250);
+			bossFinalMove.randomlyReverse = true;
+			bossFinalMove.spawnDelay = 1.0;
+			bossFinalMove.spawnDelayVariance = 0.25;
+			bossFinalMove.spawnType = ShipBehaviorType.ENEMY_TURRET;
+			_bossFinal.movement = bossFinalMove;
+			_bossFinal.shooting = new LeadingShot();
+			_typeToBehavior[ShipBehaviorType.BOSS_FINAL] = _bossFinal;
 		}
 		
 		public function getShipBehavior(type:ShipBehaviorType):ShipBehavior

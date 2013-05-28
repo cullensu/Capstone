@@ -20,6 +20,8 @@ package project.ship.behavior
 		//public static const BOSS_HOMING:ShipBehaviorType = new ShipBehaviorType();
 		public static const BOSS_SWARM:ShipBehaviorType = new ShipBehaviorType();
 		public static const BOSS_MINE:ShipBehaviorType = new ShipBehaviorType();
+		
+		public static const BOSS_FINAL:ShipBehaviorType = new ShipBehaviorType();
 	}
 
 }

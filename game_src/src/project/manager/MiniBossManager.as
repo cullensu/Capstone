@@ -79,6 +79,7 @@ package project.manager
 		{
 			//TODO: Randomize miniboss behavior
 			var rand:int = Utility.randomInt(4);
+			//rand = 1;
 			switch(rand)
 			{
 				case 0:
@@ -86,6 +87,7 @@ package project.manager
 					break;
 				case 1:
 					ship.registerBehaviorType(ShipBehaviorType.BOSS_BLINK);
+					//ship.registerBehaviorType(ShipBehaviorType.BOSS_FINAL);
 					break;
 				case 2:
 					ship.registerBehaviorType(ShipBehaviorType.BOSS_FAST);

@@ -38,10 +38,9 @@ package project.env
 				} else {
 					size = 3;
 				}
-				var newA:Asteroid = new Asteroid(this,
-												 Utility.random() * Constants.TILESIZE + x,
-												 Utility.random() * Constants.TILESIZE + y,
-												 size);
+				var xLoc:Number = Utility.random() * Constants.TILESIZE + x;
+				var yLoc:Number = Utility.random() * Constants.TILESIZE + y;
+				var newA:Asteroid = new Asteroid(this, xLoc, yLoc, size);
 				add(newA);
 			}
 			this.exists = false;
