@@ -15,6 +15,7 @@ package project.ship
 	import project.util.CartesianPoint;
 	import project.util.ICollidable;
 	import project.util.PolarPoint;
+	import project.util.Utility;
 	/**
 	 * ...
 	 * @author Cullen
@@ -51,7 +52,18 @@ package project.ship
 			if (health <= 0)
 			{
 				kill();
-				GameRegistry.gameState.upgradeManager.createRandomDrop(this.x, this.y);
+				var rand:Number = Utility.random();
+				if (rand < _behavior.upgradeDropRate)
+				{
+					if (_behavior.dropsHealthOnly)
+					{
+						GameRegistry.gameState.upgradeManager.createDrop(DropType.OXYGEN, this.x, this.y);
+					}
+					else
+					{
+						GameRegistry.gameState.upgradeManager.createRandomDrop(this.x, this.y);
+					}
+				}
 			}
 			
 			if (other is Ship)

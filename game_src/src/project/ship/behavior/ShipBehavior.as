@@ -31,8 +31,13 @@ package project.ship.behavior
 		protected var _animationFrames:Array;
 		protected var _animationLoops:Array;
 		
+		protected var _upgradeDropRate:Number;
+		protected var _dropsHealthOnly:Boolean;
+		
 		public function ShipBehavior() 
 		{
+			_upgradeDropRate = 1.0;
+			_dropsHealthOnly = false;
 			_hasLifeTime = false;
 			_lifetime = 10;
 		}
@@ -185,6 +190,26 @@ package project.ship.behavior
 		public function set lifetime(value:Number):void 
 		{
 			_lifetime = value;
+		}
+		
+		public function get dropsHealthOnly():Boolean 
+		{
+			return _dropsHealthOnly;
+		}
+		
+		public function set dropsHealthOnly(value:Boolean):void 
+		{
+			_dropsHealthOnly = value;
+		}
+		
+		public function get upgradeDropRate():Number 
+		{
+			return _upgradeDropRate;
+		}
+		
+		public function set upgradeDropRate(value:Number):void 
+		{
+			_upgradeDropRate = value;
 		}
 		
 	}

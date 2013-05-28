@@ -113,6 +113,8 @@ package project.ship.behavior
 			_enemyTurret.maxHealth = 1;
 			_enemyTurret.speed = 225;
 			_enemyTurret.collisionDamage = 10;
+			_enemyTurret.dropsHealthOnly = true;
+			_enemyTurret.upgradeDropRate = 0.5;
 			_enemyTurret.shipGraphic = _enemyMinePng;
 			_enemyTurret.shipGraphicDimensions = new Point(13, 11);
 			_enemyTurret.movement = new NoMove();
