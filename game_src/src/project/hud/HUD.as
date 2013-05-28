@@ -88,17 +88,19 @@ package project.hud
 			_miniMap.scrollFactor = new FlxPoint(0, 0);
 			add(_miniMap);
 			
-			if (FlxG.debug) {
+			//if (FlxG.debug) {
 				var arr:Array = state.stations.members;
 				for (var i:int = 0; i < Constants.NUM_STATIONS; i++) {
 					var station:Station = arr[i] as Station;
 					var newSprite:FlxSprite = (new FlxSprite(station.x / Constants.TILESIZE - 1, station.y / Constants.TILESIZE - 1)).makeGraphic(3, 3, 0xff0000ff);
+					newSprite.x *= (100 / Constants.WORLDTILES);
+					newSprite.y *= (100 / Constants.WORLDTILES);
 					newSprite.x += 700;
 					newSprite.y += 500;
 					newSprite.scrollFactor = new FlxPoint(0, 0);
 					add(newSprite);
 				}
-			}
+			//}
 			
 			//Player blip
 			_blip = (new FlxSprite(750, 550)).makeGraphic(3, 3);
