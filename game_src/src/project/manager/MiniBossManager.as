@@ -79,6 +79,7 @@ package project.manager
 		{
 			//TODO: Randomize miniboss behavior
 			var rand:int = Utility.randomInt(4);
+			rand = 1;
 			switch(rand)
 			{
 				case 0:

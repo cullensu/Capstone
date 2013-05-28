@@ -158,7 +158,9 @@ package project.ship.behavior
 			_bossBlink.collisionDamage = 400;
 			_bossBlink.shipGraphic = _bossBlinkPng;
 			_bossBlink.shipGraphicDimensions = new Point(116, 105);
-			_bossBlink.movement = new TeleportingBoss(350);
+			var bossBlinkMove:TeleportingBoss = new TeleportingBoss(300);
+			bossBlinkMove.randomlyReverse = true;
+			_bossBlink.movement = bossBlinkMove;
 			_bossBlink.shooting = new LeadingShot();
 			_bossBlink.animations = 2;
 			_bossBlink.animationNames = new Array("out", "in");

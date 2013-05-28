@@ -20,6 +20,10 @@ package project.ship.behavior.move
 		
 		protected static const TELEPORT_ANGLE_VARIANCE:Number = Math.PI / 6;
 		
+		protected var _fadeOut:int;
+		protected var _fadeIn:int;
+		protected var _teleporting:Boolean;
+		
 		protected var _currentCooldown:Number;
 		
 		public function TeleportingBoss(targetRadius:Number) 
@@ -32,28 +36,61 @@ package project.ship.behavior.move
 		{
 			super.move(ship);
 			_currentCooldown = _currentCooldown - FlxG.elapsed;
-			if (_currentCooldown <= 0)
+			if (_currentCooldown <= 0 && !_teleporting)
 			{
-				var variance:Number = Utility.randomInt(COOLDOWN_VARIANCE * 2) - COOLDOWN_VARIANCE;
-				_currentCooldown = TELEPORT_COOLDOWN + variance;
-				
-				var distanceVariance:Number = Utility.randomInt(DISTANCE_VARIANCE * 2) - DISTANCE_VARIANCE;
-				var distance:Number = TELEPORT_DISTANCE - distanceVariance;
-				
-				var vel:CartesianPoint = new CartesianPoint(0, 0);
-				ship.velocity.copyToFlash(vel);
-				
-				var polarVel:PolarPoint = vel.convertToPolar();
-				var rotation:Number = Utility.randomInt(TELEPORT_ANGLE_VARIANCE * 2) - TELEPORT_ANGLE_VARIANCE;
-				polarVel.rotate(rotation);
-				
-				var teleportVel:CartesianPoint = polarVel.convertToCartesianPoint();
-				
-				teleportVel.normalize(distance);
-				
-				ship.x = ship.x + teleportVel.x;
-				ship.y = ship.y + teleportVel.y;
+				fadeOut(ship);
+				_teleporting = true;
 			}
+			else if (_teleporting)
+			{
+				if (_fadeOut > 0)
+				{
+					_fadeOut--;
+				}
+				else if (_fadeIn > 0)
+				{
+					_fadeIn--;
+					if (_fadeIn <= 0)
+					{
+						_teleporting = false;
+						var variance:Number = Utility.randomInt(COOLDOWN_VARIANCE * 2) - COOLDOWN_VARIANCE;
+						_currentCooldown = TELEPORT_COOLDOWN + variance;
+					}
+				}
+				else
+				{
+					var distanceVariance:Number = Utility.randomInt(DISTANCE_VARIANCE * 2) - DISTANCE_VARIANCE;
+					var distance:Number = TELEPORT_DISTANCE - distanceVariance;
+					
+					var vel:CartesianPoint = new CartesianPoint(0, 0);
+					ship.velocity.copyToFlash(vel);
+					
+					var polarVel:PolarPoint = vel.convertToPolar();
+					var rotation:Number = Utility.randomInt(TELEPORT_ANGLE_VARIANCE * 2) - TELEPORT_ANGLE_VARIANCE;
+					polarVel.rotate(rotation);
+					
+					var teleportVel:CartesianPoint = polarVel.convertToCartesianPoint();
+					
+					teleportVel.normalize(distance);
+					
+					ship.x = ship.x + teleportVel.x;
+					ship.y = ship.y + teleportVel.y;
+					fadeIn(ship);
+				}
+			}
+		}
+		
+		protected function fadeOut(ship:AIShip):void
+		{
+			_fadeOut = 3;
+			_teleporting = true;
+			ship.play("out");
+		}
+		
+		protected function fadeIn(ship:AIShip):void
+		{
+			ship.play("in");
+			_fadeIn = 3;
 		}
 		
 	}
