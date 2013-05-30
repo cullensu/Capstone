@@ -1,5 +1,6 @@
 package project.constant 
 {
+	import org.flixel.FlxCamera;
 	/**
 	 * ...
 	 * @author Cullen
@@ -10,6 +11,8 @@ package project.constant
 
 		public static const GAME_FRAME_RATE:int = 60;
 		public static const FLASH_FRAME_RATE:int = 60;
+		
+		public static const CAMERA_STYLE:uint = FlxCamera.STYLE_TOPDOWN
 		
 		//Worldsize constants
 		public static const WORLDTILES:int = 40;

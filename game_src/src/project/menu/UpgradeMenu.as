@@ -19,8 +19,8 @@ package project.menu
 	 */
 	public class UpgradeMenu extends Menu
 	{
-		private var X_OFFSET:int = 60;
-		private var Y_OFFSET:int = 100;
+		private var X_OFFSET:int = 50;
+		private var Y_OFFSET:int = 80;
 		
 		private var _background:FlxSprite;
 		private var _weaponUpgrade:FlxButton;
@@ -36,7 +36,7 @@ package project.menu
 		public function UpgradeMenu() 
 		{			
 			_background = new FlxSprite(0, 0);
-			_background.makeGraphic(680, 400, 0xdd111111);
+			_background.makeGraphic(700, 400, 0xdd333333);
 			
 			_weaponUpgrade = new FlxButton(20, 180, "Weapon Upgrade", upgradeWeapon);
 			_activeUpgrade = new FlxButton(140, 180, "Active Upgrade", upgradeActive);
