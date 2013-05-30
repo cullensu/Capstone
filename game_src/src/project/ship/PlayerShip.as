@@ -35,10 +35,14 @@ package project.ship
 		protected var _bonusDamage:Number;
 		protected var _bonusCooldown:Number;
 		protected var _bonusMoveSpeed:Number;
+		
+		protected static const NUM_INVINCIBLE_FRAMES:int = 3;
+		protected var _invincibleFrames:int;
 
 		public function PlayerShip(X:Number=0,Y:Number=0,SimpleGraphic:Class=null)
 		{
 			super(X, Y, null);
+			_invincibleFrames = NUM_INVINCIBLE_FRAMES;
 			FlxG.watch(this, "x", "x");
 			FlxG.watch(this, "y", "y");
 			loadGraphic(_shipPng, true, false, 30, 30);
@@ -127,7 +131,11 @@ package project.ship
 		{
 			super.update();
 			activeUpgrade.update();
-			
+			if (_invincibleFrames > 0)
+			{
+				_invincibleFrames--;
+				health = _maxHealth;
+			}
 			//Check world bounds
 			if (x < 0) {
 				x = 0;
