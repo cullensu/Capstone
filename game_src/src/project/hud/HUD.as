@@ -84,10 +84,11 @@ package project.hud
 			add(_bonusMoveSpeedLabel);
 			_bonusMoveSpeedLabel.scrollFactor = new FlxPoint(0, 0);
 			
-			_healthBarLabel = new FlxText(350, 5, 100, "Oxygen Remaining");
-			_healthBarLabel.setFormat("Kontrapunkt", 10);
+			_healthBarLabel = new FlxText(350, 2, 100, _playerShip.health.toString());
+			_healthBarLabel.setFormat("Kontrapunkt", 16, 0xffffff, "center");
 			add(_healthBarLabel);
 			_healthBarLabel.scrollFactor = new FlxPoint(0, 0);
+			
 			//Health bar
 			_playerHealthBar = new FlxBar(350, 20, fillType, 100, 10, _playerShip, "health", 0, _playerShip.health);
 			_playerHealthBar.update();
@@ -148,6 +149,7 @@ package project.hud
 		override public function update():void
 		{
 			super.update();
+			_healthBarLabel.text = Math.floor(_playerShip.health).toString();
 			_blip.x = (_playerShip.x / Constants.TILESIZE) * (100 / Constants.WORLDTILES) + 700 - 1;
 			_blip.y = (_playerShip.y / Constants.TILESIZE) * (100 / Constants.WORLDTILES) + 500 - 1;
 			if (_ticker > 0) {
