@@ -16,20 +16,20 @@ package project.bullet
 	public class Bullet extends AffiliatedObject implements ICollidable
 	{
 		[Embed(source = "../../../assets/playerbullet.png")] private var playerBulletSpr:Class;
-		[Embed(source = "../../../assets/enemybullet.png")] private var enemyBulletSpr:Class;
+		[Embed(source = "../../../assets/enemybulletnew.png")] private var enemyBulletSpr:Class;
 		[Embed(source = "../../../assets/neutralbullet.png")] private var neutralBulletSpr:Class;
 		[Embed(source = "../../../assets/playerbulletbig.png")] private var playerBigBulletSpr:Class;
 		[Embed(source = "../../../assets/neutralbulletbig.png")] private var neutralBigBulletSpr:Class;
-		[Embed(source = "../../../assets/enemybulletbig.png")] private var enemyBigBulletSpr:Class;
+		[Embed(source = "../../../assets/enemybulletbignew.png")] private var enemyBigBulletSpr:Class;
 		
 		[Embed(source = "../../../assets/sfx/EnemyShoot.mp3")] private var _enemyShootmp3:Class;
 		[Embed(source = "../../../assets/sfx/PlayerShoot.mp3")] private var _playerShootmp3:Class;
 		
 		private static const PLAYER_BULLET_DIMENSIONS:Point = new Point(5, 5);
-		private static const ENEMY_BULLET_DIMENSION:Point = new Point(5, 4);
+		private static const ENEMY_BULLET_DIMENSION:Point = new Point(8, 6);
 		private static const NEUTRAL_BULLET_DIMENSIONS:Point = new Point(5, 5);
 		private static const PLAYER_BIG_BULLET_DIMENSIONS:Point = new Point(10, 10);
-		private static const ENEMY_BIG_BULLET_DIMENSIONS:Point = new Point(10, 9);
+		private static const ENEMY_BIG_BULLET_DIMENSIONS:Point = new Point(12, 10);
 		private static const NEUTRAL_BIG_BULLET_DIMENSIONS:Point = new Point(10, 10);
 		
 		protected static const WIDTH:Number = 5;
