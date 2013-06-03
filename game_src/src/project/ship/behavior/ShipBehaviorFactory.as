@@ -156,7 +156,7 @@ package project.ship.behavior
 			bossBlinkGun.bulletType = BulletType.BIG_TRIANGLE;
 			bossBlinkGun.gunCooldown = 3;
 			_bossBlink.guns.push(bossBlinkGun);
-			_bossBlink.maxHealth = 600;
+			_bossBlink.maxHealth = 300;
 			_bossBlink.speed = 350;
 			_bossBlink.collisionDamage = 400;
 			_bossBlink.shipGraphic = _bossBlinkPng;
@@ -188,7 +188,7 @@ package project.ship.behavior
 			bossFastGun3.gunCooldown = 0.6;
 			bossFastGun3.angleOffset = -Math.PI / 18;
 			_bossFast.guns.push(bossFastGun3);
-			_bossFast.maxHealth = 600;
+			_bossFast.maxHealth = 300;
 			_bossFast.speed = 850;
 			_bossFast.collisionDamage = 400;
 			_bossFast.shipGraphic = _bossFastPng;
@@ -202,7 +202,7 @@ package project.ship.behavior
 			_bossSwarm = new ShipBehavior();
 			_bossSwarm.affiliation = Affiliation.ENEMY;
 			_bossSwarm.guns = new Vector.<GunUpgrade>();
-			_bossSwarm.maxHealth = 1000;
+			_bossSwarm.maxHealth = 500;
 			_bossSwarm.speed = 550;
 			_bossSwarm.collisionDamage = 400;
 			_bossSwarm.shipGraphic = _bossSwarmPng;
@@ -214,7 +214,7 @@ package project.ship.behavior
 			_bossMine = new ShipBehavior();
 			_bossMine.affiliation = Affiliation.ENEMY;
 			_bossMine.guns = new Vector.<GunUpgrade>();
-			_bossMine.maxHealth = 1000;
+			_bossMine.maxHealth = 500;
 			_bossMine.speed = 550;
 			_bossMine.collisionDamage = 400;
 			_bossMine.shipGraphic = _bossSwarmPng;
@@ -255,7 +255,7 @@ package project.ship.behavior
 			bossFinalGun5.gunCooldown = 0.6;
 			bossFinalGun5.angleOffset = -Math.PI / 9;
 			_bossFinal.guns.push(bossFinalGun5);
-			_bossFinal.maxHealth = 5000;
+			_bossFinal.maxHealth = 1500;
 			_bossFinal.speed = 500;
 			_bossFinal.collisionDamage = 400;
 			_bossFinal.shipGraphic = _bossSwarmPng;

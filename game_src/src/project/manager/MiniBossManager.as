@@ -33,7 +33,7 @@ package project.manager
 			var arr:Array = stations.members;
 			for (var i:int = 0; i < Constants.NUM_STATIONS; i++) {
 				var point:Station = arr[i] as Station;
-				var ship:MiniBossShip = new MiniBossShip(point.x, point.y);
+				var ship:MiniBossShip = new MiniBossShip(point.x, point.y, point);
 				ship.affiliation = Affiliation.ENEMY;
 				add(ship);
 			}
@@ -63,8 +63,8 @@ package project.manager
 			for (var j:int = 0; j < this.length; j++) {
 				var ship:MiniBossShip = members[j] as MiniBossShip;
 				if (!ship.alive) continue;
-				var cPoint:CartesianPoint = new CartesianPoint(ship.x - GameRegistry.gameState.playerManager.playerShip.x,
-															   ship.y - GameRegistry.gameState.playerManager.playerShip.y);
+				var cPoint:CartesianPoint = new CartesianPoint(ship.x - GameRegistry.gameState.playerManager.playerShip.x + 400,
+															   ship.y - GameRegistry.gameState.playerManager.playerShip.y + 400);
 				var pPoint:PolarPoint = cPoint.convertToPolar();
 				if (pPoint.r < Constants.TILESIZE * 2) {
 					if (!ship.activated) {
@@ -99,11 +99,8 @@ package project.manager
 					ship.registerBehaviorType(ShipBehaviorType.BOSS_FAST);
 					break;
 			}
-			
-			
 			ship.activated = true;
-		}
-		
+		}	
 	}
 
 }

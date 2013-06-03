@@ -1,5 +1,6 @@
 package project.ship 
 {
+	import project.env.Station;
 	import project.util.ICollidable;
 	import org.flixel.FlxG
 	import project.constant.Constants;
@@ -14,10 +15,12 @@ package project.ship
 	{
 		
 		public var activated:Boolean;
+		private var _station:Station;
 		
-		public function MiniBossShip(x:Number, y:Number) 
+		public function MiniBossShip(x:Number, y:Number, station:Station) 
 		{
 			super(x, y);
+			_station = station;
 			activated = false;
 		}
 		
@@ -28,11 +31,8 @@ package project.ship
 			this.health = this.health - other.collisionDamage;
 			if (this.health <= 0) {
 				kill();
-				//TODO: STUFF
-				trace("Boss Killed");
-				GameRegistry.gameState.upgradeMenu.show();
+				_station.activated = true;
 			}
-			trace(health);
 		}
 		
 		override protected function checkDespawn():void

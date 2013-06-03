@@ -67,6 +67,10 @@ package project.constant
 		//Station constants
 		public static const NUM_STATIONS:Number = 3;
 		
+		//HUD constants
+		public static const TICK_TIME:int = 10;
+		public static const STATION_DIST:Number = TILESIZE * 5;
+		
 		public function Constants() 
 		{
 			

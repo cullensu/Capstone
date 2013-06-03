@@ -12,12 +12,20 @@ package project.hud
 	import project.ship.PlayerShip;
 	import project.state.GameState;
 	import project.constant.Constants;
+	import project.util.CartesianPoint;
+	import project.util.PolarPoint;
 	/**
 	 * ...
 	 * @author Cullen
 	 */
 	public class HUD extends FlxGroup
 	{
+		private var _ticker:int;
+		
+		protected var _dist:int;
+		protected var _alert:FlxText;
+		protected var _congrat:FlxText;
+		
 		protected var _playerHealthBar:FlxBar;
 		protected var _playerBonusDamageBar:FlxBar;
 		protected var _playerBonusCooldownBar:FlxBar;
@@ -41,9 +49,25 @@ package project.hud
 			super();
 			GameRegistry.hud = this;
 			
+			_ticker = Constants.TICK_TIME;
+			
 			_playerShip = state.playerManager.playerShip;
 			
 			var fillType:uint = FlxBar.FILL_LEFT_TO_RIGHT;
+			
+			_alert = new FlxText(280, 60, 240, "Please assist us: ");
+			_alert.setFormat("Kontrapunkt", 20);
+			_alert.visible = false;
+			_alert.scrollFactor = new FlxPoint(0, 0);
+			_alert.active = false;
+			add(_alert);
+			
+			_congrat = new FlxText(250, 80, 300, "Thank you, please rest here: ");
+			_congrat.setFormat("Kontrapunkt", 20);
+			_congrat.visible = false;
+			_congrat.scrollFactor = new FlxPoint(0, 0);
+			_congrat.active = false;
+			add(_congrat);
 			
 			_bonusDamageLabel = new FlxText(118, 536, 200, "ad");
 			_bonusDamageLabel.setFormat("Kontrapunkt", 10);
@@ -88,7 +112,7 @@ package project.hud
 			_miniMap.scrollFactor = new FlxPoint(0, 0);
 			add(_miniMap);
 			
-			//if (FlxG.debug) {
+			if (FlxG.debug) {
 				var arr:Array = state.stations.members;
 				for (var i:int = 0; i < Constants.NUM_STATIONS; i++) {
 					var station:Station = arr[i] as Station;
@@ -100,7 +124,7 @@ package project.hud
 					newSprite.scrollFactor = new FlxPoint(0, 0);
 					add(newSprite);
 				}
-			//}
+			}
 			
 			//Player blip
 			_blip = (new FlxSprite(750, 550)).makeGraphic(3, 3);
@@ -122,7 +146,51 @@ package project.hud
 			super.update();
 			_blip.x = (_playerShip.x / Constants.TILESIZE) * (100 / Constants.WORLDTILES) + 700 - 1;
 			_blip.y = (_playerShip.y / Constants.TILESIZE) * (100 / Constants.WORLDTILES) + 500 - 1;
+			if (_ticker > 0) {
+				_ticker--;
+			} else {
+				var dist:Number = getLeastDist();
+				if (dist < Constants.STATION_DIST && dist != 0) {
+					if (dist > 0) {
+						_congrat.visible = false;
+						_dist = Math.round(dist) as int;
+						_alert.text = "Please assist us: " + _dist;
+						_alert.visible = true;
+					} else {
+						_alert.visible = false;
+						_dist = Math.round(-dist) as int;
+						_congrat.text = "Thank you, please rest here: " + _dist;
+						_congrat.visible = true;
+					}
+				} else {
+					_alert.visible = false;
+					_congrat.visible = false;
+				}
+			}
 		}
+		
+		private function getLeastDist():Number
+		{
+			var min:Number = Number.MAX_VALUE;
+			var mem:Array = GameRegistry.gameState.stations.members;
+			for (var i:int = 0; i < GameRegistry.gameState.stations.length; i++) {
+				var station:Station = mem[i] as Station;
+				if (!station.alive) continue;
+				var cPoint:CartesianPoint = new CartesianPoint(station.x - GameRegistry.gameState.playerManager.playerShip.x + 400,
+															   station.y - GameRegistry.gameState.playerManager.playerShip.y + 400);
+				var pPoint:PolarPoint = cPoint.convertToPolar();
+				if (station.activated) {
+					min = -pPoint.r;
+					if (min >= -400) {
+						station.alive = false;
+						GameRegistry.gameState.upgradeMenu.show();
+					}
+				} else {
+					min = Math.min(min, pPoint.r);
+				}
+			}
+			return min;
+		}	
 	}
 
 }

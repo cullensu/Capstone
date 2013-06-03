@@ -20,6 +20,7 @@ package project.manager
 		protected var _strings:FlxSound;
 		protected var _synth:FlxSound;
 		protected var _arr:Array;
+		private var _n:int;
 		
 		public function MusicManager() 
 		{
@@ -40,10 +41,15 @@ package project.manager
 		
 		public function setLevel(n:int):void
 		{
+			if (n == _n) {
+				return;
+			}
+			
 			if (n >= _arr.length) {
 				throw Error("Don't do that (Music Manager)");
 			}
 			
+			_n = n;
 			for (var i:int = 0; i < _arr.length; i++)
 			{
 				var sound:FlxSound = _arr[i] as FlxSound;

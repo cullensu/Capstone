@@ -64,6 +64,7 @@ package project.state
 		protected var _thresholdL:Number;
 		protected var _tickSize:Number;
 		protected var _canSpawn:Boolean;
+		private var _ticker:Number;
 		
 		protected var _recording:Boolean;
 		protected var _replaying:Boolean;
@@ -114,10 +115,17 @@ package project.state
 			add(_pauseMenu);
 			add(_upgradeMenu);
 			
-			_musicManager.setLevel(1);
+			_ticker = Constants.TICK_TIME;
+			
+			_musicManager.setLevel(2);
 			
 			_recording = false;
 			_replaying = false;
+		}
+		
+		public function get miniBossManager():MiniBossManager
+		{
+			return _miniBossManager;
 		}
 		
 		public function get stations():Stations
@@ -219,21 +227,23 @@ package project.state
 				processUserInput();
 				processCollision();
 				super.update();
-				/*
-				if (_aiManager.canTick()) {
-					tick();
-				}
-				*/
+
 				tick();
-				if (_level > _thresholdH) {
-					_canSpawn = false;
-				} else if (_level < _thresholdL) {
-					_canSpawn = true;
-				}
-				if (_level > 0) {
-					_musicManager.setLevel(2);
+				if (_ticker == 0) {
+					if (_miniBossManager.getFirstExtant()) {
+						_canSpawn = false;
+						_musicManager.setLevel(3);
+					} else {
+						if (_level > _thresholdH) {
+							_canSpawn = false;
+						} else if (_level < _thresholdL) {
+							_canSpawn = true;
+						}
+						_musicManager.setLevel(2);
+					}
+					_ticker = Constants.TICK_TIME;
 				} else {
-					_musicManager.setLevel(1);
+					_ticker--;
 				}
 			}
 			else
