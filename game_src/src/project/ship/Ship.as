@@ -29,6 +29,7 @@ package project.ship
 		protected var _speed:Number;
 		
 		protected var _activeShield:Boolean;
+		protected var _activeCloak:Boolean;
 		
 		public function Ship(X:Number=0,Y:Number=0,SimpleGraphic:Class=null) 
 		{
@@ -116,6 +117,16 @@ package project.ship
 			_activeShield = value;
 		}
 		
+		public function get activeCloak():Boolean 
+		{
+			return _activeCloak;
+		}
+		
+		public function set activeCloak(value:Boolean):void 
+		{
+			_activeCloak = value;
+		}
+		
 		public function canCollide(other:ICollidable):Boolean
 		{
 			if (other is AffiliatedObject)
@@ -132,7 +143,7 @@ package project.ship
 			if (_activeShield)
 			{
 				trace("Shield absorbed " + other.collisionDamage + "damage!")
-				_activeUpgrade.charge -= other.collisionDamage * 2
+				_activeUpgrade.charge = Math.max(0, _activeUpgrade.charge - other.collisionDamage * 3);
 			}
 			else
 			{

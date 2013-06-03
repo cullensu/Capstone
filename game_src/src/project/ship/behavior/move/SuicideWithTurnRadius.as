@@ -19,6 +19,9 @@ package project.ship.behavior.move
 		protected var _updateDelay:Number;
 		protected var _currDelay:Number;
 		
+		protected var _playerLastX:Number;
+		protected var _playerLastY:Number;
+		
 		public function SuicideWithTurnRadius(maxTurnRadius:Number) 
 		{
 			_maxTurnRadius = maxTurnRadius;
@@ -29,7 +32,12 @@ package project.ship.behavior.move
 		public function move(ship:AIShip):void
 		{
 			var player:PlayerShip = GameRegistry.gameState.playerManager.playerShip;
-			var delta:CartesianPoint = new CartesianPoint(player.x - ship.x, player.y - ship.y);
+			// Update target location only if player is visible
+			if (!player.activeCloak) {
+				_playerLastX = player.x;
+				_playerLastY = player.y;
+			}
+			var delta:CartesianPoint = new CartesianPoint(_playerLastX - ship.x, _playerLastX - ship.y);
 			var deltaPolar:PolarPoint = delta.convertToPolar();
 			
 			var currVel:CartesianPoint = new CartesianPoint(ship.velocity.x, ship.velocity.y);
