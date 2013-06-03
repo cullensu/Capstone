@@ -250,6 +250,10 @@ package project.state
 			{
 				_pauseMenu.update();
 				_upgradeMenu.update();
+				if (FlxG.keys.justPressed("ESCAPE") || FlxG.keys.justPressed("P"))
+				{
+					_pauseMenu.hide();
+				}
 			}
 		}
 		
