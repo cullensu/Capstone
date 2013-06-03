@@ -69,21 +69,25 @@ package project.hud
 			_congrat.active = false;
 			add(_congrat);
 			
-			_bonusDamageLabel = new FlxText(118, 536, 200, "ad");
+			_bonusDamageLabel = new FlxText(118, 536, 200, "Bonus Damage");
 			_bonusDamageLabel.setFormat("Kontrapunkt", 10);
 			add(_bonusDamageLabel);
 			_bonusDamageLabel.scrollFactor = new FlxPoint(0, 0);
 			
-			_bonusCooldownLabel = new FlxText(118, 556, 100, "as");
+			_bonusCooldownLabel = new FlxText(118, 556, 100, "Fire Rate");
 			_bonusCooldownLabel.setFormat("Kontrapunkt", 10);
 			add(_bonusCooldownLabel);
 			_bonusCooldownLabel.scrollFactor = new FlxPoint(0, 0);
 			
-			_bonusMoveSpeedLabel = new FlxText(118, 576, 100, "ms");
+			_bonusMoveSpeedLabel = new FlxText(118, 576, 100, "Ship Speed");
 			_bonusMoveSpeedLabel.setFormat("Kontrapunkt", 10);
 			add(_bonusMoveSpeedLabel);
 			_bonusMoveSpeedLabel.scrollFactor = new FlxPoint(0, 0);
 			
+			_healthBarLabel = new FlxText(350, 5, 100, "Oxygen Remaining");
+			_healthBarLabel.setFormat("Kontrapunkt", 10);
+			add(_healthBarLabel);
+			_healthBarLabel.scrollFactor = new FlxPoint(0, 0);
 			//Health bar
 			_playerHealthBar = new FlxBar(350, 20, fillType, 100, 10, _playerShip, "health", 0, _playerShip.health);
 			_playerHealthBar.update();
