@@ -69,17 +69,17 @@ package project.hud
 			_congrat.active = false;
 			add(_congrat);
 			
-			_bonusDamageLabel = new FlxText(118, 536, 200, "ad");
+			_bonusDamageLabel = new FlxText(118, 536, 200, "Bonus Damage");
 			_bonusDamageLabel.setFormat("Kontrapunkt", 10);
 			add(_bonusDamageLabel);
 			_bonusDamageLabel.scrollFactor = new FlxPoint(0, 0);
 			
-			_bonusCooldownLabel = new FlxText(118, 556, 100, "as");
+			_bonusCooldownLabel = new FlxText(118, 556, 100, "Fire Rate");
 			_bonusCooldownLabel.setFormat("Kontrapunkt", 10);
 			add(_bonusCooldownLabel);
 			_bonusCooldownLabel.scrollFactor = new FlxPoint(0, 0);
 			
-			_bonusMoveSpeedLabel = new FlxText(118, 576, 100, "ms");
+			_bonusMoveSpeedLabel = new FlxText(118, 576, 100, "Ship Speed");
 			_bonusMoveSpeedLabel.setFormat("Kontrapunkt", 10);
 			add(_bonusMoveSpeedLabel);
 			_bonusMoveSpeedLabel.scrollFactor = new FlxPoint(0, 0);
@@ -89,6 +89,18 @@ package project.hud
 			_playerHealthBar.update();
 			add(_playerHealthBar);
 			_playerHealthBar.scrollFactor = new FlxPoint(0, 0);
+			
+			//This is the number that shows up above the bar
+			//_healthBarLabel = new FlxText(350, 2, 100, _playerShip.health.toString());
+			//_healthBarLabel.setFormat("Kontrapunkt", 16, 0xffffff, "center");
+			//add(_healthBarLabel);
+			//_healthBarLabel.scrollFactor = new FlxPoint(0, 0);
+			
+			//This is the number that shows up on top of the bar
+			_healthBarLabel = new FlxText(350, 16, 100, _playerShip.health.toString());
+			_healthBarLabel.setFormat("Kontrapunkt", 12, 0x000000, "center");
+			add(_healthBarLabel);
+			_healthBarLabel.scrollFactor = new FlxPoint(0, 0);
 			
 			_playerBonusDamageBar = new FlxBar(10, 540, fillType, 100, 10, _playerShip, "bonusDamage", -0.1, Constants.MAX_BONUS_DAMAGE);
 			_playerBonusDamageBar.createFilledBar(0xff510000, 0xffF40000);
@@ -144,6 +156,7 @@ package project.hud
 		override public function update():void
 		{
 			super.update();
+			_healthBarLabel.text = Math.floor(_playerShip.health).toString();
 			_blip.x = (_playerShip.x / Constants.TILESIZE) * (100 / Constants.WORLDTILES) + 700 - 1;
 			_blip.y = (_playerShip.y / Constants.TILESIZE) * (100 / Constants.WORLDTILES) + 500 - 1;
 			if (_ticker > 0) {
@@ -184,6 +197,7 @@ package project.hud
 					if (min >= -400) {
 						station.alive = false;
 						GameRegistry.gameState.upgradeMenu.show();
+						GameRegistry.gameState.playerManager.playerShip.health = GameRegistry.gameState.playerManager.playerShip.maxHealth;
 					}
 				} else {
 					min = Math.min(min, pPoint.r);
