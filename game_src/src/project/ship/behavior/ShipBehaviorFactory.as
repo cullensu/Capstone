@@ -32,6 +32,7 @@ package project.ship.behavior
 		[Embed(source = "../../../../assets/minibossfast.png")] private var _bossFastPng:Class;
 		[Embed(source = "../../../../assets/minibosshoming.png")] private var _bossHomingPng:Class;
 		[Embed(source = "../../../../assets/minibossswarm.png")] private var _bossSwarmPng:Class;
+		[Embed(source = "../../../../assets/enemyfinalboss.png")] private var _bossFinalPng:Class;
 		
 		[Embed(source = "../../../../assets/minibosspartleft.png")] private var _bossPartLeftPng:Class;
 		[Embed(source = "../../../../assets/minibosspartright.png")] private var _bossPartRightPng:Class;
@@ -258,9 +259,9 @@ package project.ship.behavior
 			_bossFinal.maxHealth = 1500;
 			_bossFinal.speed = 500;
 			_bossFinal.collisionDamage = 400;
-			_bossFinal.shipGraphic = _bossSwarmPng;
-			_bossFinal.shipGraphicDimensions = new Point(150, 140);
-			var bossFinalMove:SwarmBoss = new SwarmBoss(250);
+			_bossFinal.shipGraphic = _bossFinalPng;
+			_bossFinal.shipGraphicDimensions = new Point(450, 419);
+			var bossFinalMove:SwarmBoss = new SwarmBoss(500);
 			bossFinalMove.randomlyReverse = true;
 			bossFinalMove.spawnDelay = 1.0;
 			bossFinalMove.spawnDelayVariance = 0.25;
