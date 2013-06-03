@@ -21,6 +21,7 @@ package project.menu
 		[Embed(source = "../../../assets/menumove.png")] protected var MenuMove:Class;
 		[Embed(source = "../../../assets/menushoot.png")] protected var MenuShoot:Class;
 		[Embed(source = "../../../assets/menushow.png")] protected var MenuShow:Class;
+		[Embed(source = "../../../assets/pauseresume.png")] protected var PauseResume:Class;
 		private var _background:FlxSprite
 		
 		// Title
@@ -64,8 +65,8 @@ package project.menu
 			// ###########
 			// # BUTTONS #
 			// ###########
-			menuResume = new FlxButton(65, 90, "Resume", hide);
-			//menuResume.loadGraphic(MenuNew);
+			menuResume = new FlxButton(65, 90, null, hide);
+			menuResume.loadGraphic(PauseResume);
 			menuResume.scrollFactor = new FlxPoint(0, 0);
 			menuResume.exists = false;
 			add(menuResume);
