@@ -69,8 +69,9 @@ package project.manager
 				if (pPoint.r < Constants.TILESIZE * 2) {
 					if (!ship.activated) {
 						spawn(ship);
+						ship.exists = true;
 					}
-					ship.exists = true;
+					//ship.exists = true;
 				}
 			}
 		}
@@ -80,24 +81,27 @@ package project.manager
 			//TODO: Randomize miniboss behavior
 			var rand:int = Utility.randomInt(4);
 			//rand = 1;
-			switch(rand)
+			if (!ship.hasAlreadySpawned)
 			{
-				case 0:
-					ship.registerBehaviorType(ShipBehaviorType.BOSS_MINE);
-					break;
-				case 1:
-					ship.registerBehaviorType(ShipBehaviorType.BOSS_BLINK);
-					//ship.registerBehaviorType(ShipBehaviorType.BOSS_FINAL);
-					break;
-				case 2:
-					ship.registerBehaviorType(ShipBehaviorType.BOSS_FAST);
-					break;
-				case 3:
-					ship.registerBehaviorType(ShipBehaviorType.BOSS_SWARM);
-					break;
-				default:
-					ship.registerBehaviorType(ShipBehaviorType.BOSS_FAST);
-					break;
+				switch(rand)
+				{
+					case 0:
+						ship.registerBehaviorType(ShipBehaviorType.BOSS_MINE);
+						break;
+					case 1:
+						ship.registerBehaviorType(ShipBehaviorType.BOSS_BLINK);
+						//ship.registerBehaviorType(ShipBehaviorType.BOSS_FINAL);
+						break;
+					case 2:
+						ship.registerBehaviorType(ShipBehaviorType.BOSS_FAST);
+						break;
+					case 3:
+						ship.registerBehaviorType(ShipBehaviorType.BOSS_SWARM);
+						break;
+					default:
+						ship.registerBehaviorType(ShipBehaviorType.BOSS_FAST);
+						break;
+				}
 			}
 			ship.activated = true;
 		}	

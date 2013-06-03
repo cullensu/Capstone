@@ -184,6 +184,7 @@ package project.hud
 					if (min >= -400) {
 						station.alive = false;
 						GameRegistry.gameState.upgradeMenu.show();
+						GameRegistry.gameState.playerManager.playerShip.health = GameRegistry.gameState.playerManager.playerShip.maxHealth;
 					}
 				} else {
 					min = Math.min(min, pPoint.r);
