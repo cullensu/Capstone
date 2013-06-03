@@ -22,6 +22,9 @@ package project.ship.behavior.move
 		protected var _randomlyReverse:Boolean;
 		protected var _targetRadius:Number;
 		
+		protected var _playerLastX:Number;
+		protected var _playerLastY:Number;
+		
 		public function CircleAround(targetRadius:Number) 
 		{
 			_targetRadius = targetRadius;
@@ -32,7 +35,11 @@ package project.ship.behavior.move
 		public function move(ship:AIShip):void
 		{
 			var player:PlayerShip = GameRegistry.gameState.playerManager.playerShip;
-			var delta:CartesianPoint = new CartesianPoint(player.x - ship.x - ship.width / 2, player.y - ship.y - ship.height / 2);
+			if (!player.activeCloak) {
+				_playerLastX = player.x;
+				_playerLastY = player.y;
+			}
+			var delta:CartesianPoint = new CartesianPoint(_playerLastX - ship.x - ship.width / 2, _playerLastY - ship.y - ship.height / 2);
 			var deltaPolar:PolarPoint = delta.convertToPolar();
 			
 			var dist:Number = delta.length;

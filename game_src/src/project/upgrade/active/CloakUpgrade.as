@@ -1,9 +1,5 @@
 package project.upgrade.active
 {
-	import org.flixel.FlxPoint;
-	import org.flixel.FlxSprite;
-	import project.constant.GameRegistry;
-	import project.ship.PlayerShip;
 	import project.ship.Ship;
 	import project.upgrade.ActiveUpgrade;
 	
@@ -11,32 +7,35 @@ package project.upgrade.active
 	 * ...
 	 * @author akirilov
 	 */
-	public class ShieldUpgrade extends ActiveUpgrade 
+	public class CloakUpgrade extends ActiveUpgrade 
 	{		
-		public function ShieldUpgrade(ship:Ship):void
+		public function CloakUpgrade(ship:Ship) 
 		{
 			super(ship);
+			
 			_MAX_CHARGE = 1000;
 			charge = _MAX_CHARGE;
 			_chargeRate = 1;
-			_useRate = 3;
+			_useRate = 2;
 		}
 		
 		override public function activate():void
 		{
-			// Can only use shield when fully charged
+			// Can only use cloak when fully charged
 			if (charge == _MAX_CHARGE)
 			{
 				super.activate();
-				trace("Shield Activated");
-				_ship.activeShield = true;
+				trace("Cloak Activated");
+				_ship.activeCloak = true;
+				_ship.alpha = 0.25;
 			}
 		}
 		
 		override public function deactivate():void
 		{
-			trace("Shield down");
-			_ship.activeShield = false;
+			trace("Cloak down");
+			_ship.activeCloak = false;
+			_ship.alpha = 1;
 			super.deactivate();
 		}
 	}
