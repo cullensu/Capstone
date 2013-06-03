@@ -148,7 +148,6 @@ package project.hud
 		public function updateActiveBar():void 
 		{
 			_playerActiveBar = new FlxBar(350, 40, FlxBar.FILL_LEFT_TO_RIGHT, 100, 10, _playerShip.activeUpgrade, "charge", 0, _playerShip.activeUpgrade.MAX_CHARGE, false);
-			_playerActiveBar.color = 0xff37FDFC;
 			add(_playerActiveBar);
 			_playerActiveBar.scrollFactor = new FlxPoint(0, 0);
 		}
@@ -185,7 +184,7 @@ package project.hud
 					_congrat.visible = false;
 					if(GameRegistry.gameState.miniBossManager.boss && !GameRegistry.gameState.miniBossManager.boss.exists) {
 						_dist = Math.round(dist) as int;
-						_alert.text = "Confront the boss: " + _dist;
+						_alert.text = "Defeat the boss: " + _dist;
 						_alert.visible = true;
 					} else {
 						_alert.visible = false;
