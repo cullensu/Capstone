@@ -180,6 +180,7 @@ package project.menu
 		private function getShield():void
 		{
 			var ship:PlayerShip = GameRegistry.gameState.playerManager.playerShip;
+			ship.activeUpgrade.deactivate();
 			ship.activeUpgrade = new ShieldUpgrade(ship);
 			GameRegistry.hud.updateActiveBar();
 			
@@ -190,6 +191,7 @@ package project.menu
 		private function getBlink():void
 		{
 			var ship:PlayerShip = GameRegistry.gameState.playerManager.playerShip;
+			ship.activeUpgrade.deactivate();
 			ship.activeUpgrade = new TeleportUpgrade(ship);
 			GameRegistry.hud.updateActiveBar();
 			
@@ -200,6 +202,7 @@ package project.menu
 		private function getCloak():void
 		{
 			var ship:PlayerShip = GameRegistry.gameState.playerManager.playerShip;
+			ship.activeUpgrade.deactivate();
 			ship.activeUpgrade = new CloakUpgrade(ship);
 			GameRegistry.hud.updateActiveBar();
 			

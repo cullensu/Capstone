@@ -12,7 +12,10 @@ package project.upgrade.active
 	 * @author akirilov
 	 */
 	public class ShieldUpgrade extends ActiveUpgrade 
-	{		
+	{	
+		[Embed(source = "../../../../assets/shield.png")] protected var Shield:Class;
+
+		private var _shieldSprite:FlxSprite;
 		public function ShieldUpgrade(ship:Ship):void
 		{
 			super(ship);
@@ -20,6 +23,12 @@ package project.upgrade.active
 			charge = _MAX_CHARGE;
 			_chargeRate = 1;
 			_useRate = 3;
+			
+			_shieldSprite = new FlxSprite(399 - ship.width / 2, 299 - ship.height / 2, Shield);
+			_shieldSprite.scrollFactor = new FlxPoint(0, 0);
+			_shieldSprite.exists = false;
+			_shieldSprite.alpha = 1;
+			GameRegistry.gameState.playerManager.add(_shieldSprite);
 		}
 		
 		override public function activate():void
@@ -29,6 +38,7 @@ package project.upgrade.active
 			{
 				super.activate();
 				trace("Shield Activated");
+				_shieldSprite.exists = true;
 				_ship.activeShield = true;
 			}
 		}
@@ -36,6 +46,7 @@ package project.upgrade.active
 		override public function deactivate():void
 		{
 			trace("Shield down");
+			_shieldSprite.exists = false;
 			_ship.activeShield = false;
 			super.deactivate();
 		}
