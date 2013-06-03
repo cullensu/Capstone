@@ -84,16 +84,23 @@ package project.hud
 			add(_bonusMoveSpeedLabel);
 			_bonusMoveSpeedLabel.scrollFactor = new FlxPoint(0, 0);
 			
-			_healthBarLabel = new FlxText(350, 2, 100, _playerShip.health.toString());
-			_healthBarLabel.setFormat("Kontrapunkt", 16, 0xffffff, "center");
-			add(_healthBarLabel);
-			_healthBarLabel.scrollFactor = new FlxPoint(0, 0);
-			
 			//Health bar
 			_playerHealthBar = new FlxBar(350, 20, fillType, 100, 10, _playerShip, "health", 0, _playerShip.health);
 			_playerHealthBar.update();
 			add(_playerHealthBar);
 			_playerHealthBar.scrollFactor = new FlxPoint(0, 0);
+			
+			//This is the number that shows up above the bar
+			//_healthBarLabel = new FlxText(350, 2, 100, _playerShip.health.toString());
+			//_healthBarLabel.setFormat("Kontrapunkt", 16, 0xffffff, "center");
+			//add(_healthBarLabel);
+			//_healthBarLabel.scrollFactor = new FlxPoint(0, 0);
+			
+			//This is the number that shows up on top of the bar
+			_healthBarLabel = new FlxText(350, 16, 100, _playerShip.health.toString());
+			_healthBarLabel.setFormat("Kontrapunkt", 12, 0x000000, "center");
+			add(_healthBarLabel);
+			_healthBarLabel.scrollFactor = new FlxPoint(0, 0);
 			
 			_playerBonusDamageBar = new FlxBar(10, 540, fillType, 100, 10, _playerShip, "bonusDamage", -0.1, Constants.MAX_BONUS_DAMAGE);
 			_playerBonusDamageBar.createFilledBar(0xff510000, 0xffF40000);
