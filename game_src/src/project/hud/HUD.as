@@ -9,6 +9,7 @@ package project.hud
 	import org.flixel.FlxG;
 	import project.constant.GameRegistry;
 	import project.env.Station;
+	import project.manager.MiniBossManager;
 	import project.ship.PlayerShip;
 	import project.state.GameState;
 	import project.constant.Constants;
@@ -62,7 +63,7 @@ package project.hud
 			_alert.active = false;
 			add(_alert);
 			
-			_congrat = new FlxText(250, 80, 300, "Thank you, please rest here: ");
+			_congrat = new FlxText(230, 80, 340, "Thank you, please rest here: ");
 			_congrat.setFormat("Kontrapunkt", 20);
 			_congrat.visible = false;
 			_congrat.scrollFactor = new FlxPoint(0, 0);
@@ -98,7 +99,7 @@ package project.hud
 			
 			//This is the number that shows up on top of the bar
 			_healthBarLabel = new FlxText(350, 16, 100, _playerShip.health.toString());
-			_healthBarLabel.setFormat("Kontrapunkt", 12, 0x000000, "center");
+			_healthBarLabel.setFormat("Kontrapunkt", 12, 0xffffff, "center");
 			add(_healthBarLabel);
 			_healthBarLabel.scrollFactor = new FlxPoint(0, 0);
 			
@@ -163,27 +164,45 @@ package project.hud
 				_ticker--;
 			} else {
 				var dist:Number = getLeastDist();
-				if (dist < Constants.STATION_DIST && dist != 0) {
-					if (dist > 0) {
+				if(GameRegistry.gameState.miniBossManager.bossesDefeated < 3) {
+					if (dist < Constants.STATION_DIST && dist != 0) {
+						if (dist > 0) {
+							_congrat.visible = false;
+							_dist = Math.round(dist) as int;
+							_alert.text = "Please assist us: " + _dist;
+							_alert.visible = true;
+						} else {
+							_alert.visible = false;
+							_dist = Math.round(-dist) as int;
+							_congrat.text = "Thank you, please rest here: " + _dist;
+							_congrat.visible = true;
+						}
+					} else {
+						_alert.visible = false;
 						_congrat.visible = false;
+					}
+				} else {
+					_congrat.visible = false;
+					if(GameRegistry.gameState.miniBossManager.boss && !GameRegistry.gameState.miniBossManager.boss.exists) {
 						_dist = Math.round(dist) as int;
-						_alert.text = "Please assist us: " + _dist;
+						_alert.text = "Confront the boss: " + _dist;
 						_alert.visible = true;
 					} else {
 						_alert.visible = false;
-						_dist = Math.round(-dist) as int;
-						_congrat.text = "Thank you, please rest here: " + _dist;
-						_congrat.visible = true;
 					}
-				} else {
-					_alert.visible = false;
-					_congrat.visible = false;
 				}
 			}
 		}
 		
 		private function getLeastDist():Number
 		{
+			var mbm:MiniBossManager = GameRegistry.gameState.miniBossManager;
+			if (mbm.bossesDefeated == 3 && !mbm.boss.exists) {
+				var bossPointC:CartesianPoint = new CartesianPoint(mbm.boss.x - GameRegistry.gameState.playerManager.playerShip.x,
+																   mbm.boss.y - GameRegistry.gameState.playerManager.playerShip.y);
+				var bossPointP:PolarPoint = bossPointC.convertToPolar();
+				return bossPointP.r;
+			}
 			var min:Number = Number.MAX_VALUE;
 			var mem:Array = GameRegistry.gameState.stations.members;
 			for (var i:int = 0; i < GameRegistry.gameState.stations.length; i++) {
@@ -197,6 +216,7 @@ package project.hud
 					if (min >= -400) {
 						station.alive = false;
 						GameRegistry.gameState.upgradeMenu.show();
+						GameRegistry.gameState.miniBossManager.bossesDefeated++;
 						GameRegistry.gameState.playerManager.playerShip.health = GameRegistry.gameState.playerManager.playerShip.maxHealth;
 					}
 				} else {
