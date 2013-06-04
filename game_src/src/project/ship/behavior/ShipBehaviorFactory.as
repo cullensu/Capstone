@@ -41,6 +41,7 @@ package project.ship.behavior
 		
 		
 		protected var _enemyNormal:ShipBehavior;
+		protected var _enemyNormal2:ShipBehavior;
 		protected var _enemyFast:ShipBehavior;
 		protected var _enemyBig:ShipBehavior;
 		protected var _enemyMine:ShipBehavior;
@@ -78,6 +79,23 @@ package project.ship.behavior
 			_enemyNormal.movement = new CircleAround(175 - 10 * GameRegistry.gameState.miniBossManager.bossesDefeated);
 			_enemyNormal.shooting = new RandomShot();
 			_typeToBehavior[ShipBehaviorType.ENEMY_NORMAL] = _enemyNormal;
+			
+			_enemyNormal2 = new ShipBehavior();
+			_enemyNormal2.affiliation = Affiliation.ENEMY;
+			_enemyNormal2.guns = new Vector.<GunUpgrade>();
+			_enemyNormal2.dropsHealthOnly = true;
+			var normalGun2:OffsetGun = new OffsetGun();
+			normalGun2.bulletType = BulletType.TRIANGLE;
+			normalGun2.gunCooldown = 1.2 - 0.3 * GameRegistry.gameState.miniBossManager.bossesDefeated;
+			_enemyNormal2.guns.push(normalGun2);
+			_enemyNormal2.maxHealth = 40 + 15 * GameRegistry.gameState.miniBossManager.bossesDefeated;
+			_enemyNormal2.speed = 225 + 60 * GameRegistry.gameState.miniBossManager.bossesDefeated;
+			_enemyNormal2.collisionDamage = 10 + 4 * GameRegistry.gameState.miniBossManager.bossesDefeated;
+			_enemyNormal2.shipGraphic = _enemyNormalPng;
+			_enemyNormal2.shipGraphicDimensions = new Point(30, 28);
+			_enemyNormal2.movement = new CircleAround(175 - 10 * GameRegistry.gameState.miniBossManager.bossesDefeated);
+			_enemyNormal2.shooting = new RandomShot();
+			_typeToBehavior[ShipBehaviorType.ENEMY_NORMAL_NO_UPGRADES] = _enemyNormal;
 			
 			_enemyMine = new ShipBehavior();
 			_enemyMine.affiliation = Affiliation.ENEMY;

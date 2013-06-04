@@ -27,7 +27,7 @@ package project.ship.behavior.move
 		{
 			super(targetRadius);
 			_currentCooldown = SPAWN_DELAY;
-			_spawnType = ShipBehaviorType.ENEMY_NORMAL;
+			_spawnType = ShipBehaviorType.ENEMY_NORMAL_NO_UPGRADES;
 			_spawnDelay = SPAWN_DELAY;
 			_spawnDelayVariance = SPAWN_DELAY_VARIANCE;
 		}
