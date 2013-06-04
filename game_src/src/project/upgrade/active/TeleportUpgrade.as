@@ -10,7 +10,6 @@ package project.upgrade.active
 	 */
 	public class TeleportUpgrade extends ActiveUpgrade 
 	{
-		
 		public function TeleportUpgrade(ship:Ship):void 
 		{
 			super(ship);

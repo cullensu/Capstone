@@ -234,7 +234,10 @@ package project.state
 
 				tick();
 				if (_ticker == 0) {
-					if (_miniBossManager.getFirstExtant()) {
+					if(_miniBossManager.boss && _miniBossManager.boss.exists) {
+						_canSpawn = false;
+						musicManager.setLevel(4);
+					} else if (_miniBossManager.getFirstExtant()) {
 						_canSpawn = false;
 						_musicManager.setLevel(3);
 					} else {
@@ -261,6 +264,10 @@ package project.state
 			{
 				_pauseMenu.update();
 				_upgradeMenu.update();
+				if (FlxG.keys.justPressed("ESCAPE") || FlxG.keys.justPressed("P"))
+				{
+					_pauseMenu.hide();
+				}
 			}
 		}
 		

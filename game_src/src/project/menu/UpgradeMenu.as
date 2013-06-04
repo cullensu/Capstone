@@ -8,77 +8,163 @@ package project.menu
 	import project.bullet.BulletType;
 	import project.constant.GameRegistry;
 	import project.ship.PlayerShip;
+	import project.upgrade.active.CloakUpgrade;
 	import project.upgrade.active.ShieldUpgrade;
 	import project.upgrade.active.TeleportUpgrade;
 	import project.upgrade.guns.GunUpgradeFactory;
 	import project.upgrade.guns.OffsetGun;
 	import project.upgrade.GunUpgrade;
+	import project.util.Utility;
 	/**
 	 * ...
 	 * @author akirilov
 	 */
+	
 	public class UpgradeMenu extends Menu
 	{
-		private var X_OFFSET:int = 50;
-		private var Y_OFFSET:int = 80;
+		[Embed(source = "../../../assets/upgradetitle.png")] protected var UpgradeTitle:Class;
+		[Embed(source = "../../../assets/upgradegun.png")] protected var UpgradeGun:Class;
+		[Embed(source = "../../../assets/upgradeactive.png")] protected var UpgradeActive:Class;
+		[Embed(source = "../../../assets/upgradedouble.png")] protected var UpgradeDouble:Class;
+		[Embed(source = "../../../assets/upgradetriple.png")] protected var UpgradeTriple:Class;
+		[Embed(source = "../../../assets/upgradequadruple.png")] protected var UpgradeQuadruple:Class;
+		[Embed(source = "../../../assets/upgradeshield.png")] protected var UpgradeShield:Class;
+		[Embed(source = "../../../assets/upgradeblink.png")] protected var UpgradeBlink:Class;
+		[Embed(source = "../../../assets/upgradecloak.png")] protected var UpgradeCloak:Class;
 		
+		// Backgrounf
 		private var _background:FlxSprite;
-		private var _weaponUpgrade:FlxButton;
-		private var _activeUpgrade:FlxButton;
-		private var _passiveUpgrade:FlxButton;
-		private var _title:FlxText;
 		
+		// Labels
+		private var upgradeTitleLbl:FlxSprite;
+		private var upgradeGunLbl:FlxSprite;
+		private var upgradeActiveLbl:FlxSprite;
+		
+		// Gun Upgrades
+		private var upgradeDouble:FlxButton;
+		private var upgradeTriple:FlxButton;
+		private var upgradeQuadruple:FlxButton;
+		
+		// Active Upgrades
+		private var upgradeShield:FlxButton;
+		private var upgradeBlink:FlxButton;
+		private var upgradeCloak:FlxButton;
+
+		// Consts
+		private static const X_OFFSET:int = 50;
+		private static const Y_OFFSET:int = 80;
+		
+		// State
 		private var _gunFactory:GunUpgradeFactory;
 		private var _tier:int = 1;
 		
 		private var _ship:PlayerShip;
 		
 		public function UpgradeMenu() 
-		{			
-			_background = new FlxSprite(0, 0);
-			_background.makeGraphic(700, 400, 0xdd333333);
+		{	
+			// ##############
+			// # BACKGROUND #
+			// ##############
 			
-			_weaponUpgrade = new FlxButton(20, 180, "Weapon Upgrade", upgradeWeapon);
-			_activeUpgrade = new FlxButton(140, 180, "Active Upgrade", upgradeActive);
-			_passiveUpgrade = new FlxButton(260, 180,"Passive Upgrade", upgradePassive);
-			
-			_title = new FlxText(100, 100, 200, "PLEASE SELECT ONE UPGRADE BELOW:");
-			_title.color = 0xffffffff;
-			
-			// Set positions
-			_background.x += X_OFFSET;
-			_background.y += Y_OFFSET;
+			_background = new FlxSprite(X_OFFSET, Y_OFFSET);
+			_background.makeGraphic(700, 400, 0xee111111);
 			_background.scrollFactor = new FlxPoint(0, 0);
-			_weaponUpgrade.x += X_OFFSET;
-			_weaponUpgrade.y += Y_OFFSET;
-			_weaponUpgrade.scrollFactor = new FlxPoint(0, 0);
-			_activeUpgrade.x += X_OFFSET;
-			_activeUpgrade.y += Y_OFFSET;
-			_activeUpgrade.scrollFactor = new FlxPoint(0, 0);
-			_passiveUpgrade.x += X_OFFSET;
-			_passiveUpgrade.y += Y_OFFSET;
-			_passiveUpgrade.scrollFactor = new FlxPoint(0, 0);
-			_title.x += X_OFFSET
-			_title.y += X_OFFSET
-			_title.scrollFactor = new FlxPoint(0, 0);
+			add(_background);
 			
-			// Init factor
+			// ##########
+			// # LABELS #
+			// ##########
+			upgradeTitleLbl = new FlxSprite(X_OFFSET + 203, Y_OFFSET + 34, UpgradeTitle);
+			upgradeTitleLbl.scrollFactor = new FlxPoint(0, 0);
+			add(upgradeTitleLbl);
+			
+			upgradeGunLbl = new FlxSprite(X_OFFSET + 127, Y_OFFSET + 109, UpgradeGun);
+			upgradeGunLbl.scrollFactor = new FlxPoint(0, 0);
+			add(upgradeGunLbl);
+			
+			upgradeActiveLbl = new FlxSprite(X_OFFSET + 313, Y_OFFSET + 109, UpgradeActive);
+			upgradeActiveLbl.scrollFactor = new FlxPoint(0, 0);
+			add(upgradeActiveLbl);
+			
+			// ###########
+			// # BUTTONS #
+			// ###########
+			upgradeDouble = new FlxButton(X_OFFSET + 100, Y_OFFSET +  200, null, upgradeWeapon);
+			upgradeDouble.loadGraphic(UpgradeDouble);
+			upgradeDouble.scrollFactor = new FlxPoint(0, 0);
+			upgradeDouble.exists = false;
+			add(upgradeDouble);
+			
+			upgradeTriple = new FlxButton(X_OFFSET + 100, Y_OFFSET +  200, null, upgradeWeapon);
+			upgradeTriple.loadGraphic(UpgradeTriple);
+			upgradeTriple.scrollFactor = new FlxPoint(0, 0);
+			upgradeTriple.exists = false;
+			add(upgradeTriple);
+			
+			upgradeQuadruple = new FlxButton(X_OFFSET + 100, Y_OFFSET +  200, null, upgradeWeapon);
+			upgradeQuadruple.loadGraphic(UpgradeQuadruple);
+			upgradeQuadruple.scrollFactor = new FlxPoint(0, 0);
+			upgradeQuadruple.exists = false;
+			add(upgradeQuadruple);
+			
+			upgradeShield = new FlxButton(X_OFFSET + 300, Y_OFFSET +  200, null, getShield);
+			upgradeShield.loadGraphic(UpgradeShield);
+			upgradeShield.scrollFactor = new FlxPoint(0, 0);
+			upgradeShield.exists = false;
+			add(upgradeShield);
+			
+			upgradeBlink = new FlxButton(X_OFFSET + 300, Y_OFFSET +  200, null, getBlink);
+			upgradeBlink.loadGraphic(UpgradeBlink);
+			upgradeBlink.scrollFactor = new FlxPoint(0, 0);
+			upgradeBlink.exists = false;
+			add(upgradeBlink);
+			
+			upgradeCloak = new FlxButton(X_OFFSET + 300, Y_OFFSET +  200, null, getCloak);
+			upgradeCloak.loadGraphic(UpgradeCloak);
+			upgradeCloak.scrollFactor = new FlxPoint(0, 0);
+			upgradeCloak.exists = false;
+			add(upgradeCloak);
+			
+			// Init factory
 			_gunFactory = new GunUpgradeFactory();
 			
-			add(_background);
-			add(_weaponUpgrade);
-			add(_activeUpgrade);
-			add(_passiveUpgrade);
-			add(_title);
-			
 			this.exists = false;
+		}
+		
+		override public function show():void 
+		{
+			super.show();
+
+			upgradeDouble.exists = false;
+			upgradeTriple.exists = false;
+			upgradeQuadruple.exists = false;
+				
+			if (_tier == 1) {
+				upgradeDouble.exists = true;
+			} else if (_tier == 2) {
+				upgradeTriple.exists = true;
+			} else {
+				upgradeQuadruple.exists = true;
+			}
+			
+			upgradeShield.exists = false;
+			upgradeBlink.exists = false;
+			upgradeCloak.exists = false;
+			var activeRoll:int = Utility.randomInt(3);
+			
+			if (activeRoll == 0) {
+				upgradeShield.exists = true;
+			} else if (activeRoll == 1) {
+				upgradeBlink.exists = true;
+			} else {
+				upgradeCloak.exists = true;
+			}
 		}
 		
 		private function upgradeWeapon():void
 		{
 			var ship:PlayerShip = GameRegistry.gameState.playerManager.playerShip;	
 			var guns:Vector.<GunUpgrade> = _gunFactory.getGunUpgrade(_tier);
-			_tier = Math.min(_tier + 1, 4);
 			
 			ship.removeAllGunUpgrades();
 			for each (var gun:GunUpgrade in guns)
@@ -86,26 +172,41 @@ package project.menu
 				ship.addGunUpgrade(gun);
 			}
 			
+			_tier = Math.min(_tier + 1, 3);
 			trace("Weapon upgraded!");
 			hide();
 		}
 		
-		private function upgradeActive():void
+		private function getShield():void
 		{
 			var ship:PlayerShip = GameRegistry.gameState.playerManager.playerShip;
-			ship.activeUpgrade = new TeleportUpgrade(ship);
+			ship.activeUpgrade.deactivate();
+			ship.activeUpgrade = new ShieldUpgrade(ship);
 			GameRegistry.hud.updateActiveBar();
 			
-			trace("Active upgraded!");
+			trace("Shield acquired!");
 			hide();
 		}
 		
-		private function upgradePassive():void
+		private function getBlink():void
 		{
 			var ship:PlayerShip = GameRegistry.gameState.playerManager.playerShip;
-			ship.maxHealth = 150;
-			ship.health = ship.maxHealth;
-			trace("Passive upgraded!")
+			ship.activeUpgrade.deactivate();
+			ship.activeUpgrade = new TeleportUpgrade(ship);
+			GameRegistry.hud.updateActiveBar();
+			
+			trace("Blink acquired!");
+			hide();
+		}
+		
+		private function getCloak():void
+		{
+			var ship:PlayerShip = GameRegistry.gameState.playerManager.playerShip;
+			ship.activeUpgrade.deactivate();
+			ship.activeUpgrade = new CloakUpgrade(ship);
+			GameRegistry.hud.updateActiveBar();
+			
+			trace("Cloak acquired!");
 			hide();
 		}
 	}

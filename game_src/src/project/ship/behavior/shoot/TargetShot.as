@@ -12,6 +12,8 @@ package project.ship.behavior.shoot
 	 */
 	public class TargetShot implements IShipShoot
 	{
+		protected var _playerLastX:Number;
+		protected var _playerLastY:Number;
 		
 		public function TargetShot() 
 		{
@@ -21,7 +23,11 @@ package project.ship.behavior.shoot
 		public function shoot(ship:AIShip):void
 		{
 			var playerShip:PlayerShip = GameRegistry.gameState.playerManager.playerShip;
-			ship.fire(playerShip.x + playerShip.width / 2, playerShip.y + playerShip.height / 2);
+			if (!playerShip.activeCloak) {
+				_playerLastX = playerShip.x;
+				_playerLastY = playerShip.y;
+			}
+			ship.fire(_playerLastX + playerShip.width / 2, _playerLastY + playerShip.height / 2);
 		}
 		
 	}

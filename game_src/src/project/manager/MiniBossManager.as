@@ -29,11 +29,14 @@ package project.manager
 		private var statc:FlxPoint;
 		
 		private var _finalBossSpawned:Boolean;
+		public var bossesDefeated:int;
+		public var boss:MiniBossShip;
 		
 		public function MiniBossManager(stations:Stations) 
 		{
 			super();
 			_finalBossSpawned = false;
+			bossesDefeated = 0;
 			var arr:Array = stations.members;
 			for (var i:int = 0; i < Constants.NUM_STATIONS; i++) {
 				var point:Station = arr[i] as Station;
@@ -64,14 +67,9 @@ package project.manager
 			 * End copypaste
 			 */
 			
-			var bossesDead:int = 0;
 			for (var j:int = 0; j < this.length; j++) {
 				var ship:MiniBossShip = members[j] as MiniBossShip;
-				if (!ship.alive) 
-				{
-					bossesDead++;
-					continue;
-				}
+				if (!ship.alive) continue;
 				var cPoint:CartesianPoint = new CartesianPoint(ship.x - GameRegistry.gameState.playerManager.playerShip.x + 400,
 															   ship.y - GameRegistry.gameState.playerManager.playerShip.y + 400);
 				var pPoint:PolarPoint = cPoint.convertToPolar();
@@ -84,14 +82,16 @@ package project.manager
 				}
 			}
 			
-			if (!_finalBossSpawned && bossesDead == this.length)
+			if (!_finalBossSpawned && bossesDefeated == 3)
 			{
 				//spawn final boss
-				var finalBoss:MiniBossShip = new MiniBossShip(Constants.TILESIZE * Constants.WORLDTILES / 2, Constants.TILESIZE * Constants.WORLDTILES / 2, null);
+				var finalBoss:MiniBossShip = new MiniBossShip(Constants.TILESIZE * Constants.WORLDTILES / 2, Constants.TILESIZE * Constants.WORLDTILES / 2, new Station(0, 0));
 				finalBoss.affiliation = Affiliation.ENEMY;
 				add(finalBoss);
 				finalBoss.registerBehaviorType(ShipBehaviorType.BOSS_FINAL);
 				finalBoss.isFinalBoss = true;
+				_finalBossSpawned = true;
+				boss = finalBoss;
 				//finalBoss.exists = true;
 			}
 		}
