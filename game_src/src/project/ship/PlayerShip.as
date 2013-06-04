@@ -7,7 +7,9 @@ package project.ship
 	import project.bullet.BulletType;
 	import project.constant.Constants;
 	import project.constant.GameRegistry;
+	import project.state.DefeatState;
 	import project.state.MenuState;
+	import project.state.VictoryState;
 	import project.upgrade.active.NullActive;
 	import project.upgrade.drops.DropType;
 	import project.upgrade.drops.DropUpgrade;
@@ -223,15 +225,11 @@ package project.ship
 		override public function kill():void
 		{
 			super.kill();
-			
-			//TODO: Put more end game stuff in here
-			trace("GAME OVER");
-			
 			if (GameRegistry.recording)
 			{
 				GameRegistry.gameState.stopRecording();
 			}
-			FlxG.switchState(new MenuState());
+			FlxG.switchState(new DefeatState());
 		}
 		
 		override public function canCollide(other:ICollidable):Boolean

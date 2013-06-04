@@ -2,6 +2,7 @@ package project.ship
 {
 	import project.env.Station;
 	import project.ship.behavior.ShipBehaviorType;
+	import project.state.VictoryState;
 	import project.util.ICollidable;
 	import org.flixel.FlxG
 	import project.constant.Constants;
@@ -26,6 +27,19 @@ package project.ship
 			super(x, y);
 			_station = station;
 			activated = false;
+		}
+		
+		override public function kill():void 
+		{
+			super.kill();
+			if (isFinalBoss)
+			{
+				if (GameRegistry.recording)
+				{
+					GameRegistry.gameState.stopRecording();
+				}
+				FlxG.switchState(new VictoryState());
+			}
 		}
 		
 		override public function registerBehaviorType(value:ShipBehaviorType):void
