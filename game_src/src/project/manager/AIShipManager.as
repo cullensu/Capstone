@@ -58,13 +58,13 @@ package project.manager
 			var behaviorType:ShipBehaviorType;
 			if (rand < 2) {
 				behaviorType = ShipBehaviorType.ENEMY_FAST;
-				GameRegistry.gameState.addLevel(4);
+				GameRegistry.gameState.addLevel(2);
 			} else if (rand == 2) {
 				behaviorType = ShipBehaviorType.ENEMY_BIG;
-				GameRegistry.gameState.addLevel(5);
+				GameRegistry.gameState.addLevel(3);
 			} else {
 				behaviorType = ShipBehaviorType.ENEMY_NORMAL;
-				GameRegistry.gameState.addLevel(3);
+				GameRegistry.gameState.addLevel(1);
 			}
 			var pPoint:PolarPoint = new PolarPoint(Constants.TILESIZE, Utility.randomAngle());
 			var cPoint:CartesianPoint = pPoint.convertToCartesianPoint();

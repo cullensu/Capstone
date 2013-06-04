@@ -59,7 +59,7 @@ package project.state
 		protected var _upgradeMenu:UpgradeMenu;
 		protected var _shipBehaviorFactory:ShipBehaviorFactory;
 		
-		protected var _level:Number;
+		public var _level:Number;
 		protected var _thresholdH:Number;
 		protected var _thresholdL:Number;
 		protected var _tickSize:Number;
@@ -129,6 +129,8 @@ package project.state
 			_replaying = false;
 			_paused = false;
 			_noUpgrades = true;
+			
+			FlxG.watch(this, "_level");
 		}
 		
 		public function get miniBossManager():MiniBossManager
@@ -247,6 +249,11 @@ package project.state
 				super.update();
 
 				tick();
+				if (_level > _thresholdH) {
+					_canSpawn = false;
+				} else if (_level < _thresholdL) {
+					_canSpawn = true;
+				}
 				if (_ticker == 0) {
 					if(_miniBossManager.boss && _miniBossManager.boss.exists) {
 						_canSpawn = false;
@@ -255,11 +262,6 @@ package project.state
 						_canSpawn = false;
 						_musicManager.setLevel(3);
 					} else {
-						if (_level > _thresholdH) {
-							_canSpawn = false;
-						} else if (_level < _thresholdL) {
-							_canSpawn = true;
-						}
 						_musicManager.setLevel(2);
 					}
 					_ticker = Constants.TICK_TIME;
