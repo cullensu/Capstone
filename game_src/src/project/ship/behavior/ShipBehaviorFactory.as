@@ -230,7 +230,9 @@ package project.ship.behavior
 			_bossSwarm.collisionDamage = 400;
 			_bossSwarm.shipGraphic = _bossSwarmPng;
 			_bossSwarm.shipGraphicDimensions = new Point(150, 140);
-			_bossSwarm.movement = new SwarmBoss(450);
+			var bossSwarmMove:SwarmBoss = new SwarmBoss(380);
+			bossSwarmMove.spawnType = ShipBehaviorType.ENEMY_NORMAL_NO_UPGRADES;
+			_bossSwarm.movement = bossSwarmMove;
 			if (GameRegistry.gameState.miniBossManager.bossesDefeated > 0) {
 				(_bossSwarm.movement as SwarmBoss).randomlyReverse = true;
 			}

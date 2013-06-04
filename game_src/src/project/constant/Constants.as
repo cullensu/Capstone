@@ -59,7 +59,7 @@ package project.constant
 		public static const OXYGEN_ADD:Number = 12;
 		
 		//Enemy spawning constants
-		private static const TICK:Number = 5;
+		private static const TICK:Number = 10;
 		private static const MULT2:Number = 2;
 		private static const MULT3:Number = 6;
 		public static const THRESHOLD_L1:Number = 5;
