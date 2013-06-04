@@ -1,6 +1,7 @@
 package project.ship 
 {
 	import org.flixel.FlxG;
+	import org.flixel.plugin.photonstorm.BaseTypes.Bullet;
 	import project.bullet.BulletType;
 	import project.constant.GameRegistry;
 	import project.ship.behavior.move.Suicide;
@@ -51,6 +52,7 @@ package project.ship
 			super.collide(other);
 			if (health <= 0)
 			{
+				GameRegistry.score = GameRegistry.score + Constants.SCORE_PER_ENEMY_DESTROYED;
 				kill();
 				var rand:Number = Utility.random();
 				if (rand < _behavior.upgradeDropRate)
@@ -69,6 +71,10 @@ package project.ship
 			if (other is Ship)
 			{
 				this.kill();
+			}
+			else if (other is Bullet)
+			{
+				GameRegistry.score = GameRegistry.score + Constants.SCORE_PER_HIT;
 			}
 		}
 		

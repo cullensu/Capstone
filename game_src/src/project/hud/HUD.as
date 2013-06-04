@@ -36,6 +36,8 @@ package project.hud
 		protected var _bonusCooldownLabel:FlxText;
 		protected var _bonusMoveSpeedLabel:FlxText;
 		
+		protected var _scoreDisplay:FlxText;
+		
 		protected var _playerActiveBar:FlxBar;
 		protected var _playerActiveLabel:FlxText;
 		
@@ -83,6 +85,11 @@ package project.hud
 			_bonusMoveSpeedLabel.setFormat("Kontrapunkt", 10);
 			add(_bonusMoveSpeedLabel);
 			_bonusMoveSpeedLabel.scrollFactor = new FlxPoint(0, 0);
+			
+			_scoreDisplay = new FlxText(630, 20, 150, GameRegistry.score.toString());
+			_scoreDisplay.setFormat("Kontrapunkt", 16, 0xffffff, "right");
+			add(_scoreDisplay);
+			_scoreDisplay.scrollFactor = new FlxPoint(0, 0);
 			
 			//Health bar
 			_playerHealthBar = new FlxBar(350, 20, fillType, 100, 10, _playerShip, "health", 0, _playerShip.health);
@@ -157,6 +164,7 @@ package project.hud
 		{
 			super.update();
 			_healthBarLabel.text = Math.floor(_playerShip.health).toString();
+			_scoreDisplay.text = Math.floor(GameRegistry.score).toString();
 			_blip.x = (_playerShip.x / Constants.TILESIZE) * (100 / Constants.WORLDTILES) + 700 - 1;
 			_blip.y = (_playerShip.y / Constants.TILESIZE) * (100 / Constants.WORLDTILES) + 500 - 1;
 			if (_ticker > 0) {

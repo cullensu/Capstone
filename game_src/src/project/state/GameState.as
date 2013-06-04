@@ -66,6 +66,8 @@ package project.state
 		protected var _canSpawn:Boolean;
 		private var _ticker:Number;
 		
+		protected var _scoreTimer:Number;
+		
 		protected var _recording:Boolean;
 		protected var _replaying:Boolean;
 
@@ -118,6 +120,8 @@ package project.state
 			_ticker = Constants.TICK_TIME;
 			
 			_musicManager.setLevel(2);
+			
+			_scoreTimer = 0;
 			
 			_recording = false;
 			_replaying = false;
@@ -245,6 +249,13 @@ package project.state
 				} else {
 					_ticker--;
 				}
+				
+				var nextScoreTime:Number = _scoreTimer + FlxG.elapsed;
+				if (Math.floor(nextScoreTime) > Math.floor(_scoreTimer))
+				{
+					GameRegistry.score = GameRegistry.score + Constants.SCORE_PER_SECOND;
+				}
+				_scoreTimer = nextScoreTime;
 			}
 			else
 			{

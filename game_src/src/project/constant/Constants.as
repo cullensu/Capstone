@@ -14,6 +14,14 @@ package project.constant
 		
 		public static const CAMERA_STYLE:uint = FlxCamera.STYLE_LOCKON;
 		
+		//Scoring Constants
+		public static const SCORE_PER_SECOND:int = 10;
+		public static const SCORE_PER_HIT:int = 10;
+		public static const SCORE_PER_PICKUP:int = 50;
+		public static const SCORE_PER_ENEMY_DESTROYED:int = 50;
+		public static const SCORE_PER_MINIBOSS_DESTROYED:int = 500;
+		public static const SCORE_FOR_FINAL_BOSS:int = 5000;
+
 		//Worldsize constants
 		public static const WORLDTILES:int = 40;
 		public static const TILESIZE:int = 800;

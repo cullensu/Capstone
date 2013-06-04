@@ -44,6 +44,11 @@ package project.ship
 				if (!isFinalBoss)
 				{
 					_station.activated = true;
+					GameRegistry.score = GameRegistry.score + Constants.SCORE_PER_MINIBOSS_DESTROYED;
+				}
+				else
+				{
+					GameRegistry.score = GameRegistry.score + Constants.SCORE_FOR_FINAL_BOSS;
 				}
 			}
 		}

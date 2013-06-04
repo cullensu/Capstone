@@ -116,6 +116,7 @@ package project.state
 		{
 			var newGameState:GameState = new GameState();
 			GameRegistry.gameState = newGameState;
+			GameRegistry.score = 0;
 			FlxG.switchState(newGameState);
 		}
 		

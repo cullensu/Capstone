@@ -3,6 +3,7 @@ package project.upgrade.drops
 	import flash.net.drm.DRMVoucherDownloadContext;
 	import org.flixel.FlxG;
 	import org.flixel.FlxSprite;
+	import project.constant.GameRegistry;
 	import project.ship.PlayerShip;
 	import project.ship.Ship;
 	import project.util.ICollidable;
@@ -83,6 +84,7 @@ package project.upgrade.drops
 			{
 				return;
 			}
+			GameRegistry.score = GameRegistry.score + Constants.SCORE_PER_PICKUP;
 			kill();
 		}
 		

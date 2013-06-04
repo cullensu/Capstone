@@ -16,6 +16,8 @@ package project.constant
 		protected static var _loadedReplay:String = null;
 		protected static var _hud:HUD = null;
 		
+		protected static var _score:Number;
+		
 		public function GameRegistry() 
 		{
 			
@@ -79,6 +81,16 @@ package project.constant
 		static public function set hud(value:HUD):void 
 		{
 			_hud = value;
+		}
+		
+		static public function get score():Number 
+		{
+			return _score;
+		}
+		
+		static public function set score(value:Number):void 
+		{
+			_score = value;
 		}
 		
 	}
