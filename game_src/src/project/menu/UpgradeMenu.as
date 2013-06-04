@@ -143,7 +143,7 @@ package project.menu
 				upgradeDouble.exists = true;
 			} else if (_tier == 2) {
 				upgradeTriple.exists = true;
-			} else {
+			} else  if (_tier == 3) {
 				upgradeQuadruple.exists = true;
 			}
 			
@@ -172,7 +172,7 @@ package project.menu
 				ship.addGunUpgrade(gun);
 			}
 			
-			_tier = Math.min(_tier + 1, 3);
+			_tier = Math.min(_tier + 1, 4);
 			trace("Weapon upgraded!");
 			hide();
 		}

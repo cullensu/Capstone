@@ -71,6 +71,7 @@ package project.state
 		protected var _recording:Boolean;
 		protected var _replaying:Boolean;
 		protected var _paused:Boolean;
+		protected var _noUpgrades:Boolean;
 
 		public function init():void
 		{
@@ -127,6 +128,7 @@ package project.state
 			_recording = false;
 			_replaying = false;
 			_paused = false;
+			_noUpgrades = true;
 		}
 		
 		public function get miniBossManager():MiniBossManager
@@ -261,6 +263,12 @@ package project.state
 						_musicManager.setLevel(2);
 					}
 					_ticker = Constants.TICK_TIME;
+					if (_noUpgrades)
+					{
+						// Free upgrade!!
+						upgradeMenu.show();
+						_noUpgrades = false;
+					}
 				} else {
 					_ticker--;
 				}

@@ -8,6 +8,7 @@ package project.manager
 	import project.env.Station;
 	import project.env.Stations;
 	import project.ship.AIShip;
+	import project.ship.behavior.ShipBehavior;
 	import project.ship.MiniBossShip;
 	import project.constant.GameRegistry;
 	import project.util.Affiliation;
@@ -32,11 +33,18 @@ package project.manager
 		public var bossesDefeated:int;
 		public var boss:MiniBossShip;
 		
+		protected var _bossesSeen:Vector.<Boolean>;
+		
 		public function MiniBossManager(stations:Stations) 
 		{
 			super();
 			_finalBossSpawned = false;
 			bossesDefeated = 0;
+			_bossesSeen = new Vector.<Boolean>();
+			for (var i:int = 0; i < 4; i++)
+			{
+				_bossesSeen[i] = false;
+			}
 			var arr:Array = stations.members;
 			for (var i:int = 0; i < Constants.NUM_STATIONS; i++) {
 				var point:Station = arr[i] as Station;
@@ -99,7 +107,10 @@ package project.manager
 		private function spawn(ship:MiniBossShip):void
 		{
 			//TODO: Randomize miniboss behavior
-			var rand:int = Utility.randomInt(4);
+			do {
+				var rand:int = Utility.randomInt(4);
+			} while (_bossesSeen[rand]);
+			_bossesSeen[rand] = true;
 			//rand = 1;
 			if (!ship.hasAlreadySpawned)
 			{
