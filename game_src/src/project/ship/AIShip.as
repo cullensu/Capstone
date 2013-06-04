@@ -140,7 +140,6 @@ package project.ship
 			
 			if (_behavior.animations) {
 				for (var i:int = 0; i < _behavior.animations; i++) {
-					trace("adding animation", _behavior.animationNames[i]);
 					addAnimation(_behavior.animationNames[i], _behavior.animationFrames[i], Constants.GAME_FRAME_RATE, _behavior.animationLoops[i]);
 				}
 			}

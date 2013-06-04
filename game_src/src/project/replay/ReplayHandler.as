@@ -47,7 +47,6 @@ package project.replay
 		static private function storeReplay(e:Event):void 
 		{
 			GameRegistry.loadedReplay = e.target.data;
-			trace(GameRegistry.loadedReplay);
 			FlxG.switchState(new GameState());
 		}
 		

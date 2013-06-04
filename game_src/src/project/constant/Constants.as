@@ -64,7 +64,7 @@ package project.constant
 		private static const MULT3:Number = 6;
 		public static const THRESHOLD_L1:Number = 5;
 		public static const THRESHOLD_H1:Number = THRESHOLD_L1 + TICK;
-		public static const TICK1:Number = 1;
+		public static const TICK1:Number = .65;
 		public static const THRESHOLD_L2:Number = THRESHOLD_L1 * MULT2;
 		public static const THRESHOLD_H2:Number = THRESHOLD_H1 * MULT2;
 		public static const TICK2:Number = TICK1 * MULT2;

@@ -38,7 +38,6 @@ package project.upgrade.active
 			if (charge == _MAX_CHARGE)
 			{
 				super.activate();
-				trace("Shield Activated");
 				_shieldSprite.exists = true;
 				_ship.activeShield = true;
 			}
@@ -46,7 +45,6 @@ package project.upgrade.active
 		
 		override public function deactivate():void
 		{
-			trace("Shield down");
 			_shieldSprite.exists = false;
 			_ship.activeShield = false;
 			super.deactivate();

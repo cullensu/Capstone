@@ -112,8 +112,6 @@ package project.manager
 				var index:int = Utility.randomInt(_bosses.length);
 				var behavior:ShipBehaviorType = _bosses[index];
 				_bosses.splice(index, 1);
-				trace(behavior);
-				trace(_bosses);
 				ship.registerBehaviorType(behavior);
 			}
 			ship.activated = true;

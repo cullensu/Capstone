@@ -129,8 +129,6 @@ package project.state
 			_replaying = false;
 			_paused = false;
 			_noUpgrades = true;
-			
-			FlxG.watch(this, "_level");
 		}
 		
 		public function get miniBossManager():MiniBossManager

@@ -173,7 +173,6 @@ package project.menu
 			}
 			
 			_tier = Math.min(_tier + 1, 4);
-			trace("Weapon upgraded!");
 			hide();
 		}
 		
@@ -183,8 +182,6 @@ package project.menu
 			ship.activeUpgrade.deactivate();
 			ship.activeUpgrade = new ShieldUpgrade(ship);
 			GameRegistry.hud.updateActiveBar();
-			
-			trace("Shield acquired!");
 			hide();
 		}
 		
@@ -194,8 +191,6 @@ package project.menu
 			ship.activeUpgrade.deactivate();
 			ship.activeUpgrade = new TeleportUpgrade(ship);
 			GameRegistry.hud.updateActiveBar();
-			
-			trace("Blink acquired!");
 			hide();
 		}
 		
@@ -205,8 +200,6 @@ package project.menu
 			ship.activeUpgrade.deactivate();
 			ship.activeUpgrade = new CloakUpgrade(ship);
 			GameRegistry.hud.updateActiveBar();
-			
-			trace("Cloak acquired!");
 			hide();
 		}
 	}
