@@ -31,7 +31,6 @@ package project.upgrade.active
 				var nx:Number = Utility.randomInt(Constants.MAX_COORD);
 				var ny:Number = Utility.randomInt(Constants.MAX_COORD);
 				
-				trace("Teleported to (" + nx + ", " + ny + ")");
 				_ship.x = nx;
 				_ship.y = ny;
 				charge = 0;

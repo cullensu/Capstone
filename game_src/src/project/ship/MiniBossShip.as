@@ -53,7 +53,6 @@ package project.ship
 			FlxG.play(_hurtmp3);
 			if (!canCollide(other)) return;
 			this.health = this.health - other.collisionDamage;
-			trace(this.health);
 			if (this.health <= 0) {
 				kill();
 				if (!isFinalBoss)

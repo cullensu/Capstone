@@ -67,7 +67,6 @@ package project.replay{
 			if(!_deactivating) flash.ui.Mouse.hide();
 			_input.removeEventListener(Event.CHANGE, onChange);
 			_input.removeEventListener(FocusEvent.FOCUS_OUT, onFocusOut);
-			trace(_input.parent);
 			FlxG.stage.removeChild(_input);
 			active = true;
 		}

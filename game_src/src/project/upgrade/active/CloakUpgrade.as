@@ -26,7 +26,6 @@ package project.upgrade.active
 			if (charge == _MAX_CHARGE)
 			{
 				super.activate();
-				trace("Cloak Activated");
 				_ship.activeCloak = true;
 				_ship.alpha = 0.25;
 			}
@@ -34,7 +33,6 @@ package project.upgrade.active
 		
 		override public function deactivate():void
 		{
-			trace("Cloak down");
 			_ship.activeCloak = false;
 			_ship.alpha = 1;
 			super.deactivate();

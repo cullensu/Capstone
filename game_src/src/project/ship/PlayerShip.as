@@ -45,8 +45,6 @@ package project.ship
 		{
 			super(X, Y, null);
 			_invincibleFrames = NUM_INVINCIBLE_FRAMES;
-			FlxG.watch(this, "x", "x");
-			FlxG.watch(this, "y", "y");
 			loadGraphic(_shipPng, true, false, 30, 30);
 			_maxCoord = Constants.WORLDTILES * Constants.TILESIZE;
 			_gunXOffset = 15;
