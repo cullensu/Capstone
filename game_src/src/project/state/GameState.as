@@ -70,6 +70,7 @@ package project.state
 		
 		protected var _recording:Boolean;
 		protected var _replaying:Boolean;
+		protected var _paused:Boolean;
 
 		public function init():void
 		{
@@ -125,6 +126,7 @@ package project.state
 			
 			_recording = false;
 			_replaying = false;
+			_paused = false;
 		}
 		
 		public function get miniBossManager():MiniBossManager
@@ -186,6 +188,16 @@ package project.state
 		{
 			return _upgradeMenu;
 		}
+		
+		public function get paused():Boolean 
+		{
+			return _paused;
+		}
+		
+		public function set paused(value:Boolean):void 
+		{
+			_paused = value;
+		}
 
 		override public function create():void
 		{
@@ -209,14 +221,14 @@ package project.state
 		 */
 		override public function preUpdate():void 
 		{
-			if (!FlxG.paused)
-			{
+			if (!FlxG.paused) {
 				super.preUpdate();
-			}
-			else
-			{
-				_pauseMenu.preUpdate();
-				_upgradeMenu.preUpdate();
+			} else {
+				if (_paused) {
+					_pauseMenu.preUpdate();
+				} else {
+					_upgradeMenu.preUpdate();
+				}
 			}
 		}
 		
@@ -262,11 +274,14 @@ package project.state
 			}
 			else
 			{
-				_pauseMenu.update();
-				_upgradeMenu.update();
-				if (FlxG.keys.justPressed("ESCAPE") || FlxG.keys.justPressed("P"))
-				{
-					_pauseMenu.hide();
+				if (_paused) {
+					_pauseMenu.update();
+					if (FlxG.keys.justPressed("ESCAPE") || FlxG.keys.justPressed("P"))
+					{
+						_pauseMenu.hide();
+					}
+				} else {
+					_upgradeMenu.update();
 				}
 			}
 		}
@@ -282,8 +297,11 @@ package project.state
 			}
 			else
 			{
-				_pauseMenu.postUpdate();
-				_upgradeMenu.postUpdate();
+				if (_paused) {
+					_pauseMenu.postUpdate();
+				} else {
+					_upgradeMenu.postUpdate();
+				}
 			}
 		}
 		

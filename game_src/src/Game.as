@@ -21,7 +21,7 @@ package
 		
 		public function Game() 
 		{
-			FlxG.debug = true;
+			FlxG.debug = false;
 			super(800, 600, MenuState, 1, Constants.GAME_FRAME_RATE, Constants.FLASH_FRAME_RATE, false);
 		}
 

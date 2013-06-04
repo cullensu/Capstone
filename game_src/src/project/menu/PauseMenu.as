@@ -125,13 +125,19 @@ package project.menu
 		override public function show():void 
 		{
 			super.show();
-			
+			GameRegistry.gameState.paused = true;
 			showInstructions();
+		}
+		
+		override public function hide():void 
+		{
+			super.hide();
+			GameRegistry.gameState.paused = false;
 		}
 		
 		override public function update():void 
 		{
-			if (!FlxG.paused) {
+			if (!FlxG.paused || !GameRegistry.gameState.paused) {
 				return;
 			}
 			super.update();
