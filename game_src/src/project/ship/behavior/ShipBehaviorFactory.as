@@ -286,7 +286,7 @@ package project.ship.behavior
 			_bossFinal.collisionDamage = 400;
 			_bossFinal.shipGraphic = _bossFinalPng;
 			_bossFinal.shipGraphicDimensions = new Point(450, 419);
-			var bossFinalMove:SwarmBoss = new SwarmBoss(500);
+			var bossFinalMove:SwarmBoss = new SwarmBoss(400);
 			bossFinalMove.randomlyReverse = true;
 			bossFinalMove.spawnDelay = 0.5;
 			bossFinalMove.spawnDelayVariance = 0.1;

@@ -29,6 +29,7 @@ package project.menu
 		// Buttons
 		private var menuResume:FlxButton;
 		private var menuShow:FlxButton;
+		private var menuMute:FlxButton;
 		// Arrows
 		private var resumeMenuArrow:FlxSprite;
 		private var showMenuArrow:FlxSprite;
@@ -77,6 +78,11 @@ package project.menu
 			menuShow.exists = false;
 			add(menuShow);
 			
+			menuMute = new FlxButton(700, 20, "Mute", toggleMute);
+			menuMute.scrollFactor = new FlxPoint(0, 0);
+			menuMute.exists = false;
+			add(menuMute);
+			
 			// ##########
 			// # ARROWS #
 			// ##########
@@ -112,6 +118,11 @@ package project.menu
 			menuBoss.scrollFactor = new FlxPoint(0, 0);
 			menuBoss.exists = false;
 			add(menuBoss);
+		}
+		
+		private function toggleMute():void 
+		{
+			FlxG.mute = !FlxG.mute;
 		}
 		
 		private function showInstructions():void 

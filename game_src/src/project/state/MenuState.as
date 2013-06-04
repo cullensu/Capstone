@@ -30,6 +30,7 @@ package project.state
 		// Buttons
 		private var menuNew:FlxButton;
 		private var menuShow:FlxButton;
+		private var menuMute:FlxButton;
 		// Arrows
 		private var newMenuArrow:FlxSprite;
 		private var showMenuArrow:FlxSprite;
@@ -61,6 +62,9 @@ package project.state
 			menuShow = new FlxButton(65, 115, null, showInstructions);
 			menuShow.loadGraphic(MenuShow);
 			add(menuShow);
+			
+			menuMute = new FlxButton(700, 20, "Mute", toggleMute);
+			add(menuMute);
 			
 			// ##########
 			// # ARROWS #
@@ -99,6 +103,11 @@ package project.state
 				var replayEntry:InputText = new InputText(600, 500, "Replay Game", startReplay);
 				add(replayEntry);
 			}
+		}
+		
+		private function toggleMute():void 
+		{
+			FlxG.mute = !FlxG.mute;
 		}
 		
 		private function startReplay(id:String):void 
