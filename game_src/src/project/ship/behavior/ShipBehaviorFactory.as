@@ -70,9 +70,9 @@ package project.ship.behavior
 			normalGun.bulletType = BulletType.TRIANGLE;
 			normalGun.gunCooldown = 1.2 - 0.3 * GameRegistry.gameState.miniBossManager.bossesDefeated;
 			_enemyNormal.guns.push(normalGun);
-			_enemyNormal.maxHealth = 40 + 20 * GameRegistry.gameState.miniBossManager.bossesDefeated;
+			_enemyNormal.maxHealth = 40 + 15 * GameRegistry.gameState.miniBossManager.bossesDefeated;
 			_enemyNormal.speed = 225 + 60 * GameRegistry.gameState.miniBossManager.bossesDefeated;
-			_enemyNormal.collisionDamage = 10 + 5 * GameRegistry.gameState.miniBossManager.bossesDefeated;
+			_enemyNormal.collisionDamage = 10 + 4 * GameRegistry.gameState.miniBossManager.bossesDefeated;
 			_enemyNormal.shipGraphic = _enemyNormalPng;
 			_enemyNormal.shipGraphicDimensions = new Point(30, 28);
 			_enemyNormal.movement = new CircleAround(175 - 10 * GameRegistry.gameState.miniBossManager.bossesDefeated);
@@ -84,9 +84,9 @@ package project.ship.behavior
 			_enemyMine.guns = new Vector.<GunUpgrade>();
 			_enemyMine.hasLifeTime = true;
 			_enemyMine.lifetime = 10;
-			_enemyMine.maxHealth = 40 +20 * GameRegistry.gameState.miniBossManager.bossesDefeated;
+			_enemyMine.maxHealth = 40 +15 * GameRegistry.gameState.miniBossManager.bossesDefeated;
 			_enemyMine.speed = 0;
-			_enemyMine.collisionDamage = 40 + 5 * GameRegistry.gameState.miniBossManager.bossesDefeated;
+			_enemyMine.collisionDamage = 40 + 4 * GameRegistry.gameState.miniBossManager.bossesDefeated;
 			_enemyMine.shipGraphic = _enemyMinePng;
 			_enemyMine.shipGraphicDimensions = new Point(13, 11);
 			_enemyMine.movement = new NoMove();
@@ -114,7 +114,7 @@ package project.ship.behavior
 			_enemyTurret.lifetime = 6;
 			_enemyTurret.maxHealth = 1;
 			_enemyTurret.speed = 225 + 80 * GameRegistry.gameState.miniBossManager.bossesDefeated;
-			_enemyTurret.collisionDamage = 10 + 8 * GameRegistry.gameState.miniBossManager.bossesDefeated;
+			_enemyTurret.collisionDamage = 10 + 4 * GameRegistry.gameState.miniBossManager.bossesDefeated;
 			_enemyTurret.dropsHealthOnly = true;
 			_enemyTurret.upgradeDropRate = 0.5;
 			_enemyTurret.shipGraphic = _enemyMinePng;
@@ -127,7 +127,7 @@ package project.ship.behavior
 			_enemyFast.affiliation = Affiliation.ENEMY;
 			_enemyFast.guns = new Vector.<GunUpgrade>();
 			_enemyFast.maxHealth = 20 + 20 * GameRegistry.gameState.miniBossManager.bossesDefeated;
-			_enemyFast.speed = 375 + 100 * GameRegistry.gameState.miniBossManager.bossesDefeated;
+			_enemyFast.speed = 375 + 75 * GameRegistry.gameState.miniBossManager.bossesDefeated;
 			_enemyFast.collisionDamage = 10 + 4 * GameRegistry.gameState.miniBossManager.bossesDefeated;
 			_enemyFast.shipGraphic = _enemyFastPng;
 			_enemyFast.shipGraphicDimensions = new Point(26, 16);
@@ -140,9 +140,9 @@ package project.ship.behavior
 			_enemyBig.guns = new Vector.<GunUpgrade>();
 			var bigGun:OffsetGun = new OffsetGun();
 			bigGun.bulletType = BulletType.BIG_TRIANGLE;
-			bigGun.gunCooldown = 2.0 - 0.5 * GameRegistry.gameState.miniBossManager.bossesDefeated;
+			bigGun.gunCooldown = 2.0 - 0.4 * GameRegistry.gameState.miniBossManager.bossesDefeated;
 			_enemyBig.guns.push(bigGun);
-			_enemyBig.maxHealth = 100 + 50 * GameRegistry.gameState.miniBossManager.bossesDefeated;
+			_enemyBig.maxHealth = 100 + 40 * GameRegistry.gameState.miniBossManager.bossesDefeated;
 			_enemyBig.speed = 200 + 50 * GameRegistry.gameState.miniBossManager.bossesDefeated;
 			_enemyBig.collisionDamage = 40 + 5 * GameRegistry.gameState.miniBossManager.bossesDefeated;
 			_enemyBig.shipGraphic = _enemyBigPng;
