@@ -3,6 +3,7 @@ package project.upgrade.active
 	import org.flixel.FlxG;
 	import project.ship.Ship;
 	import project.upgrade.ActiveUpgrade;
+	import project.constant.Constants;
 	
 	/**
 	 * ...
@@ -13,10 +14,10 @@ package project.upgrade.active
 		public function TeleportUpgrade(ship:Ship):void 
 		{
 			super(ship);
-			_MAX_CHARGE = 100;
+			_MAX_CHARGE = Constants.MAXIMUM_CHARGE;
 			charge = MAX_CHARGE;
-			_chargeRate = 1;
-			_useRate = 0;
+			_chargeRate = Constants.BLINK_CHARGE_RATE;
+			_useRate = Constants.BLINK_USE_RATE;
 		}
 		
 		override public function activate():void

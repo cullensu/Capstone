@@ -6,6 +6,7 @@ package project.upgrade.active
 	import project.ship.PlayerShip;
 	import project.ship.Ship;
 	import project.upgrade.ActiveUpgrade;
+	import project.constant.Constants;
 	
 	/**
 	 * ...
@@ -19,10 +20,10 @@ package project.upgrade.active
 		public function ShieldUpgrade(ship:Ship):void
 		{
 			super(ship);
-			_MAX_CHARGE = 1000;
+			_MAX_CHARGE = Constants.MAXIMUM_CHARGE;
 			charge = _MAX_CHARGE;
-			_chargeRate = 1;
-			_useRate = 3;
+			_chargeRate = Constants.SHIELD_CHARGE_RATE;
+			_useRate = Constants.SHIELD_USE_RATE;
 			
 			_shieldSprite = new FlxSprite(399 - ship.width / 2, 299 - ship.height / 2, Shield);
 			_shieldSprite.scrollFactor = new FlxPoint(0, 0);

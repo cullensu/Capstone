@@ -1,5 +1,6 @@
 package project.upgrade.active
 {
+	import project.constant.Constants;
 	import project.ship.Ship;
 	import project.upgrade.ActiveUpgrade;
 	
@@ -13,10 +14,10 @@ package project.upgrade.active
 		{
 			super(ship);
 			
-			_MAX_CHARGE = 1000;
+			_MAX_CHARGE = Constants.MAXIMUM_CHARGE;
 			charge = _MAX_CHARGE;
-			_chargeRate = 1;
-			_useRate = 2;
+			_chargeRate = Constants.CLOAK_CHARGE_RATE;
+			_useRate = Constants.CLOAK_USE_RATE;
 		}
 		
 		override public function activate():void
