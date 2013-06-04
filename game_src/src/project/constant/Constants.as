@@ -77,7 +77,7 @@ package project.constant
 		
 		//HUD constants
 		public static const TICK_TIME:int = 10;
-		public static const STATION_DIST:Number = TILESIZE * 5;
+		public static const STATION_DIST:Number = TILESIZE * 10;
 		
 		public function Constants() 
 		{
