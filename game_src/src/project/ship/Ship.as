@@ -143,7 +143,7 @@ package project.ship
 			if (_activeShield)
 			{
 				trace("Shield absorbed " + other.collisionDamage + "damage!")
-				_activeUpgrade.charge = Math.max(0, _activeUpgrade.charge - other.collisionDamage * 3);
+				_activeUpgrade.charge = Math.max(0, _activeUpgrade.charge - other.collisionDamage * 4);
 			}
 			else
 			{

@@ -33,21 +33,21 @@ package project.manager
 		public var bossesDefeated:int;
 		public var boss:MiniBossShip;
 		
-		protected var _bossesSeen:Vector.<Boolean>;
+		protected var _bosses:Vector.<ShipBehaviorType>;
 		
 		public function MiniBossManager(stations:Stations) 
 		{
 			super();
 			_finalBossSpawned = false;
 			bossesDefeated = 0;
-			_bossesSeen = new Vector.<Boolean>();
-			for (var i:int = 0; i < 4; i++)
-			{
-				_bossesSeen[i] = false;
-			}
+			_bosses = new Vector.<ShipBehaviorType>();
+			_bosses.push(ShipBehaviorType.BOSS_BLINK);
+			_bosses.push(ShipBehaviorType.BOSS_FAST);
+			_bosses.push(ShipBehaviorType.BOSS_MINE);
+			_bosses.push(ShipBehaviorType.BOSS_SWARM);
 			var arr:Array = stations.members;
-			for (var i:int = 0; i < Constants.NUM_STATIONS; i++) {
-				var point:Station = arr[i] as Station;
+			for (var ii:int = 0; ii < Constants.NUM_STATIONS; ii++) {
+				var point:Station = arr[ii] as Station;
 				var ship:MiniBossShip = new MiniBossShip(point.x, point.y, point);
 				ship.affiliation = Affiliation.ENEMY;
 				add(ship);
@@ -106,33 +106,15 @@ package project.manager
 		
 		private function spawn(ship:MiniBossShip):void
 		{
-			//TODO: Randomize miniboss behavior
-			do {
-				var rand:int = Utility.randomInt(4);
-			} while (_bossesSeen[rand]);
-			_bossesSeen[rand] = true;
-			//rand = 1;
+			// Randomly choose a boss and splice it out of the available bosses.
 			if (!ship.hasAlreadySpawned)
-			{
-				switch(rand)
-				{
-					case 0:
-						ship.registerBehaviorType(ShipBehaviorType.BOSS_MINE);
-						break;
-					case 1:
-						ship.registerBehaviorType(ShipBehaviorType.BOSS_BLINK);
-						//ship.registerBehaviorType(ShipBehaviorType.BOSS_FINAL);
-						break;
-					case 2:
-						ship.registerBehaviorType(ShipBehaviorType.BOSS_FAST);
-						break;
-					case 3:
-						ship.registerBehaviorType(ShipBehaviorType.BOSS_SWARM);
-						break;
-					default:
-						ship.registerBehaviorType(ShipBehaviorType.BOSS_FAST);
-						break;
-				}
+			{	
+				var index:int = Utility.randomInt(_bosses.length);
+				var behavior:ShipBehaviorType = _bosses[index];
+				_bosses.splice(index, 1);
+				trace(behavior);
+				trace(_bosses);
+				ship.registerBehaviorType(behavior);
 			}
 			ship.activated = true;
 		}	

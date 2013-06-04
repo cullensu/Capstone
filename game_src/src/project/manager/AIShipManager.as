@@ -54,12 +54,12 @@ package project.manager
 		
 		private function spawn():void
 		{
-			var rand:int = Utility.randomInt(5);
+			var rand:int = Utility.randomInt(6);
 			var behaviorType:ShipBehaviorType;
-			if (rand == 0) {
+			if (rand < 2) {
 				behaviorType = ShipBehaviorType.ENEMY_FAST;
 				GameRegistry.gameState.addLevel(4);
-			} else if (rand == 1) {
+			} else if (rand == 2) {
 				behaviorType = ShipBehaviorType.ENEMY_BIG;
 				GameRegistry.gameState.addLevel(5);
 			} else {

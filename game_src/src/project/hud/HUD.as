@@ -231,6 +231,7 @@ package project.hud
 						station.alive = false;
 						GameRegistry.gameState.upgradeMenu.show();
 						GameRegistry.gameState.miniBossManager.bossesDefeated++;
+						GameRegistry.gameState.shipBehaviorFactory.reinitTypes();
 						GameRegistry.gameState.playerManager.playerShip.health = GameRegistry.gameState.playerManager.playerShip.maxHealth;
 					}
 				} else {
