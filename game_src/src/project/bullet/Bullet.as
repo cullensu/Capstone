@@ -80,7 +80,7 @@ package project.bullet
 				else if (_type == BulletType.TRIANGLE)
 				{
 					loadGraphic(enemyBulletSpr, false, false, ENEMY_BULLET_DIMENSION.x, ENEMY_BULLET_DIMENSION.y);
-					_collisionDamage = 10;
+					_collisionDamage = 2;
 					_speed = Constants.BULLET_SMALL_SPEED;
 				}
 				else if (_type == BulletType.BIG_CIRCLE)
@@ -98,7 +98,7 @@ package project.bullet
 				else if (_type == BulletType.BIG_TRIANGLE)
 				{
 					loadGraphic(enemyBigBulletSpr, false, false, ENEMY_BIG_BULLET_DIMENSIONS.x, ENEMY_BIG_BULLET_DIMENSIONS.y);
-					_collisionDamage = 20;
+					_collisionDamage = 5;
 					_speed = Constants.BULLET_BIG_SPEED;
 				}
 				else 

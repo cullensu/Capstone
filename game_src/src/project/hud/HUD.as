@@ -156,11 +156,12 @@ package project.hud
 		public function updateActiveBar():void 
 		{
 			_playerActiveBar = new FlxBar(350, 40, FlxBar.FILL_LEFT_TO_RIGHT, 100, 10, _playerShip.activeUpgrade, "charge", 0, _playerShip.activeUpgrade.MAX_CHARGE, false);
+			_playerActiveBar.createFilledBar(0xff00ffff, 0xff007f7f);
 			add(_playerActiveBar);
 			_playerActiveBar.scrollFactor = new FlxPoint(0, 0);
 			
-			_activeBarLabel = new FlxText(350, 40, 100, "Space");
-			_activeBarLabel.setFormat("Kontrapunkt", 10, 0x000000, "center");
+			_activeBarLabel = new FlxText(350, 36, 100, "Space");
+			_activeBarLabel.setFormat("Kontrapunkt", 12, 0x000000, "center");
 			add(_activeBarLabel);
 			_activeBarLabel.scrollFactor = new FlxPoint(0, 0);
 		}
