@@ -93,7 +93,7 @@ package project.state
 			_hud = new HUD(this);
 			_shipBehaviorFactory = new ShipBehaviorFactory();
 			
-			_level = 0;
+			_level = 4;
 			_tickSize = Constants.TICK1;
 			_thresholdH = Constants.THRESHOLD_H1;
 			_thresholdL = Constants.THRESHOLD_L1;
