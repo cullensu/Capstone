@@ -32,6 +32,7 @@ package project.hud
 		protected var _playerBonusCooldownBar:FlxBar;
 		protected var _playerBonusMovespeedBar:FlxBar;
 		
+		protected var _activeBarLabel:FlxText;
 		protected var _healthBarLabel:FlxText;
 		protected var _bonusDamageLabel:FlxText;
 		protected var _bonusCooldownLabel:FlxText;
@@ -88,7 +89,7 @@ package project.hud
 			_bonusMoveSpeedLabel.scrollFactor = new FlxPoint(0, 0);
 			
 			_scoreDisplay = new FlxText(630, 20, 150, GameRegistry.score.toString());
-			_scoreDisplay.setFormat("Kontrapunkt", 16, 0xffffff, "right");
+			_scoreDisplay.setFormat("Kontrapunkt", 20, 0xffffff, "right");
 			add(_scoreDisplay);
 			_scoreDisplay.scrollFactor = new FlxPoint(0, 0);
 			
@@ -106,7 +107,7 @@ package project.hud
 			
 			//This is the number that shows up on top of the bar
 			_healthBarLabel = new FlxText(350, 16, 100, _playerShip.health.toString());
-			_healthBarLabel.setFormat("Kontrapunkt", 12, 0xffffff, "center");
+			_healthBarLabel.setFormat("Kontrapunkt", 12, 0x000000, "center");
 			add(_healthBarLabel);
 			_healthBarLabel.scrollFactor = new FlxPoint(0, 0);
 			
@@ -155,8 +156,14 @@ package project.hud
 		public function updateActiveBar():void 
 		{
 			_playerActiveBar = new FlxBar(350, 40, FlxBar.FILL_LEFT_TO_RIGHT, 100, 10, _playerShip.activeUpgrade, "charge", 0, _playerShip.activeUpgrade.MAX_CHARGE, false);
+			_playerActiveBar.createFilledBar(0xff00ffff, 0xff007f7f);
 			add(_playerActiveBar);
 			_playerActiveBar.scrollFactor = new FlxPoint(0, 0);
+			
+			_activeBarLabel = new FlxText(350, 36, 100, "Space");
+			_activeBarLabel.setFormat("Kontrapunkt", 12, 0x000000, "center");
+			add(_activeBarLabel);
+			_activeBarLabel.scrollFactor = new FlxPoint(0, 0);
 		}
 		
 		

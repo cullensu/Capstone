@@ -40,7 +40,7 @@ package project.constant
 		
 		//Player Starting Values
 		public static const STARTING_HEALTH_DRAIN_RATE:Number = 1;
-		public static const OXYGEN_MAX:Number = 90;
+		public static const OXYGEN_MAX:Number = 60;
 		public static const STARTING_MOVE_SPEED:Number = 350;
 		public static const STARTING_PLAYER_GUN_COOLDOWN:Number = 0.35;
 		
@@ -77,7 +77,7 @@ package project.constant
 		
 		//HUD constants
 		public static const TICK_TIME:int = 10;
-		public static const STATION_DIST:Number = TILESIZE * 5;
+		public static const STATION_DIST:Number = TILESIZE * 10;
 		
 		public function Constants() 
 		{
