@@ -51,8 +51,8 @@ package project.constant
 		public static const MAX_BONUS_COOLDOWN:Number = 150;
 		public static const BONUS_COOLDOWN_PER_UPGRADE:Number = 5;
 		public static const STARTING_BONUS_DAMAGE:Number = 0;
-		public static const MAX_BONUS_DAMAGE:Number = 30;
-		public static const BONUS_DAMAGE_PER_UPGRADE:Number = 3;
+		public static const MAX_BONUS_DAMAGE:Number = 20;
+		public static const BONUS_DAMAGE_PER_UPGRADE:Number = 2;
 		public static const STARTING_BONUS_MOVE_SPEED:Number = 0;
 		public static const MAX_BONUS_MOVE_SPEED:Number = 100;
 		public static const BONUS_MOVE_SPEED_PER_UPGRADE:Number = 10;
