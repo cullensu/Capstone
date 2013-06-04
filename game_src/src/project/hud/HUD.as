@@ -156,7 +156,7 @@ package project.hud
 		public function updateActiveBar():void 
 		{
 			_playerActiveBar = new FlxBar(350, 40, FlxBar.FILL_LEFT_TO_RIGHT, 100, 10, _playerShip.activeUpgrade, "charge", 0, _playerShip.activeUpgrade.MAX_CHARGE, false);
-			_playerActiveBar.createFilledBar(0xff00ffff, 0xff007f7f);
+			_playerActiveBar.createFilledBar(0xff007f7f, 0xff00ffff);
 			add(_playerActiveBar);
 			_playerActiveBar.scrollFactor = new FlxPoint(0, 0);
 			
