@@ -4,6 +4,7 @@ package project.upgrade.active
 	import project.ship.Ship;
 	import project.upgrade.ActiveUpgrade;
 	import project.constant.Constants;
+	import project.util.Utility;
 	
 	/**
 	 * ...
@@ -27,8 +28,8 @@ package project.upgrade.active
 			{
 				super.activate();
 
-				var nx:Number = FlxG.mouse.x;
-				var ny:Number = FlxG.mouse.y;
+				var nx:Number = Utility.randomInt(Constants.MAX_COORD);
+				var ny:Number = Utility.randomInt(Constants.MAX_COORD);
 				
 				trace("Teleported to (" + nx + ", " + ny + ")");
 				_ship.x = nx;

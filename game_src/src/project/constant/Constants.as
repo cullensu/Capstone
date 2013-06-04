@@ -80,11 +80,11 @@ package project.constant
 		public static const STATION_DIST:Number = TILESIZE * 10;
 		
 		// Upgrade Constants
-		public static const MAXIMUM_CHARGE:int = 1000;
-		public static const CLOAK_CHARGE_RATE:int = 1;
-		public static const CLOAK_USE_RATE:int = 2;
-		public static const SHIELD_CHARGE_RATE:int = 1;
-		public static const SHIELD_USE_RATE:int = 3;
+		public static const MAXIMUM_CHARGE:int = 10000;
+		public static const CLOAK_CHARGE_RATE:int = 10;
+		public static const CLOAK_USE_RATE:int = 20;
+		public static const SHIELD_CHARGE_RATE:int = 10;
+		public static const SHIELD_USE_RATE:int = 20;
 		public static const BLINK_CHARGE_RATE:int = 10;
 		public static const BLINK_USE_RATE:int = 0;
 		
