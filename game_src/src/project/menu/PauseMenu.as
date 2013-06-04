@@ -22,6 +22,8 @@ package project.menu
 		[Embed(source = "../../../assets/menushoot.png")] protected var MenuShoot:Class;
 		[Embed(source = "../../../assets/menushow.png")] protected var MenuShow:Class;
 		[Embed(source = "../../../assets/pauseresume.png")] protected var PauseResume:Class;
+		[Embed(source = "../../../assets/menumute.png")] protected var MenuMute:Class;
+		[Embed(source = "../../../assets/menusound.png")] protected var MenuSound:Class;
 		private var _background:FlxSprite
 		
 		// Title
@@ -78,8 +80,9 @@ package project.menu
 			menuShow.exists = false;
 			add(menuShow);
 			
-			menuMute = new FlxButton(700, 20, "Mute", toggleMute);
+			menuMute = new FlxButton(750, 20, null, toggleMute);
 			menuMute.scrollFactor = new FlxPoint(0, 0);
+			menuMute.loadGraphic(MenuSound);
 			menuMute.exists = false;
 			add(menuMute);
 			
@@ -123,6 +126,11 @@ package project.menu
 		private function toggleMute():void 
 		{
 			FlxG.mute = !FlxG.mute;
+			if (FlxG.mute) {
+				menuMute.loadGraphic(MenuMute);
+			} else {
+				menuMute.loadGraphic(MenuSound);
+			}
 		}
 		
 		private function showInstructions():void 

@@ -228,6 +228,7 @@ package project.state
 			} else {
 				if (_paused) {
 					_pauseMenu.preUpdate();
+					_musicManager.preUpdate();
 				} else {
 					_upgradeMenu.preUpdate();
 				}
@@ -284,6 +285,7 @@ package project.state
 			{
 				if (_paused) {
 					_pauseMenu.update();
+					_musicManager.update();
 					if (FlxG.keys.justPressed("ESCAPE") || FlxG.keys.justPressed("P"))
 					{
 						_pauseMenu.hide();
@@ -307,6 +309,7 @@ package project.state
 			{
 				if (_paused) {
 					_pauseMenu.postUpdate();
+					_musicManager.postUpdate();
 				} else {
 					_upgradeMenu.postUpdate();
 				}
