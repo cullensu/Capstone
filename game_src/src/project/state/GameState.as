@@ -318,7 +318,7 @@ package project.state
 		
 		protected function tick():void
 		{
-			_level -= FlxG.elapsed * _tickSize;
+			_level -= FlxG.elapsed * (Utility.random() * 0.4 + 0.3);
 		}
 
 		/**
