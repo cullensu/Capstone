@@ -70,7 +70,7 @@ package project.ship.behavior
 			normalGun.bulletType = BulletType.TRIANGLE;
 			normalGun.gunCooldown = 1.2 - 0.3 * GameRegistry.gameState.miniBossManager.bossesDefeated;
 			_enemyNormal.guns.push(normalGun);
-			_enemyNormal.maxHealth = 40 + 40 * GameRegistry.gameState.miniBossManager.bossesDefeated;
+			_enemyNormal.maxHealth = 40 + 20 * GameRegistry.gameState.miniBossManager.bossesDefeated;
 			_enemyNormal.speed = 225 + 60 * GameRegistry.gameState.miniBossManager.bossesDefeated;
 			_enemyNormal.collisionDamage = 10 + 5 * GameRegistry.gameState.miniBossManager.bossesDefeated;
 			_enemyNormal.shipGraphic = _enemyNormalPng;
@@ -142,7 +142,7 @@ package project.ship.behavior
 			bigGun.bulletType = BulletType.BIG_TRIANGLE;
 			bigGun.gunCooldown = 2.0 - 0.5 * GameRegistry.gameState.miniBossManager.bossesDefeated;
 			_enemyBig.guns.push(bigGun);
-			_enemyBig.maxHealth = 100 + 100 * GameRegistry.gameState.miniBossManager.bossesDefeated;
+			_enemyBig.maxHealth = 100 + 50 * GameRegistry.gameState.miniBossManager.bossesDefeated;
 			_enemyBig.speed = 200 + 50 * GameRegistry.gameState.miniBossManager.bossesDefeated;
 			_enemyBig.collisionDamage = 40 + 5 * GameRegistry.gameState.miniBossManager.bossesDefeated;
 			_enemyBig.shipGraphic = _enemyBigPng;
