@@ -77,6 +77,7 @@ package project.ship.behavior
 			_enemyNormal.shipGraphic = _enemyNormalPng;
 			_enemyNormal.shipGraphicDimensions = new Point(30, 28);
 			_enemyNormal.movement = new CircleAround(175 - 10 * GameRegistry.gameState.miniBossManager.bossesDefeated);
+			(_enemyNormal.movement as CircleAround).randomlyReverse = true;
 			_enemyNormal.shooting = new RandomShot();
 			_typeToBehavior[ShipBehaviorType.ENEMY_NORMAL] = _enemyNormal;
 			
@@ -132,7 +133,7 @@ package project.ship.behavior
 			_enemyTurret.lifetime = 6;
 			_enemyTurret.maxHealth = 1;
 			_enemyTurret.speed = 225 + 80 * GameRegistry.gameState.miniBossManager.bossesDefeated;
-			_enemyTurret.collisionDamage = 10 + 4 * GameRegistry.gameState.miniBossManager.bossesDefeated;
+			_enemyTurret.collisionDamage = 10;
 			_enemyTurret.dropsHealthOnly = true;
 			_enemyTurret.upgradeDropRate = 0.5;
 			_enemyTurret.shipGraphic = _enemyMinePng;
@@ -144,12 +145,12 @@ package project.ship.behavior
 			_enemyFast = new ShipBehavior();
 			_enemyFast.affiliation = Affiliation.ENEMY;
 			_enemyFast.guns = new Vector.<GunUpgrade>();
-			_enemyFast.maxHealth = 20 + 20 * GameRegistry.gameState.miniBossManager.bossesDefeated;
-			_enemyFast.speed = 375 + 75 * GameRegistry.gameState.miniBossManager.bossesDefeated;
-			_enemyFast.collisionDamage = 10 + 4 * GameRegistry.gameState.miniBossManager.bossesDefeated;
+			_enemyFast.maxHealth = 20;
+			_enemyFast.speed = 450;
+			_enemyFast.collisionDamage = 10;
 			_enemyFast.shipGraphic = _enemyFastPng;
 			_enemyFast.shipGraphicDimensions = new Point(26, 16);
-			_enemyFast.movement = new SuicideWithTurnRadius(Math.PI / (6 + GameRegistry.gameState.miniBossManager.bossesDefeated));
+			_enemyFast.movement = new SuicideWithTurnRadius(Math.PI / 6);
 			_enemyFast.shooting = new RandomShot(); //Needs this even though it doesn't have a gun to shoot
 			_typeToBehavior[ShipBehaviorType.ENEMY_FAST] = _enemyFast;
 			
@@ -158,17 +159,15 @@ package project.ship.behavior
 			_enemyBig.guns = new Vector.<GunUpgrade>();
 			var bigGun:OffsetGun = new OffsetGun();
 			bigGun.bulletType = BulletType.BIG_TRIANGLE;
-			bigGun.gunCooldown = 2.0 - 0.4 * GameRegistry.gameState.miniBossManager.bossesDefeated;
+			bigGun.gunCooldown = 0.6;
 			_enemyBig.guns.push(bigGun);
-			_enemyBig.maxHealth = 100 + 40 * GameRegistry.gameState.miniBossManager.bossesDefeated;
-			_enemyBig.speed = 200 + 50 * GameRegistry.gameState.miniBossManager.bossesDefeated;
-			_enemyBig.collisionDamage = 40 + 5 * GameRegistry.gameState.miniBossManager.bossesDefeated;
+			_enemyBig.maxHealth = 200;
+			_enemyBig.speed = 250;
+			_enemyBig.collisionDamage = 30;
 			_enemyBig.shipGraphic = _enemyBigPng;
 			_enemyBig.shipGraphicDimensions = new Point(46, 17);
 			_enemyBig.movement = new CircleAround(250);
-			if (GameRegistry.gameState.miniBossManager.bossesDefeated > 0) {
-				(_enemyBig.movement as CircleAround).randomlyReverse = true;
-			}
+			(_enemyBig.movement as CircleAround).randomlyReverse = true;
 			_enemyBig.shooting = new LeadingShot();
 			_typeToBehavior[ShipBehaviorType.ENEMY_BIG] = _enemyBig;
 			

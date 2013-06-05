@@ -54,14 +54,21 @@ package project.manager
 		
 		private function spawn():void
 		{
-			var rand:int = Utility.randomInt(6);
+			var rand:int;
+			if (GameRegistry.gameState.miniBossManager.bossesDefeated == 0) {
+				rand = 0;
+			} else if (GameRegistry.gameState.miniBossManager.bossesDefeated == 1) {
+				rand = Utility.randomInt(5);
+			} else {
+				rand = Utility.randomInt(7);
+			}
 			var behaviorType:ShipBehaviorType;
-			if (rand < 2) {
-				behaviorType = ShipBehaviorType.ENEMY_FAST;
-				GameRegistry.gameState.addLevel(2);
-			} else if (rand == 2) {
+			if (rand == 5 || rand == 6) {
 				behaviorType = ShipBehaviorType.ENEMY_BIG;
 				GameRegistry.gameState.addLevel(3);
+			} else if (rand == 3 || rand == 4) {
+				behaviorType = ShipBehaviorType.ENEMY_FAST;
+				GameRegistry.gameState.addLevel(2);
 			} else {
 				behaviorType = ShipBehaviorType.ENEMY_NORMAL;
 				GameRegistry.gameState.addLevel(1);
