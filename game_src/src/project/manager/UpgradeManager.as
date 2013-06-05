@@ -3,6 +3,7 @@ package project.manager
 	import flash.globalization.LocaleID;
 	import org.flixel.FlxGroup;
 	import project.constant.Constants;
+	import project.constant.GameRegistry;
 	import project.upgrade.drops.DropType;
 	import project.upgrade.drops.DropUpgrade;
 	import project.util.Utility;
@@ -40,6 +41,11 @@ package project.manager
 				type = DropType.MOVE_SPEED;
 			}
 			else
+			{
+				type = DropType.OXYGEN;
+			}
+			
+			if (GameRegistry.gameState.playerManager.playerShip.health < 15)
 			{
 				type = DropType.OXYGEN;
 			}
