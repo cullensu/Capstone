@@ -150,7 +150,7 @@ package project.ship.behavior
 			_enemyFast.collisionDamage = 10;
 			_enemyFast.shipGraphic = _enemyFastPng;
 			_enemyFast.shipGraphicDimensions = new Point(26, 16);
-			_enemyFast.movement = new SuicideWithTurnRadius(Math.PI / 6);
+			_enemyFast.movement = new Suicide();
 			_enemyFast.shooting = new RandomShot(); //Needs this even though it doesn't have a gun to shoot
 			_typeToBehavior[ShipBehaviorType.ENEMY_FAST] = _enemyFast;
 			
