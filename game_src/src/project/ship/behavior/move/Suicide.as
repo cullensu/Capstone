@@ -12,6 +12,8 @@ package project.ship.behavior.move
 	 */
 	public class Suicide implements IShipMovement
 	{
+		protected var _playerLastX:Number;
+		protected var _playerLastY:Number;
 		public function Suicide() 
 		{
 			
@@ -19,8 +21,13 @@ package project.ship.behavior.move
 		
 		public function move(ship:AIShip):void
 		{
+			// Update target location only if player is visible
+			if (!player.activeCloak) {
+				_playerLastX = player.x;
+				_playerLastY = player.y;
+			}
 			var player:PlayerShip = GameRegistry.gameState.playerManager.playerShip;
-			var vel:CartesianPoint = new CartesianPoint(player.x - ship.x, player.y - ship.y);
+			var vel:CartesianPoint = new CartesianPoint(_playerLastX - ship.x, _playerLastY - ship.y);
 			vel.normalize(ship.speed);
 			ship.velocity.copyFromFlash(vel);
 		}
