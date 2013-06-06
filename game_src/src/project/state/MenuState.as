@@ -17,6 +17,7 @@ package project.state
 	public class MenuState extends FlxState
 	{
 		[Embed(source = "../../../assets/menuarrow.png")] protected var MenuArrow:Class;
+		[Embed(source = "../../../assets/menucredits.png")] protected var MenuCredits:Class;
 		[Embed(source = "../../../assets/menuboss.png")] protected var MenuBoss:Class;
 		[Embed(source = "../../../assets/menucore.png")] protected var MenuCore:Class;
 		[Embed(source = "../../../assets/menumove.png")] protected var MenuMove:Class;
@@ -29,6 +30,8 @@ package project.state
 		
 		// Title
 		private var menuTitle:FlxSprite;
+		// Credits
+		private var menuCredits:FlxSprite;
 		// Buttons
 		private var menuNew:FlxButton;
 		private var menuShow:FlxButton;
@@ -53,6 +56,12 @@ package project.state
 			// #########
 			menuTitle = new FlxSprite(50, 50, MenuTitle);
 			add(menuTitle);
+			
+			// ###########
+			// # CREDITS #
+			// ###########
+			menuCredits = new FlxSprite(50, 155, MenuCredits);
+			add(menuCredits);
 			
 			// ###########
 			// # BUTTONS #
