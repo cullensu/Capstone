@@ -38,6 +38,8 @@ package project.hud
 		protected var _bonusCooldownLabel:FlxText;
 		protected var _bonusMoveSpeedLabel:FlxText;
 		
+		protected var _stationsSavedCount:int;
+		protected var _stationsSavedText:FlxText;
 		protected var _scoreDisplay:FlxText;
 		
 		protected var _playerActiveBar:FlxBar;
@@ -87,6 +89,12 @@ package project.hud
 			_bonusMoveSpeedLabel.setFormat("Kontrapunkt", 10);
 			add(_bonusMoveSpeedLabel);
 			_bonusMoveSpeedLabel.scrollFactor = new FlxPoint(0, 0);
+			
+			_stationsSavedCount = 0;
+			_stationsSavedText = new FlxText(30, 20, 150, "Stations Saved: 0/3");
+			_stationsSavedText.setFormat("Kontrapunkt", 14);
+			add(_stationsSavedText);
+			_stationsSavedText.scrollFactor = new FlxPoint(0, 0);
 			
 			_scoreDisplay = new FlxText(630, 20, 150, GameRegistry.score.toString());
 			_scoreDisplay.setFormat("Kontrapunkt", 20, 0xffffff, "right");
@@ -229,6 +237,8 @@ package project.hud
 					min = -pPoint.r;
 					if (min >= -400) {
 						station.alive = false;
+						_stationsSavedCount++;
+						_stationsSavedText.text = "Stations Saved: " + _stationsSavedCount.toString() + "/3";
 						GameRegistry.gameState.upgradeMenu.show();
 						GameRegistry.gameState.miniBossManager.bossesDefeated++;
 						GameRegistry.gameState.shipBehaviorFactory.reinitTypes();
