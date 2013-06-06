@@ -49,6 +49,9 @@ package project.menu
 		private var upgradeShield:FlxButton;
 		private var upgradeBlink:FlxButton;
 		private var upgradeCloak:FlxButton;
+		
+		private var activeUpgradePicked:Boolean;
+		private var upgradeReplaceWarning:FlxText;
 
 		// Consts
 		private static const X_OFFSET:int = 50;
@@ -125,8 +128,16 @@ package project.menu
 			upgradeCloak.exists = false;
 			add(upgradeCloak);
 			
+			upgradeReplaceWarning = new FlxText(X_OFFSET + 300, Y_OFFSET + 360, 120, "WARNING: This will replace your previous Active Ability")
+			upgradeReplaceWarning.setFormat("Kontrapunkt", 10, 0xff0000);
+			upgradeReplaceWarning.scrollFactor = new FlxPoint(0, 0);
+			upgradeReplaceWarning.exists = false;
+			add(upgradeReplaceWarning);
+			
 			// Init factory
 			_gunFactory = new GunUpgradeFactory();
+			
+			activeUpgradePicked = false;
 			
 			this.exists = false;
 		}
@@ -134,7 +145,7 @@ package project.menu
 		override public function show():void 
 		{
 			super.show();
-
+			
 			upgradeDouble.exists = false;
 			upgradeTriple.exists = false;
 			upgradeQuadruple.exists = false;
@@ -150,6 +161,7 @@ package project.menu
 			upgradeShield.exists = false;
 			upgradeBlink.exists = false;
 			upgradeCloak.exists = false;
+			upgradeReplaceWarning.exists = false;
 			var activeRoll:int = Utility.randomInt(3);
 			
 			if (activeRoll == 0) {
@@ -158,6 +170,11 @@ package project.menu
 				upgradeBlink.exists = true;
 			} else {
 				upgradeCloak.exists = true;
+			}
+			
+			if (activeUpgradePicked)
+			{
+				upgradeReplaceWarning.exists = true;
 			}
 		}
 		
@@ -182,6 +199,7 @@ package project.menu
 			ship.activeUpgrade.deactivate();
 			ship.activeUpgrade = new ShieldUpgrade(ship);
 			GameRegistry.hud.updateActiveBar();
+			activeUpgradePicked = true;
 			hide();
 		}
 		
@@ -191,6 +209,7 @@ package project.menu
 			ship.activeUpgrade.deactivate();
 			ship.activeUpgrade = new TeleportUpgrade(ship);
 			GameRegistry.hud.updateActiveBar();
+			activeUpgradePicked = true;
 			hide();
 		}
 		
@@ -200,6 +219,7 @@ package project.menu
 			ship.activeUpgrade.deactivate();
 			ship.activeUpgrade = new CloakUpgrade(ship);
 			GameRegistry.hud.updateActiveBar();
+			activeUpgradePicked = true;
 			hide();
 		}
 	}
